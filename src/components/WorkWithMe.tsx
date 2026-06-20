@@ -324,13 +324,13 @@ export default function WorkWithMe() {
       >
         <div className="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
           <a href="/" className="flex items-center gap-3 group">
-            <img 
-              src="/images/logo.jpg" 
-              alt="ExpatBuildr Logo" 
-              className="w-8 h-8 rounded-lg object-cover ring-2 ring-black/5 group-hover:ring-black transition-all" 
+            <img
+              src="/logo.jpg"
+              alt="ExpatBuildr Logo"
+              className="w-8 h-8 rounded-lg object-cover ring-2 ring-black/5 group-hover:ring-black transition-all"
             />
             <span className={`font-black text-lg tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
-              Galaxy<span className="font-light">Built</span>
+              Expat<span className="font-light" style={{ background: 'linear-gradient(135deg, #8b5cf6, #22d3ee)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Buildr</span>
             </span>
           </a>
           <div className="flex items-center gap-3">
@@ -604,7 +604,7 @@ export default function WorkWithMe() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
             <span className={`font-black text-lg ${isDark ? 'text-white' : ''}`}>
-              Galaxy<span className="font-light">Built</span>
+              Expat<span className="font-light" style={{ background: 'linear-gradient(135deg, #8b5cf6, #22d3ee)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Buildr</span>
             </span>
             <p className={`text-xs font-mono mt-1 ${isDark ? 'text-slate-500' : 'text-institutional-muted'}`}>
               Built in public · Philippines · {new Date().getFullYear()}

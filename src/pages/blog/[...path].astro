@@ -143,7 +143,7 @@ const readTime = type === 'post' && post.body ? calcReadTime(post.body) : null;
 
 // Site URL constants for schema
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://expatbuildr.com';
-const logoUrl = `${siteUrl}/images/logo.jpg`;
+const logoUrl = `${siteUrl}/logo.jpg`;
 
 // Canonical post URL
 const postUrl = type === 'post' ? new URL(`/blog/${post.id.replace(/\.mdx?$/, '')}`, Astro.site || 'https://expatbuildr.com').toString() : '';

@@ -31,7 +31,7 @@ const ogImageUrl = ogImage.startsWith('http')
 
 // Schema.org structured data — computed in frontmatter so set:html can JSON.stringify them
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://expatbuildr.com';
-const logoUrl = `${siteUrl}/images/logo.jpg`;
+const logoUrl = `${siteUrl}/logo.jpg`;
 
 const personSchema = {
   '@context': 'https://schema.org',
@@ -663,7 +663,7 @@ const websiteSchema = {
 				<div class="py-12 px-6">
 				<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
 					<div class="flex items-center gap-3 opacity-80 dark:opacity-50">
-						<img src="/images/logo.jpg" alt="Expat Buildr Logo" class="w-10 h-10 rounded-lg grayscale" />
+						<img src="/logo.jpg" alt="Expat Buildr Logo" class="w-10 h-10 rounded-lg grayscale" />
 						<span class="font-display font-bold tracking-tighter text-slate-900 dark:text-white">EXPAT BUILDR · GALAXY ARBITRAGE © 2026</span>
 					</div>
 					<div class="flex flex-wrap justify-center gap-6 text-sm text-slate-600 dark:text-slate-500">

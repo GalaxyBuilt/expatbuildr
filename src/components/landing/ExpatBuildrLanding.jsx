@@ -24,12 +24,12 @@ export function ExpatBuildrMeta() {
       <meta property="og:url" content="https://expatbuildr.com" />
       <meta property="og:title" content="Expat Buildr — Ship Institutional-Grade AI & SaaS" />
       <meta property="og:description" content="Autonomous SaaS platforms, grant engines, and AI workflows built for founders who move fast. Join the Telegram hub." />
-      <meta property="og:image" content="https://expatbuildr.com/images/logo.jpg" />
+      <meta property="og:image" content="https://expatbuildr.com/logo.jpg" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@expatbuildr" />
       <meta name="twitter:title" content="Expat Buildr — Institutional AI & SaaS" />
       <meta name="twitter:description" content="AI apps. Grant engines. SaaS empires. Built at institutional grade. Tell me your idea." />
-      <meta name="twitter:image" content="https://expatbuildr.com/images/logo.jpg" />
+      <meta name="twitter:image" content="https://expatbuildr.com/logo.jpg" />
     </>
   );
 }

@@ -41,7 +41,7 @@ export async function GET(context: any) {
       '<managingEditor>exoticdevlabs@gmail.com (ExpatBuildr)</managingEditor>',
       '<webMaster>exoticdevlabs@gmail.com (ExpatBuildr)</webMaster>',
       '<image>',
-      `  <url>${new URL('/images/logo.jpg', context.site).toString()}</url>`,
+      `  <url>${new URL('/logo.jpg', context.site).toString()}</url>`,
       '  <title>ExpatBuildr</title>',
       `  <link>${context.site.toString()}</link>`,
       '</image>',

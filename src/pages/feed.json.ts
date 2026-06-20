@@ -13,14 +13,14 @@ export async function GET(context: any) {
     home_page_url: context.site.toString(),
     feed_url: new URL('/feed.json', context.site).toString(),
     description: 'Protocols for remote income, geo-arbitrage, lead generation, and AI automation. Free weekly intel.',
-    icon: new URL('/images/logo.jpg', context.site).toString(),
+    icon: new URL('/logo.jpg', context.site).toString(),
     favicon: new URL('/favicon-32x32.png', context.site).toString(),
     language: 'en-US',
     authors: [
       {
         name: 'ExpatBuildr',
         url: context.site.toString(),
-        avatar: new URL('/images/logo.jpg', context.site).toString(),
+        avatar: new URL('/logo.jpg', context.site).toString(),
       },
     ],
     items: sorted.map((post) => {
