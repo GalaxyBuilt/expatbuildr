@@ -1,0 +1,162 @@
+---
+export const prerender = true;
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { ArrowRight, Target, Users, BarChart2, Zap } from 'lucide-astro';
+
+const allPosts = await getCollection('blog', ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true && data.archived !== true : true;
+});
+
+const posts = allPosts
+  .filter(p => p.data.pillarId === 'lead-generation' && p.data.category !== 'Pillar Hub')
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(date);
+
+const calcReadTime = (body: string) => Math.max(1, Math.ceil(body.trim().split(/\s+/).length / 220));
+---
+
+<Layout
+  title="Lead Generation Systems & Cold Outreach Guides | Expat Buildr"
+  description="Practical lead generation guides for B2B founders — how to build intent-driven lead lists, write cold email sequences that get replies, automate follow-up, and measure outreach performance in 2026."
+  canonicalUrl="https://expatbuildr.com/blog/lead-generation"
+  ogImage="/images/lead gen.jpg"
+>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Lead Generation Hub | Expat Buildr",
+    "description": "B2B lead generation systems, cold outreach frameworks, and intent-based prospecting guides for founders and sales operators.",
+    "url": "https://expatbuildr.com/blog/lead-generation",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Expat Buildr",
+      "url": "https://expatbuildr.com"
+    },
+    "hasPart": posts.map(p => ({
+      "@type": "BlogPosting",
+      "headline": p.data.title,
+      "url": `https://expatbuildr.com/blog/${p.id.replace(/\.mdx?$/, '')}`,
+      "datePublished": p.data.pubDate.toISOString()
+    }))
+  })} />
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Hero -->
+    <div class="text-center mb-20">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-xs uppercase tracking-[0.2em] font-mono mb-8">
+        <Target size={12} /> Lead Generation
+      </div>
+      <h1 class="text-5xl md:text-7xl font-black font-display tracking-tighter text-slate-900 dark:text-white mb-6 uppercase leading-none">
+        BUILD THE<br /><span class="text-emerald-500">PIPELINE.</span>
+      </h1>
+      <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-inter leading-relaxed mb-8">
+        Cold outreach frameworks, intent-based prospecting, and the systems that turn a list of names into a full calendar. Built for founders and operators running B2B sales without a large SDR team.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/lead-gen/edge" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-500 text-white font-bold text-sm hover:bg-emerald-400 transition-all">
+          See the System <ArrowRight size={16} />
+        </a>
+        <a href="/newsletter" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 font-semibold text-sm hover:border-emerald-500/40 transition-all">
+          Weekly Intel
+        </a>
+        <a href="/blog/lead-generation-links" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-emerald-500/30 text-emerald-500 font-semibold text-sm hover:bg-emerald-500/10 transition-all">
+          All Resources <ArrowRight size={16} />
+        </a>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+      <div class="glass-card rounded-2xl p-6 border border-emerald-500/20">
+        <BarChart2 class="text-emerald-500 mb-3" size={24} />
+        <div class="text-3xl font-black text-slate-900 dark:text-white mb-1">2–5%</div>
+        <div class="text-sm text-slate-600 dark:text-slate-400">Realistic reply rate benchmark for well-targeted cold email campaigns in 2026</div>
+      </div>
+      <div class="glass-card rounded-2xl p-6 border border-emerald-500/20">
+        <Users class="text-emerald-500 mb-3" size={24} />
+        <div class="text-3xl font-black text-slate-900 dark:text-white mb-1">3×</div>
+        <div class="text-sm text-slate-600 dark:text-slate-400">Higher reply rate from intent-built lists vs purchased data</div>
+      </div>
+      <div class="glass-card rounded-2xl p-6 border border-emerald-500/20">
+        <Zap class="text-emerald-500 mb-3" size={24} />
+        <div class="text-3xl font-black text-slate-900 dark:text-white mb-1">9 meetings</div>
+        <div class="text-sm text-slate-600 dark:text-slate-400">Expected output from 500 delivered emails at 3% reply rate with proper follow-up</div>
+      </div>
+    </div>
+
+    <!-- What This Pillar Covers -->
+    <div class="mb-20 prose prose-slate dark:prose-invert max-w-none">
+      <h2 class="text-3xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white mb-6">What This Pillar Covers</h2>
+      <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+        Lead generation in 2026 is not a volume game. Open rate data is unreliable since Apple MPP. Purchased lists convert at a fraction of intent-built lists. The operators consistently booking meetings are the ones who have invested in better targeting, not higher volume.
+      </p>
+      <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+        The articles in this hub cover the full stack: how to build a lead list without buying data, how to write a first line that proves you are not a bot, how to structure sequences that follow up without being annoying, how to measure what is actually working, and how to use AI to scale the personal elements of outreach without losing the human signal that makes it work.
+      </p>
+      <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+        Each guide is built around what is working now, not what worked in 2020. The benchmarks are current, the tactics are specific, and the frameworks are designed to be implemented by a solo operator or a small team without an enterprise tech stack.
+      </p>
+    </div>
+
+    <!-- Resources Page -->
+    <div class="mb-12">
+      <div class="glass-card rounded-2xl p-6 border border-emerald-500/30 bg-emerald-500/5 flex flex-col md:flex-row md:items-center gap-5">
+        <div class="flex-1">
+          <div class="text-xs font-mono uppercase tracking-wider text-emerald-500 font-semibold mb-2">Pillar Resources</div>
+          <h2 class="text-xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white mb-2">Lead Generation — Systems, Tools & Services</h2>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Every done-for-you service, tool, tracker, and outreach resource in the Lead Generation pillar in one place.</p>
+        </div>
+        <a href="/blog/lead-generation-links" class="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-500 text-white font-bold text-sm hover:bg-emerald-400 transition-all">
+          See All Resources <ArrowRight size={16} />
+        </a>
+      </div>
+    </div>
+
+    <!-- Article Index -->
+    <div class="mb-20">
+      <div class="flex items-center gap-3 mb-8">
+        <Target class="text-emerald-500" size={20} />
+        <h2 class="text-2xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white">All Lead Generation Guides</h2>
+        <div class="h-px flex-1 bg-slate-200 dark:bg-white/10"></div>
+        <span class="text-xs font-mono text-slate-400">{posts.length} articles</span>
+      </div>
+
+      <div class="space-y-4">
+        {posts.map(post => (
+          <a
+            href={`/blog/${post.id.replace(/\.mdx?$/, '')}`}
+            class="group flex items-start gap-5 p-5 rounded-2xl border border-slate-200 dark:border-white/10 hover:border-emerald-500/40 bg-white dark:bg-white/[0.03] hover:bg-emerald-500/5 transition-all duration-300"
+          >
+            <div class="shrink-0 w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+              <Target class="text-emerald-500" size={20} />
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-3 mb-1">
+                <span class="text-xs font-mono uppercase tracking-wider text-emerald-500 font-semibold">{post.data.category}</span>
+                <span class="text-xs text-slate-400">{formatDate(post.data.pubDate)}</span>
+                <span class="text-xs text-slate-400">{calcReadTime(post.body ?? '')} min read</span>
+              </div>
+              <h3 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-emerald-500 transition-colors leading-snug mb-1">{post.data.title}</h3>
+              <p class="text-sm text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">{post.data.description}</p>
+            </div>
+            <ArrowRight class="shrink-0 text-slate-300 dark:text-slate-600 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all mt-1" size={18} />
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-10 text-center mb-12">
+      <h2 class="text-2xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white mb-3">Want the Full Outreach System Built for You?</h2>
+      <p class="text-slate-600 dark:text-slate-400 mb-6 max-w-lg mx-auto">We build done-for-you lead generation systems — from list building and infrastructure through to copy and sequence automation.</p>
+      <a href="/lead-gen/edge" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-emerald-500 text-white font-bold hover:bg-emerald-400 transition-all">
+        See the System <ArrowRight size={16} />
+      </a>
+    </div>
+
+  </div>
+</Layout>

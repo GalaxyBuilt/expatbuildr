@@ -1,0 +1,77 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Galaxy Grants — Funding for Founders"
+  description="Get notified when the next round of founder grants opens. We help technical founders get their first $5k-$20k in non-dilutive funding."
+  minimal={true}
+>
+  <div class="grants-page" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #050505; color: #fff; font-family: 'DM Sans', sans-serif; padding: 2rem;">
+    <div class="wrap" style="max-width: 600px; text-align: center;">
+      <div class="logo" style="font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; letter-spacing: 0.2em; color: #8a2be2; margin-bottom: 2rem; text-transform: uppercase;">
+        Galaxy<span>Built</span> / grants
+      </div>
+      
+      <h1 style="font-family: 'DM Serif Display', serif; font-size: 3.5rem; line-height: 1.1; margin-bottom: 1.5rem;">
+        Get funded to <br /><em style="color: #8a2be2; font-style: italic;">build.</em>
+      </h1>
+      
+      <p style="color: #888; font-size: 1.1rem; line-height: 1.7; margin-bottom: 3rem;">
+        We're building a directory of non-dilutive grants for technical founders. 
+        Join the waitlist to get the first 50 grants delivered to your inbox next week.
+      </p>
+
+      <div class="form-card" style="background: #111; border: 1px solid #222; padding: 2.5rem; border-radius: 4px;">
+        <div id="grant-form">
+          <input type="email" id="grant-email" placeholder="Enter your work email" style="width: 100%; padding: 1rem; background: #000; border: 1px solid #333; color: #fff; margin-bottom: 1rem; outline: none; font-family: 'IBM Plex Mono', monospace;" />
+          <button id="grant-btn" style="width: 100%; padding: 1rem; background: #8a2be2; color: #fff; border: none; font-family: 'IBM Plex Mono', monospace; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 0.1em;">
+            Join the Grants Waitlist →
+          </button>
+          <p id="grant-error" style="display:none; color: #f87171; font-size: 0.8rem; margin-top: 1rem; font-family: 'IBM Plex Mono', monospace;">Please enter a valid email.</p>
+        </div>
+        <div id="grant-success" style="display:none;">
+          <p style="color: #14F195; font-family: 'IBM Plex Mono', monospace; font-weight: 700;">✓ YOU'RE ON THE LIST</p>
+          <p style="color: #888; font-size: 0.9rem; margin-top: 0.5rem;">We'll email you the grants directory on Monday.</p>
+        </div>
+      </div>
+
+      <div class="footer-note" style="margin-top: 4rem; font-size: 0.7rem; color: #444; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase;">
+        ExpatBuildr Funding Protocol v1.0
+      </div>
+    </div>
+  </div>
+
+  <script is:inline src="/beehiiv-v2.js"></script>
+  <script is:inline>
+    const btn = document.getElementById('grant-btn');
+    if (btn) {
+      btn.addEventListener('click', async () => {
+        const emailInput = document.getElementById('grant-email');
+        const errorEl = document.getElementById('grant-error');
+        const successDiv = document.getElementById('grant-success');
+        const formDiv = document.getElementById('grant-form');
+        const email = emailInput.value.trim();
+
+        if (!isValidEmail(email)) {
+          errorEl.style.display = 'block';
+          return;
+        }
+
+        errorEl.style.display = 'none';
+        btn.textContent = 'Joining...';
+        btn.disabled = true;
+
+        await subscribeToBeehiiv({
+          email,
+          tags: ["grant_seeker", "funding", "grants"],
+          utm_medium: "grants_page",
+          utm_campaign: "grants_list"
+        });
+
+        formDiv.style.display = 'none';
+        successDiv.style.display = 'block';
+      });
+    }
+  </script>
+</Layout>

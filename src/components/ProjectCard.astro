@@ -1,0 +1,344 @@
+---
+import { ExternalLink, Github, Youtube } from 'lucide-astro';
+
+interface Props {
+	title: string;
+	description: string;
+	details?: string;
+	url?: string;
+	youtube?: string;
+	tags?: string[];
+	type?: 'saas' | 'trading' | 'software' | 'ai' | 'music';
+	image?: string;
+	video?: string;
+	imagePosition?: string;
+	modalFullBackground?: boolean;
+}
+
+const { title, description, details, url, github, youtube, tags = [], type = 'software', image, video, imagePosition = 'center 20%', modalFullBackground = false } = Astro.props;
+
+// Simple markdown-to-html parser for headers and bold text
+const parseMarkdown = (content: string) => {
+	if (!content) return "";
+	return content
+		.replace(/#### (.*)/g, '<h4 class="text-lg font-bold text-white mt-6 mb-2">$1</h4>')
+		.replace(/### (.*)/g, '<h3 class="text-xl font-bold text-accent-blue mt-8 mb-3">$1</h3>')
+		.replace(/\*\*(.*)\*\*/g, '<strong class="text-white font-semibold">$1</strong>')
+		.replace(/- (.*)/g, '<li class="ml-4 mb-2">$1</li>');
+};
+
+const processedDetails = details ? parseMarkdown(details) : "";
+
+const typeColors = {
+	saas: 'bg-blue-500/10 text-blue-600 dark:text-cyan-400 border-blue-200 dark:border-cyan-500/30',
+	trading: 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-200 dark:border-purple-500/30',
+	software: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/30',
+	ai: 'bg-accent-blue/10 text-accent-blue dark:text-accent-cyan border-accent-blue/20 dark:border-accent-cyan/30',
+	music: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-500/30'
+};
+
+const cardId = `card-${title.toLowerCase().replace(/\s+/g, '-')}`;
+---
+
+<div class="glass-card group p-0 rounded-3xl flex flex-col relative overflow-hidden h-full border border-white/5 hover:border-accent-blue/30 transition-all duration-500">
+	<!-- Border Beam -->
+	<div class="absolute inset-0 pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+		<svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+			<rect x="0" y="0" width="100" height="100" rx="24" fill="none" stroke="var(--color-electric-blue)" stroke-width="0.5" style="vector-effect: non-scaling-stroke; animation: border-beam 4s linear infinite; stroke-dasharray: 20 80; stroke-linecap: round;" />
+		</svg>
+	</div>
+	<!-- Hero Asset -->
+	<div class="relative w-full sm:aspect-[4/3] md:aspect-[16/9] overflow-hidden bg-black/20">
+		{video ? (
+			<video 
+				src={video} 
+				autoplay 
+				loop 
+				muted 
+				playsinline 
+				class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+				style={{ objectPosition: imagePosition }}
+			/>
+		) : image ? (
+			<img 
+				src={image} 
+				alt={title} 
+				class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+				style={{ objectPosition: imagePosition }}
+				loading="lazy"
+			/>
+		) : null}
+		<div class="absolute inset-0 bg-gradient-to-t from-galaxy-950 via-galaxy-950/20 to-transparent"></div>
+	</div>
+
+	<div class="p-6 space-y-4 flex-grow flex flex-col">
+		<!-- Background Highlight -->
+		<div class={`absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br ${type === 'saas' ? 'from-blue-500' : type === 'trading' ? 'from-purple-500' : type === 'ai' ? 'from-accent-blue' : 'from-emerald-500'} opacity-0 group-hover:opacity-5 dark:group-hover:opacity-10 blur-3xl transition-opacity duration-500`}></div>
+
+		<div class="flex justify-between items-start">
+			<span class={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border ${typeColors[type]}`}>
+				{type}
+			</span>
+			
+			<div class="flex gap-2">
+				{github && (
+					<a href={github} target="_blank" class="p-3 rounded-xl bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white transition-all min-h-[44px] min-w-[44px] flex items-center justify-center" title="View on GitHub">
+						<Github size={18} />
+					</a>
+				)}
+				{youtube && (
+					<a href={youtube} target="_blank" class="p-3 rounded-xl bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-all min-h-[44px] min-w-[44px] flex items-center justify-center" title="View on YouTube">
+						<Youtube size={18} />
+					</a>
+				)}
+				{url && (
+					<a href={url} target="_blank" class="p-3 rounded-xl bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white transition-all min-h-[44px] min-w-[44px] flex items-center justify-center" title="Access system">
+						<ExternalLink size={18} />
+					</a>
+				)}
+			</div>
+		</div>
+
+		<div class="space-y-3">
+			<h3 class="text-xl font-bold font-display group-hover:text-accent-blue transition-colors">
+				{title}
+			</h3>
+			<p class="text-institutional-secondary text-sm leading-relaxed line-clamp-3">
+				{description}
+			</p>
+			
+			{details && (
+				<button 
+					data-modal-target={cardId}
+					class="text-[10px] font-bold tracking-widest text-accent-blue uppercase hover:text-accent-cyan transition-colors cursor-pointer flex items-center gap-1.5"
+				>
+					Read Intelligence Report <div class="w-1.5 h-1.5 rounded-full bg-accent-blue animate-pulse"></div>
+				</button>
+			)}
+		</div>
+
+		{tags.length > 0 && (
+			<div class="flex flex-wrap gap-2 pt-2 mt-auto">
+				{tags.map(tag => (
+					<span class="text-[10px] bg-black/5 dark:bg-white/5 px-2 py-1 rounded-md text-slate-500 dark:text-slate-500 border border-black/5 dark:border-white/5">
+						{tag}
+					</span>
+				))}
+			</div>
+		)}
+
+		{url && (
+			<a href={url} target="_blank" class="pt-4 flex items-center gap-2 text-xs font-bold text-accent-blue group-hover:gap-3 transition-all mt-auto">
+				DOMAIN ACCESS <ExternalLink size={12} />
+			</a>
+		)}
+	</div>
+</div>
+
+<!-- Intelligence Report Modal -->
+{details && (
+	<div 
+		id={cardId} 
+		class="fixed inset-0 z-[100] hidden items-center justify-center p-4 md:p-6 backdrop-blur-xl bg-galaxy-950/90 reveal-trigger classified-modal"
+	>
+		<div class="scanline"></div>
+		<div class="glass-card max-w-2xl w-full max-h-[90vh] rounded-[2.5rem] overflow-hidden flex flex-col shadow-2xl border-white/10 animate-in fade-in zoom-in duration-300 crt-flicker">
+			<!-- Header image fallback/placeholder in modal? Maybe better to keep it clean -->
+			<!-- Header -->
+			<div class="p-6 md:p-8 border-b border-white/5 flex justify-between items-center bg-white/5">
+				<div>
+					<div class="flex items-center gap-2 mb-1">
+						<span class="w-2 h-2 rounded-full bg-accent-blue animate-pulse"></span>
+						<span class="text-[10px] font-black tracking-[0.3em] text-accent-blue uppercase font-mono">Classified Intelligence // GALAXY_BUILT_CORE</span>
+					</div>
+					<h2 class="text-2xl md:text-3xl font-black font-display text-white">{title}</h2>
+				</div>
+				<button 
+					data-modal-close={cardId}
+					class="p-3 rounded-2xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all cursor-pointer"
+				>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+				</button>
+			</div>
+
+			<!-- Body -->
+			<div class="p-0 overflow-y-auto space-y-0 text-slate-300 leading-relaxed font-light custom-scrollbar relative">
+				<!-- Modal Hero Asset -->
+				{!modalFullBackground && (image || video) && (
+					<div class="relative w-full sm:aspect-[3/2] md:aspect-[21/9] overflow-hidden border-b border-white/5">
+						{video ? (
+							<video 
+								src={video} 
+								autoplay 
+								loop 
+								muted 
+								playsinline 
+								class="w-full h-full object-cover"
+								style={{ objectPosition: imagePosition }}
+							/>
+						) : (
+							<img 
+								src={image} 
+								alt={title} 
+								class="w-full h-full object-cover"
+								style={{ objectPosition: imagePosition }}
+							/>
+						)}
+						<div class="absolute inset-0 bg-gradient-to-t from-galaxy-950 via-transparent to-transparent opacity-60"></div>
+					</div>
+				)}
+
+				{modalFullBackground && image && (
+					<div class="absolute inset-0 -z-10 overflow-hidden">
+						<img 
+							src={image} 
+							alt="" 
+							class="w-full h-full object-cover opacity-20 blur-sm"
+						/>
+						<div class="absolute inset-0 bg-galaxy-950/40"></div>
+					</div>
+				)}
+
+				<div class="p-6 md:p-8 space-y-6 relative z-10">
+					<div class="prose prose-invert prose-indigo max-w-none text-sm md:text-base font-mono leading-relaxed" data-typewriter set:html={processedDetails}>
+					</div>
+				</div>
+			</div>
+
+			<!-- Footer -->
+			<div class="p-6 border-t border-white/5 bg-white/5 flex gap-4">
+				{url && (
+					<a href={url} target="_blank" class="btn-primary w-full text-center py-4 rounded-2xl text-xs tracking-widest uppercase">
+						Access System
+					</a>
+				)}
+				{youtube && (
+					<a href={youtube} target="_blank" class="glass-card w-full text-center py-4 rounded-2xl text-xs tracking-widest uppercase hover:bg-rose-500/10 hover:text-rose-500 transition-all">
+						YouTube Channel
+					</a>
+				)}
+				{github && (
+					<a href={github} target="_blank" class="glass-card w-full text-center py-4 rounded-2xl text-xs tracking-widest uppercase hover:bg-white/10 transition-all">
+						Source Code
+					</a>
+				)}
+			</div>
+		</div>
+	</div>
+)}
+
+<script>
+	const setupModals = () => {
+		const openButtons = document.querySelectorAll('[data-modal-target]');
+		const closeButtons = document.querySelectorAll('[data-modal-close]');
+		
+		openButtons.forEach(btn => {
+			btn.addEventListener('click', () => {
+				const targetId = btn.getAttribute('data-modal-target');
+				const modal = document.getElementById(targetId);
+				if (modal) {
+					modal.classList.remove('hidden');
+					modal.classList.add('flex');
+					document.body.style.overflow = 'hidden';
+				}
+			});
+		});
+
+		closeButtons.forEach(btn => {
+			btn.addEventListener('click', () => {
+				const targetId = btn.getAttribute('data-modal-close');
+				const modal = document.getElementById(targetId);
+				if (modal) {
+					modal.classList.add('hidden');
+					modal.classList.remove('flex');
+					document.body.style.overflow = '';
+				}
+			});
+		});
+
+		// Close on backdrop click
+		window.addEventListener('click', (e) => {
+			if ((e.target as HTMLElement).classList.contains('reveal-trigger')) {
+				const modal = e.target as HTMLElement;
+				modal.classList.add('hidden');
+				modal.classList.remove('flex');
+				document.body.style.overflow = '';
+			}
+		});
+
+                // Close on Escape
+                window.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        const openModal = document.querySelector('.reveal-trigger:not(.hidden)');
+                        if (openModal) {
+                            openModal.classList.add('hidden');
+                            openModal.classList.remove('flex');
+                            document.body.style.overflow = '';
+                        }
+                    }
+                });
+	};
+
+	// Run on initial load
+	setupModals();
+
+	// Typewriter effect for classified modals
+	const setupTypewriter = (modalId: string) => {
+		const modal = document.getElementById(modalId);
+		const container = modal?.querySelector('[data-typewriter]');
+		if (!container) return;
+
+		const originalHTML = container.getAttribute('data-original-html') || container.innerHTML;
+		if (!container.hasAttribute('data-original-html')) {
+			container.setAttribute('data-original-html', originalHTML);
+		}
+
+		container.innerHTML = '';
+		let i = 0;
+		const fullText = originalHTML;
+		
+		// Simple typewriter that respects HTML tags roughly
+		// For a more robust version we'd need a virtual DOM but this is fine for static text
+		const type = () => {
+			if (i < fullText.length) {
+				// If we find an opening tag, skip to the end of it
+				if (fullText[i] === '<') {
+					const tagEnd = fullText.indexOf('>', i);
+					i = tagEnd + 1;
+				} else {
+					i++;
+				}
+				container.innerHTML = fullText.substring(0, i);
+				setTimeout(type, 2);
+			}
+		};
+		type();
+	};
+
+	const openButtons = document.querySelectorAll('[data-modal-target]');
+	openButtons.forEach(btn => {
+		btn.addEventListener('click', () => {
+			const targetId = btn.getAttribute('data-modal-target');
+			if (targetId) setupTypewriter(targetId);
+		});
+	});
+
+	// Run on view transitions/navigation if applicable
+	document.addEventListener('astro:after-swap', setupModals);
+</script>
+
+<style>
+	.custom-scrollbar::-webkit-scrollbar {
+		width: 4px;
+	}
+	.custom-scrollbar::-webkit-scrollbar-track {
+		background: rgba(255, 255, 255, 0.02);
+	}
+	.custom-scrollbar::-webkit-scrollbar-thumb {
+		background: rgba(255, 255, 255, 0.1);
+		border-radius: 10px;
+	}
+	.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+		background: rgba(255, 255, 255, 0.2);
+	}
+</style>

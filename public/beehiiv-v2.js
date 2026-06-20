@@ -1,5 +1,5 @@
 /**
- * GalaxyBuilt — Beehiiv Proxy Utility
+ * ExpatBuildr — Beehiiv Proxy Utility
  * Client-side subscription handler. 
  * Routes requests through /api/subscribe to avoid CORS and protect API keys.
  */
@@ -28,14 +28,14 @@ async function subscribeToBeehiiv({ email, tags, utm_medium, utm_campaign }) {
         tags: tags || ['general_lead'],
         utm_source,
         utm_medium: utm_medium || 'website',
-        utm_campaign: utm_campaign || 'galaxybuilt_main'
+        utm_campaign: utm_campaign || 'expatbuildr_main'
       })
     });
 
     const result = await response.json();
 
     if (response.ok && result.success) {
-      console.log('🚀 GalaxyBuilt: Beehiiv subscription success:', email);
+      console.log('🚀 ExpatBuildr: Beehiiv subscription success:', email);
       sessionStorage.setItem('gb_email', email);
       
       // Fire Unified Tracking Engine if available
@@ -50,12 +50,12 @@ async function subscribeToBeehiiv({ email, tags, utm_medium, utm_campaign }) {
       return "already_subscribed";
     }
 
-    console.error('❌ GalaxyBuilt: Beehiiv subscription failed:', result.error || 'Unknown error');
+    console.error('❌ ExpatBuildr: Beehiiv subscription failed:', result.error || 'Unknown error');
     if (result.debug) console.log('🔍 Debug Info:', result.debug);
     return false;
 
   } catch (err) {
-    console.error('❌ GalaxyBuilt: Beehiiv proxy error:', err);
+    console.error('❌ ExpatBuildr: Beehiiv proxy error:', err);
     return false;
   }
 }

@@ -1,0 +1,58 @@
+---
+interface Props {
+  variant: 'vertical' | 'horizontal';
+}
+const { variant } = Astro.props;
+const pixelId = `ad-pixel-${variant}-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+{variant === 'vertical' && (
+  <div class="newsletter-ad-vertical">
+    <a
+      href="/newsletter"
+      id={pixelId}
+      class="block rounded-2xl overflow-hidden border border-white/10 hover:border-yellow-400/40 transition-all duration-300 hover:scale-[1.02] shadow-lg hover:shadow-yellow-400/10"
+      data-ad-variant="vertical"
+    >
+      <img
+        src="/ads/vertical.png"
+        alt="Join the Galaxy Arbitrage Newsletter"
+        class="w-full h-auto block"
+        loading="lazy"
+      />
+    </a>
+    <!-- impression pixel -->
+    <img src="/ads/pixel.gif" width="1" height="1" alt="" aria-hidden="true" class="absolute opacity-0 pointer-events-none" data-ad="vertical" />
+  </div>
+)}
+
+{variant === 'horizontal' && (
+  <div class="newsletter-ad-horizontal w-full my-8">
+    <a
+      href="/newsletter"
+      id={pixelId}
+      class="block rounded-2xl overflow-hidden border border-white/10 hover:border-yellow-400/40 transition-all duration-300 hover:scale-[1.005] shadow-lg hover:shadow-yellow-400/10"
+      data-ad-variant="horizontal"
+    >
+      <img
+        src="/ads/horizontal.png"
+        alt="Join the Galaxy Arbitrage Newsletter"
+        class="w-full h-auto block"
+        loading="lazy"
+      />
+    </a>
+    <!-- impression pixel -->
+    <img src="/ads/pixel.gif" width="1" height="1" alt="" aria-hidden="true" class="absolute opacity-0 pointer-events-none" data-ad="horizontal" />
+  </div>
+)}
+
+<script>
+  // Click tracking pixel — fires on every ad click
+  document.querySelectorAll('[data-ad-variant]').forEach(el => {
+    el.addEventListener('click', () => {
+      const variant = (el as HTMLElement).dataset.adVariant;
+      const pixel = new Image();
+      pixel.src = `/ads/track.gif?ad=${variant}&t=${Date.now()}`;
+    });
+  });
+</script>

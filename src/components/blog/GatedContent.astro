@@ -1,0 +1,254 @@
+---
+interface Props {
+	title?: string;
+}
+
+const { title = "Unlock the Full Breakdown" } = Astro.props;
+const html = await Astro.slots.render('default');
+
+// Logic: Attempt to split at approximately 40% of the content
+// We look for the nearest closing paragraph tag to avoid breaking HTML structure
+const splitTarget = Math.floor(html.length * 0.4);
+const closingTag = '</p>';
+let splitIndex = html.indexOf(closingTag, splitTarget);
+
+if (splitIndex === -1) {
+    // Fallback if no </p> is found
+    splitIndex = splitTarget;
+} else {
+    splitIndex += closingTag.length;
+}
+
+const visibleContent = html.slice(0, splitIndex);
+const gatedContent = html.slice(splitIndex);
+---
+
+<div class="blog-content-wrapper relative">
+    <div class="visible-content prose prose-invert max-w-none" set:html={visibleContent} />
+    
+    <div class="relative mt-12 gated-container group/gated">
+        <!-- Blur Overlay with Slide Fade -->
+        <div class="gated-section relative overflow-hidden h-[450px] transition-all duration-1000 ease-in-out group-hover/gated:h-[480px]">
+            <div class="blur-overlay absolute inset-0 bg-linear-to-b from-transparent via-white/80 to-white dark:via-galaxy-950/95 dark:to-galaxy-950 z-10 backdrop-blur-[4px] transition-opacity duration-700"></div>
+            <div class="blurred-content prose prose-invert max-w-none opacity-20 select-none pointer-events-none filter blur-sm transition-all duration-1000" set:html={gatedContent} />
+        </div>
+
+        <!-- Beehiiv Subscription Embed -->
+        <div class="absolute inset-0 z-20 flex flex-col items-center justify-center px-4">
+            <div class="glass-card p-10 md:p-14 rounded-[3rem] border border-accent-blue/40 shadow-[0_0_80px_rgba(59,130,246,0.15)] max-w-2xl w-full text-center hover:scale-[1.01] transition-all duration-500 bg-white/90 dark:bg-galaxy-950/50 backdrop-blur-3xl relative overflow-hidden">
+                <!-- Decorative Beam -->
+                <div class="absolute top-0 left-0 w-full h-[2px] bg-linear-to-r from-transparent via-accent-blue to-transparent animate-pulse"></div>
+                
+                <div class="inline-flex p-4 rounded-3xl bg-accent-blue/10 text-accent-blue mb-8 border border-accent-blue/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </div>
+                
+                <h3 class="text-3xl md:text-4xl font-black font-display mb-6 text-slate-900 dark:text-white uppercase tracking-tighter leading-tight">
+                    {title}
+                </h3>
+                
+                <p class="text-slate-500 dark:text-slate-400 mb-10 max-w-md mx-auto font-inter text-base md:text-lg">
+                    Join 65+ Founders to unlock the full technical breakdown and receive exclusive engineering insights.
+                </p>
+
+                <!-- Native Signup Form -->
+                <div class="w-full relative group/form-wrapper" id="signup-container">
+                    <div class="absolute -inset-1 bg-linear-to-r from-accent-blue via-accent-purple to-pink-500 rounded-2xl opacity-10 group-focus-within/form-wrapper:opacity-30 transition-opacity blur-md"></div>
+                    
+                    <form id="gated-signup-form" class="relative flex flex-col sm:flex-row gap-3 w-full">
+                        <div class="relative flex-grow min-w-0">
+                            <input 
+                                type="email" 
+                                id="gated-email"
+                                name="email" 
+                                placeholder="Enter your best email..." 
+                                required
+                                class="w-full px-6 py-4 rounded-xl bg-slate-50 dark:bg-galaxy-900/80 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-accent-blue/50 focus:border-accent-blue transition-all font-inter text-base md:text-lg min-w-[280px]"
+                            />
+                        </div>
+                        <button 
+                            type="submit" 
+                            id="gated-submit"
+                            class="px-8 py-4 rounded-xl bg-accent-blue text-white dark:text-galaxy-950 font-black font-display uppercase tracking-wider hover:bg-slate-900 dark:hover:bg-white hover:scale-105 active:scale-95 transition-all shadow-[0_0_20px_rgba(59,130,246,0.3)] whitespace-nowrap min-w-[160px]"
+                        >
+                            Unlock Now
+                        </button>
+                    </form>
+
+                    <!-- Success State (Hidden by default) -->
+                    <div id="signup-success" class="hidden flex flex-col items-center justify-center space-y-4 animate-in fade-in zoom-in duration-500">
+                        <div class="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center border border-emerald-500/30">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                        </div>
+                        <p class="text-xl font-bold text-slate-900 dark:text-white uppercase tracking-tight">Check Your Inbox</p>
+                        <div class="bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/10 rounded-xl px-6 py-4 text-center max-w-xs">
+                            <p class="text-slate-700 dark:text-slate-300 text-sm font-mono">Reply <span class="font-bold text-accent-blue">hi</span> to confirm your email</p>
+                            <p class="text-slate-400 text-[11px] mt-2">This keeps us out of your promotions tab</p>
+                        </div>
+                        <p class="text-slate-400 text-sm">Unlocking your access now...</p>
+                    </div>
+
+                    <!-- Error State (Hidden by default) -->
+                    <p id="signup-error" class="hidden text-rose-500 text-xs font-mono mt-3 uppercase tracking-widest text-center">
+                        [ ERROR: CONNECTION_TIMEOUT ]
+                    </p>
+                </div>
+                
+                <p class="mt-8 text-[11px] text-slate-500 font-mono uppercase tracking-[0.3em] font-bold">
+                    [ SYSTEM SECURED: EMAIL REQUIRED ]
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const COOKIE_NAME = 'gb_subscribed';
+    const THIRTY_DAYS = 30;
+
+    function isUnlocked(): boolean {
+        return document.cookie.split('; ').some(c => c.startsWith(COOKIE_NAME + '='));
+    }
+
+    function saveUnlock(email: string): void {
+        const expires = new Date();
+        expires.setDate(expires.getDate() + THIRTY_DAYS);
+        document.cookie = `${COOKIE_NAME}=1; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
+        // Also mark as subscribed so popups don't show
+        document.cookie = `gb_newsletter_joined=1; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
+    }
+
+    function revealContent(): void {
+        const gatedContainer = document.querySelector('.gated-container') as HTMLElement;
+        const gatedSection = document.querySelector('.gated-section') as HTMLElement;
+        const blurredContent = document.querySelector('.blurred-content') as HTMLElement;
+        const blurOverlay = document.querySelector('.blur-overlay') as HTMLElement;
+
+        if (!gatedContainer) return;
+
+        // Remove gate UI entirely and reveal content
+        gatedContainer.style.transition = 'opacity 0.6s ease';
+        gatedContainer.style.opacity = '0';
+        setTimeout(() => {
+            if (blurOverlay) blurOverlay.remove();
+            if (gatedSection) {
+                gatedSection.style.height = 'auto';
+                gatedSection.style.maskImage = 'none';
+            }
+            if (blurredContent) {
+                blurredContent.style.opacity = '1';
+                blurredContent.style.filter = 'none';
+                blurredContent.style.pointerEvents = 'auto';
+                blurredContent.style.userSelect = 'auto';
+            }
+            // Hide the gate overlay panel
+            const overlay = gatedContainer.querySelector('.absolute.inset-0.z-20') as HTMLElement;
+            if (overlay) overlay.remove();
+            gatedContainer.style.opacity = '1';
+        }, 300);
+    }
+
+    // On page load — check if already unlocked
+    if (isUnlocked()) {
+        // Run after DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', revealContent);
+        } else {
+            revealContent();
+        }
+    }
+
+    // Form submit handler
+    const form = document.querySelector('#gated-signup-form') as HTMLFormElement;
+    const container = document.querySelector('#signup-container');
+    const success = document.querySelector('#signup-success');
+    const error = document.querySelector('#signup-error');
+    const submitBtn = document.querySelector('#gated-submit') as HTMLButtonElement;
+
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const emailInput = document.querySelector('#gated-email') as HTMLInputElement;
+            const email = emailInput.value;
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Verifying...';
+            error?.classList.add('hidden');
+
+            try {
+                const response = await fetch('/api/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email,
+                        tags: ['megablog_gated', 'founder'],
+                        utm_medium: 'gated-breakdown'
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.ok) {
+                    // Save unlock for 30 days
+                    saveUnlock(email);
+
+                    // Show success state
+                    form.classList.add('hidden');
+                    success?.classList.remove('hidden');
+                    success?.classList.add('flex');
+
+                    // Reveal content after brief success moment
+                    setTimeout(() => {
+                        revealContent();
+                    }, 1200);
+                } else {
+                    throw new Error(result.error || 'Subscription failed');
+                }
+            } catch (err) {
+                console.error('Signup error:', err);
+                error?.classList.remove('hidden');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Unlock Now';
+            }
+        });
+    }
+</script>
+
+<style>
+    @reference "../../styles/global.css";
+
+    .blog-content-wrapper {
+        @apply font-inter leading-relaxed text-slate-600 dark:text-slate-300;
+    }
+
+    .visible-content :global(p) {
+        @apply mb-8 text-lg md:text-xl leading-relaxed;
+    }
+
+    .visible-content :global(h2) {
+        @apply text-3xl md:text-4xl font-black font-display text-slate-900 dark:text-white mt-16 mb-8 tracking-tighter uppercase;
+    }
+
+    .visible-content :global(h3) {
+        @apply text-xl md:text-2xl font-bold font-display text-accent-blue mt-12 mb-6 tracking-tight;
+    }
+
+    /* Premium slide/blur effect */
+    .gated-section {
+        mask-image: linear-gradient(to bottom, black 0%, transparent 80%);
+    }
+
+    .gated-container:hover .blur-overlay {
+        backdrop-filter: blur(8px);
+    }
+    
+    /* Animation helper for success state */
+    @keyframes zoom-in {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    .animate-in {
+        animation: zoom-in 0.4s ease-out forwards;
+    }
+</style>
+

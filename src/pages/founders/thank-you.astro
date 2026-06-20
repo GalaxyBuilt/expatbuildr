@@ -1,0 +1,225 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/funnel.css';
+---
+
+<Layout minimal={true} noAnimations={true} title="Thank You — ExpatBuildr">
+  <Fragment slot="head">
+    <script is:inline>
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1480646753745240');
+      fbq('track', 'PageView');
+      fbq('track', 'Lead', { content_name: 'Founders Checklist Lead' });
+      fbq('track', 'CompleteRegistration', { content_name: 'Founders Checklist Lead', status: true });
+    </script>
+  </Fragment>
+  <script is:inline>
+    (()=>{ document.documentElement.classList.add('dark'); document.documentElement.classList.remove('light'); })();
+  </script>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="/images/logo.jpg" alt="ExpatBuildr Logo" class="nav-logo-img" />
+        <div class="logo-text">GALAXY<span class="built">BUILT</span><span class="slug">/thanks</span></div>
+      </a>
+      <div class="nav-tag">Checklist Ready</div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="kicker fade-1">Step 03 · Success</div>
+
+    <h1 class="fade-2">
+      Your checklist is<br />
+      <em>on the way.</em>
+    </h1>
+
+    <p class="sub fade-3">
+      Check your inbox in about 2 minutes. While you wait, I have a recommendation for you to ensure your launch actually works.
+    </p>
+
+    <div class="cta-box fade-4">
+      <div class="cta-label">// Recommendation</div>
+      <h3>Don't launch <em>blind.</em></h3>
+      <p>I build high-converting launch infrastructure for founders who don't want to waste their first 100 visitors. I'll build your landing page, write your copy, and wire your pixels in 7 days.</p>
+      <a href="/founders/offer" class="btn-primary">View the Launch Offer →</a>
+    </div>
+
+    <div class="links fade-5">
+      <a href="/" class="back-link">&larr; Back to ExpatBuildr Home</a>
+    </div>
+  </main>
+
+  <footer>
+    ExpatBuildr · Built in the Philippines 🇵🇭
+  </footer>
+</Layout>
+
+<style>
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border);
+    background: rgba(5,5,5,0.9);
+    backdrop-filter: blur(12px);
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1rem clamp(1.25rem,5vw,2.5rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+  }
+  .nav-logo-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  .logo-text {
+    font-family: var(--sans);
+    font-weight: 900;
+    font-size: 1.4rem;
+    letter-spacing: -0.04em;
+    color: var(--text);
+    text-transform: uppercase;
+  }
+  .logo-text .built { color: var(--accent-1); font-weight: 400; }
+  .logo-text .slug {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-left: 0.3rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+  }
+  .nav-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    border: 1px solid var(--accent-2);
+    background: rgba(34,211,238,0.1);
+    padding: 0.3em 0.75em;
+  }
+
+  main {
+    position: relative;
+    z-index: 5;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: clamp(4rem,10vw,8rem) clamp(1.25rem,5vw,2.5rem);
+    text-align: center;
+  }
+
+  .kicker {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent-1);
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem,7vw,4rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+    color: var(--text);
+  }
+  h1 em { font-style: italic; color: var(--accent-1); }
+
+  .sub {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+
+  .cta-box {
+    background: var(--bg-2);
+    border: 1px solid var(--border-hi);
+    padding: 2.5rem 2rem;
+    margin-bottom: 3rem;
+    text-align: left;
+  }
+  .cta-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    margin-bottom: 1rem;
+  }
+  .cta-box h3 {
+    font-family: var(--serif);
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .cta-box h3 em { font-style: italic; color: var(--accent-1); }
+  .cta-box p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 2rem;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1em 2em;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    color: #000;
+    transition: all 0.15s;
+  }
+  .btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+  .back-link {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--text-muted); }
+
+  footer {
+    position: relative;
+    z-index: 5;
+    padding: 2rem;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+  }
+
+  @keyframes fadeUp {
+    from{opacity:0;transform:translateY(16px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  .fade-1{animation:fadeUp .6s ease both}
+  .fade-2{animation:fadeUp .6s .1s ease both}
+  .fade-3{animation:fadeUp .6s .2s ease both}
+  .fade-4{animation:fadeUp .6s .3s ease both}
+  .fade-5{animation:fadeUp .6s .4s ease both}
+</style>

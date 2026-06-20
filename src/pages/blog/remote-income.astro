@@ -1,0 +1,162 @@
+---
+export const prerender = true;
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { ArrowRight, Zap, Briefcase, TrendingUp, Globe } from 'lucide-astro';
+
+const allPosts = await getCollection('blog', ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true && data.archived !== true : true;
+});
+
+const posts = allPosts
+  .filter(p => p.data.pillarId === 'remote-income' && p.data.category !== 'Pillar Hub')
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(date);
+
+const calcReadTime = (body: string) => Math.max(1, Math.ceil(body.trim().split(/\s+/).length / 220));
+---
+
+<Layout
+  title="Remote Income: How to Find, Land & Keep High-Paying Remote Jobs | Expat Buildr"
+  description="Practical remote income guides for 2026 — how to find remote jobs that never return to office, negotiate fully remote arrangements, pass async hiring processes, and build income that travels with you."
+  canonicalUrl="https://expatbuildr.com/blog/remote-income"
+  ogImage="/images/remote work.jpg"
+>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Remote Income Hub | Expat Buildr",
+    "description": "Remote job search strategies, salary negotiation guides, and income frameworks for building a fully location-independent career.",
+    "url": "https://expatbuildr.com/blog/remote-income",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Expat Buildr",
+      "url": "https://expatbuildr.com"
+    },
+    "hasPart": posts.map(p => ({
+      "@type": "BlogPosting",
+      "headline": p.data.title,
+      "url": `https://expatbuildr.com/blog/${p.id.replace(/\.mdx?$/, '')}`,
+      "datePublished": p.data.pubDate.toISOString()
+    }))
+  })} />
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Hero -->
+    <div class="text-center mb-20">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs uppercase tracking-[0.2em] font-mono mb-8">
+        <Zap size={12} /> Remote Income
+      </div>
+      <h1 class="text-5xl md:text-7xl font-black font-display tracking-tighter text-slate-900 dark:text-white mb-6 uppercase leading-none">
+        EARN FROM<br /><span class="text-red-400">ANYWHERE.</span>
+      </h1>
+      <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-inter leading-relaxed mb-8">
+        The remote income pillar covers the full path from finding genuinely remote jobs to negotiating your arrangement, passing async hiring processes, and building income that stays location-independent long term.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/remote-income/sniper" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-red-500 text-white font-bold text-sm hover:bg-red-400 transition-all">
+          Remote Job Sniper <ArrowRight size={16} />
+        </a>
+        <a href="/newsletter" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 font-semibold text-sm hover:border-red-500/40 transition-all">
+          Weekly Intel
+        </a>
+        <a href="/blog/remote-income-links" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-red-500/30 text-red-400 font-semibold text-sm hover:bg-red-500/10 transition-all">
+          All Resources <ArrowRight size={16} />
+        </a>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+      <div class="glass-card rounded-2xl p-6 border border-red-500/20">
+        <Briefcase class="text-red-400 mb-3" size={24} />
+        <div class="text-3xl font-black text-slate-900 dark:text-white mb-1">58%</div>
+        <div class="text-sm text-slate-600 dark:text-slate-400">Of remote workers say they would look for a new job if required to return to office full time</div>
+      </div>
+      <div class="glass-card rounded-2xl p-6 border border-red-500/20">
+        <TrendingUp class="text-red-400 mb-3" size={24} />
+        <div class="text-3xl font-black text-slate-900 dark:text-white mb-1">$20K+</div>
+        <div class="text-sm text-slate-600 dark:text-slate-400">Average annual premium for fully remote roles vs hybrid at equivalent seniority levels</div>
+      </div>
+      <div class="glass-card rounded-2xl p-6 border border-red-500/20">
+        <Globe class="text-red-400 mb-3" size={24} />
+        <div class="text-3xl font-black text-slate-900 dark:text-white mb-1">500+</div>
+        <div class="text-sm text-slate-600 dark:text-slate-400">USD-paying fully remote roles tracked weekly in the Expat Buildr jobs database</div>
+      </div>
+    </div>
+
+    <!-- What This Pillar Covers -->
+    <div class="mb-20 prose prose-slate dark:prose-invert max-w-none">
+      <h2 class="text-3xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white mb-6">What This Pillar Covers</h2>
+      <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+        Remote income is the foundation that makes everything else in the geo-arbitrage stack possible. Without income that travels with you, the cost of living math is irrelevant. This pillar is about building that foundation correctly.
+      </p>
+      <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+        The articles here cover the full pipeline: where to find jobs that are genuinely remote and will stay that way, how to build a resume that signals remote competency, how companies with async hiring processes actually evaluate candidates, and how to negotiate a remote arrangement with a current employer who is pushing for return to office.
+      </p>
+      <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+        The guides are written for people who are serious about making remote work permanent, not people looking for a temporary accommodation. That distinction shapes the tactics, the framing, and the long-term positioning strategy covered across the cluster.
+      </p>
+    </div>
+
+    <!-- Resources Page -->
+    <div class="mb-12">
+      <div class="glass-card rounded-2xl p-6 border border-red-500/30 bg-red-500/5 flex flex-col md:flex-row md:items-center gap-5">
+        <div class="flex-1">
+          <div class="text-xs font-mono uppercase tracking-wider text-red-400 font-semibold mb-2">Pillar Resources</div>
+          <h2 class="text-xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white mb-2">Remote Income — Tools, Jobs & Services</h2>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Every tool, calculator, job board, and done-for-you service in the Remote Income pillar in one place.</p>
+        </div>
+        <a href="/blog/remote-income-links" class="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-red-500 text-white font-bold text-sm hover:bg-red-400 transition-all">
+          See All Resources <ArrowRight size={16} />
+        </a>
+      </div>
+    </div>
+
+    <!-- Article Index -->
+    <div class="mb-20">
+      <div class="flex items-center gap-3 mb-8">
+        <Zap class="text-red-400" size={20} />
+        <h2 class="text-2xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white">All Remote Income Guides</h2>
+        <div class="h-px flex-1 bg-slate-200 dark:bg-white/10"></div>
+        <span class="text-xs font-mono text-slate-400">{posts.length} articles</span>
+      </div>
+
+      <div class="space-y-4">
+        {posts.map(post => (
+          <a
+            href={`/blog/${post.id.replace(/\.mdx?$/, '')}`}
+            class="group flex items-start gap-5 p-5 rounded-2xl border border-slate-200 dark:border-white/10 hover:border-red-500/40 bg-white dark:bg-white/[0.03] hover:bg-red-500/5 transition-all duration-300"
+          >
+            <div class="shrink-0 w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center">
+              <Zap class="text-red-400" size={20} />
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-3 mb-1">
+                <span class="text-xs font-mono uppercase tracking-wider text-red-400 font-semibold">{post.data.category}</span>
+                <span class="text-xs text-slate-400">{formatDate(post.data.pubDate)}</span>
+                <span class="text-xs text-slate-400">{calcReadTime(post.body ?? '')} min read</span>
+              </div>
+              <h3 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-red-400 transition-colors leading-snug mb-1">{post.data.title}</h3>
+              <p class="text-sm text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">{post.data.description}</p>
+            </div>
+            <ArrowRight class="shrink-0 text-slate-300 dark:text-slate-600 group-hover:text-red-400 group-hover:translate-x-1 transition-all mt-1" size={18} />
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="rounded-2xl border border-red-500/20 bg-red-500/5 p-10 text-center mb-12">
+      <h2 class="text-2xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white mb-3">Find Your Next Remote Role</h2>
+      <p class="text-slate-600 dark:text-slate-400 mb-6 max-w-lg mx-auto">500+ curated USD-paying remote roles updated weekly. Filter by role type, salary range, and timezone requirements.</p>
+      <a href="/remote-income/sniper" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-red-500 text-white font-bold hover:bg-red-400 transition-all">
+        Browse Remote Jobs <ArrowRight size={16} />
+      </a>
+    </div>
+
+  </div>
+</Layout>

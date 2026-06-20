@@ -1,0 +1,2613 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="ExpatBuildr — YouTube Outlier Architecture" minimal={true}>
+  <Fragment slot="head">
+    <meta name="robots" content="noindex, nofollow" />
+  </Fragment>
+  <div class="min-h-screen bg-[#080808] text-[#e8e8e8] font-['DM_Sans'] overflow-x-hidden">
+    <style is:inline>
+      :root {
+        --black: #080808;
+        --surface: #111111;
+        --surface2: #191919;
+        --border: #242424;
+        --text: #e8e8e8;
+        --muted: #666;
+        --dim: #444;
+
+        --p1: #FFD166; /* Remote Income - amber */
+        --p2: #06D6A0; /* Lead Gen - mint */
+        --p3: #EF476F; /* Geo-Arbitrage - coral */
+        --p4: #118AB2; /* Grants - blue */
+
+        --p1-dim: rgba(255,209,102,0.08);
+        --p2-dim: rgba(6,214,160,0.08);
+        --p3-dim: rgba(239,71,111,0.08);
+        --p4-dim: rgba(17,138,178,0.08);
+      }
+
+      /* ── HEADER ── */
+      header {
+        border-bottom: 1px solid var(--border);
+        padding: 32px 48px 28px;
+        display: flex;
+        align-items: flex-end;
+        gap: 32px;
+        flex-wrap: wrap;
+        background: linear-gradient(135deg, #0e0e0e 60%, #141212);
+      }
+
+      .logo-block h1 {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 42px;
+        letter-spacing: 3px;
+        line-height: 1;
+        background: linear-gradient(90deg, #FFD166 0%, #EF476F 50%, #118AB2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .logo-block p {
+        font-family: 'DM Mono', monospace;
+        font-size: 11px;
+        color: var(--muted);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-top: 4px;
+      }
+
+      .header-meta {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-left: auto;
+      }
+
+      .meta-chip {
+        font-family: 'DM Mono', monospace;
+        font-size: 10px;
+        padding: 6px 12px;
+        border-radius: 4px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--muted);
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+      }
+
+      /* ── NAV TABS ── */
+      .tab-bar {
+        display: flex;
+        border-bottom: 1px solid var(--border);
+        background: var(--surface);
+        overflow-x: auto;
+        scrollbar-width: none;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .tab-bar::-webkit-scrollbar { display: none; }
+
+      .tab {
+        padding: 16px 28px;
+        font-family: 'DM Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        cursor: pointer;
+        border: none;
+        background: transparent;
+        color: var(--muted);
+        border-bottom: 2px solid transparent;
+        white-space: nowrap;
+        transition: all 0.2s;
+        position: relative;
+        bottom: -1px;
+      }
+
+      .tab:hover { color: var(--text); }
+      .tab.active { color: var(--text); font-weight: 500; }
+      .tab[data-pillar="1"].active { color: var(--p1); border-bottom-color: var(--p1); }
+      .tab[data-pillar="2"].active { color: var(--p2); border-bottom-color: var(--p2); }
+      .tab[data-pillar="3"].active { color: var(--p3); border-bottom-color: var(--p3); }
+      .tab[data-pillar="4"].active { color: var(--p4); border-bottom-color: var(--p4); }
+
+      /* ── PANELS ── */
+      .panel { display: none; }
+      .panel.active { display: block; }
+
+      /* ── PILLAR HERO ── */
+      .pillar-hero {
+        padding: 40px 48px 32px;
+        border-bottom: 1px solid var(--border);
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 24px;
+      }
+
+      .pillar-label {
+        grid-column: 1 / -1;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 8px;
+      }
+
+      .pillar-badge {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 28px;
+        letter-spacing: 2px;
+      }
+
+      .pillar-tag {
+        font-family: 'DM Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 2px;
+        padding: 4px 10px;
+        border-radius: 3px;
+        border: 1px solid;
+        text-transform: uppercase;
+      }
+
+      .pillar-stat {
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 20px;
+      }
+
+      .stat-num {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 36px;
+        letter-spacing: 1px;
+        line-height: 1;
+      }
+
+      .stat-label {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 4px;
+        font-family: 'DM Mono', monospace;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .stat-note {
+        font-size: 12px;
+        color: var(--dim);
+        margin-top: 6px;
+      }
+
+      /* ── STRATEGY SECTION HEADER ── */
+      .section-header {
+        padding: 28px 48px 16px;
+        font-family: 'DM Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--muted);
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .section-header::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
+
+      /* ── VIDEO TABLE ── */
+      .video-table-wrap {
+        padding: 0 0 40px;
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+
+      thead th {
+        background: var(--surface2);
+        padding: 14px 20px;
+        font-family: 'DM Mono', monospace;
+        font-size: 9px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--muted);
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+        white-space: nowrap;
+      }
+
+      tbody tr {
+        border-bottom: 1px solid var(--border);
+        transition: background 0.15s;
+      }
+
+      tbody tr:hover { background: var(--surface2); }
+
+      tbody td {
+        padding: 16px 20px;
+        vertical-align: top;
+        line-height: 1.5;
+      }
+
+      .row-num {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 22px;
+        color: var(--dim);
+        width: 40px;
+      }
+
+      .outlier-hook {
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 1.4;
+      }
+
+      .hook-sub {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 4px;
+        font-family: 'DM Mono', monospace;
+      }
+
+      .viral-angle {
+        display: inline-block;
+        font-size: 10px;
+        font-family: 'DM Mono', monospace;
+        padding: 2px 8px;
+        border-radius: 3px;
+        border: 1px solid;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .title-combo {
+        font-weight: 600;
+        font-size: 13px;
+      }
+
+      .thumb-note {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+
+      .edge-pill {
+        font-size: 11px;
+        color: var(--muted);
+        background: var(--surface2);
+        padding: 2px 8px;
+        border-radius: 4px;
+        border: 1px solid var(--border);
+        display: inline-block;
+        margin: 2px 2px 0 0;
+      }
+
+      .why-badge {
+        font-family: 'DM Mono', monospace;
+        font-size: 9px;
+        padding: 3px 8px;
+        border-radius: 3px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        display: inline-block;
+        margin-bottom: 6px;
+      }
+
+      .why-utility { background: rgba(6,214,160,0.12); color: #06D6A0; }
+      .why-controversy { background: rgba(239,71,111,0.12); color: #EF476F; }
+      .why-speed { background: rgba(255,209,102,0.12); color: #FFD166; }
+      .why-identity { background: rgba(17,138,178,0.12); color: #118AB2; }
+
+      /* ── MASTER SCRIPT ── */
+      .master-script {
+        margin: 0 48px 60px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .script-header {
+        padding: 24px 28px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .script-badge {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 13px;
+        letter-spacing: 3px;
+        padding: 6px 14px;
+        border-radius: 4px;
+        text-transform: uppercase;
+      }
+
+      .script-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 22px;
+        letter-spacing: 1px;
+        flex: 1;
+      }
+
+      .script-body {
+        padding: 32px 28px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+
+      @media (max-width: 900px) {
+        .script-body { grid-template-columns: 1fr; }
+        .pillar-hero { grid-template-columns: 1fr 1fr; }
+        header, .pillar-hero, .section-header, .master-script { padding-left: 20px; padding-right: 20px; }
+        .master-script { margin: 0 16px 40px; }
+      }
+
+      .script-section {
+        background: var(--surface2);
+        border-radius: 8px;
+        padding: 20px;
+        border: 1px solid var(--border);
+      }
+
+      .script-section-title {
+        font-family: 'DM Mono', monospace;
+        font-size: 9px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .script-section-title::before {
+        content: '';
+        display: block;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+      }
+
+      .timeline-item {
+        display: grid;
+        grid-template-columns: 60px 1fr;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .tl-time {
+        font-family: 'DM Mono', monospace;
+        font-size: 10px;
+        color: var(--muted);
+        padding-top: 2px;
+        letter-spacing: 1px;
+      }
+
+      .tl-content strong {
+        font-size: 12px;
+        display: block;
+        margin-bottom: 2px;
+      }
+
+      .tl-content span {
+        font-size: 11px;
+        color: var(--dim);
+      }
+
+      .pain-item {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 12px;
+        align-items: flex-start;
+      }
+
+      .pain-q {
+        font-size: 11px;
+        font-style: italic;
+        color: var(--muted);
+        flex: 1;
+        line-height: 1.5;
+      }
+
+      .pain-a {
+        font-size: 11px;
+        color: var(--dim);
+        flex: 1.5;
+        line-height: 1.5;
+      }
+
+      .screen-share-list {
+        list-style: none;
+      }
+
+      .screen-share-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        font-size: 12px;
+        margin-bottom: 8px;
+        line-height: 1.4;
+      }
+
+      .screen-share-list li::before {
+        content: '▶';
+        font-size: 8px;
+        margin-top: 4px;
+        flex-shrink: 0;
+        opacity: 0.5;
+      }
+
+      /* ── OVERVIEW PANEL ── */
+      .overview-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .overview-card {
+        padding: 36px 32px;
+        border-right: 1px solid var(--border);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .overview-card:last-child { border-right: none; }
+
+      .ov-accent {
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+      }
+
+      .ov-num {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 52px;
+        letter-spacing: 1px;
+        line-height: 1;
+        margin-top: 16px;
+      }
+
+      .ov-pillar {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 16px;
+        letter-spacing: 2px;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+
+      .ov-focus {
+        font-size: 11px;
+        color: var(--dim);
+        margin-top: 8px;
+        line-height: 1.5;
+        border-top: 1px solid var(--border);
+        padding-top: 12px;
+        margin-top: 12px;
+      }
+
+      .strategy-strip {
+        padding: 48px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+
+      .strategy-card {
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 24px;
+        background: var(--surface2);
+      }
+
+      .strategy-card h3 {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 18px;
+        letter-spacing: 2px;
+        margin-bottom: 12px;
+      }
+
+      .strategy-card ul {
+        list-style: none;
+      }
+
+      .strategy-card li {
+        font-size: 12px;
+        color: var(--muted);
+        padding: 6px 0;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .strategy-card li:last-child { border-bottom: none; }
+
+      .strategy-card li span {
+        opacity: 0.4;
+        flex-shrink: 0;
+        font-size: 10px;
+        margin-top: 2px;
+      }
+
+      @media (max-width: 1100px) {
+        .overview-grid { grid-template-columns: 1fr 1fr; }
+        .overview-card:nth-child(2) { border-right: none; }
+        .overview-card:nth-child(3) { border-right: 1px solid var(--border); border-top: 1px solid var(--border); }
+        .overview-card:nth-child(4) { border-top: 1px solid var(--border); border-right: none; }
+      }
+
+      @media (max-width: 700px) {
+        .overview-grid { grid-template-columns: 1fr; }
+        .overview-card { border-right: none; border-top: 1px solid var(--border); }
+        .strategy-strip { grid-template-columns: 1fr; padding: 24px; }
+      }
+
+      /* colour helpers */
+      .c1 { color: var(--p1); }
+      .c2 { color: var(--p2); }
+      .c3 { color: var(--p3); }
+      .c4 { color: var(--p4); }
+      .b1 { border-color: var(--p1); }
+      .b2 { border-color: var(--p2); }
+      .b3 { border-color: var(--p3); }
+      .b4 { border-color: var(--p4); }
+      .bg1 { background: var(--p1-dim); }
+      .bg2 { background: var(--p2-dim); }
+      .bg3 { background: var(--p3-dim); }
+      .bg4 { background: var(--p4-dim); }
+
+      .divider {
+        height: 1px;
+        background: var(--border);
+        margin: 0 48px;
+      }
+
+      .footnote {
+        padding: 20px 48px;
+        font-size: 11px;
+        color: var(--dim);
+        font-family: 'DM Mono', monospace;
+        border-top: 1px solid var(--border);
+      }
+    </style>
+
+    <header>
+      <div class="logo-block">
+        <h1>EXPATBUILDR</h1>
+        <p>YouTube Outlier Architecture — 2026 Edition</p>
+      </div>
+      <div class="header-meta">
+        <div class="meta-chip">4 Pillars</div>
+        <div class="meta-chip">50 Video Concepts</div>
+        <div class="meta-chip">4 Master Scripts</div>
+        <div class="meta-chip">Target: Views/Subs &gt;5×</div>
+      </div>
+    </header>
+
+    <div class="tab-bar">
+      <button class="tab active" data-pillar="0" onclick="switchTab(0)">Overview</button>
+      <button class="tab" data-pillar="1" onclick="switchTab(1)">🟡 Remote Income</button>
+      <button class="tab" data-pillar="2" onclick="switchTab(2)">🟢 Lead Gen</button>
+      <button class="tab" data-pillar="3" onclick="switchTab(3)">🔴 Geo-Arbitrage</button>
+      <button class="tab" data-pillar="4" onclick="switchTab(4)">🔵 Grants</button>
+    </div>
+
+    <!-- ══════════════ OVERVIEW ══════════════ -->
+    <div id="panel-0" class="panel active">
+      <div class="overview-grid">
+        <div class="overview-card">
+          <div class="ov-accent" style="background:var(--p1)"></div>
+          <div class="ov-num c1">01</div>
+          <div class="ov-pillar">Remote Income</div>
+          <div class="ov-focus">Focus: <strong>The System</strong> — Automated income vs gig work. Show the difference between trading time and owning a machine.</div>
+        </div>
+        <div class="overview-card">
+          <div class="ov-accent" style="background:var(--p2)"></div>
+          <div class="ov-num c2">02</div>
+          <div class="ov-pillar">Lead Generation</div>
+          <div class="ov-focus">Focus: <strong>Data Assets &amp; B2B Arbitrage</strong> — Turn scraped intent signals into booked calls. Own the data, own the pipeline.</div>
+        </div>
+        <div class="overview-card">
+          <div class="ov-accent" style="background:var(--p3)"></div>
+          <div class="ov-num c3">03</div>
+          <div class="ov-pillar">Geo-Arbitrage</div>
+          <div class="ov-focus">Focus: <strong>Compound Building + Tax-Free Residency</strong> — Family-first arbitrage with USD income in a PHP world.</div>
+        </div>
+        <div class="overview-card">
+          <div class="ov-accent" style="background:var(--p4)"></div>
+          <div class="ov-num c4">04</div>
+          <div class="ov-pillar">Business Grants</div>
+          <div class="ov-focus">Focus: <strong>AI-Driven Discovery + Hidden Funding</strong> — Surface $0-equity money most founders never see.</div>
+        </div>
+      </div>
+
+      <div class="strategy-strip">
+        <div class="strategy-card">
+          <h3 style="color:var(--p1)">What Makes an Outlier?</h3>
+          <ul>
+            <li><span>01</span> Views/Subs ratio exceeds 5× (target 10–50×)</li>
+            <li><span>02</span> Surfaces via Homepage, not Search — emotion beats keyword</li>
+            <li><span>03</span> Hook answers the viewer's secret fear or forbidden desire</li>
+            <li><span>04</span> Thumbnail creates a "gap of curiosity" — you need to close it</li>
+            <li><span>05</span> First 30 seconds makes a promise that feels new</li>
+            <li><span>06</span> Screen-share proof in the first 2 minutes kills doubt</li>
+            <li><span>07</span> Comments section reveals the 3 pain points the original missed</li>
+          </ul>
+        </div>
+        <div class="strategy-card">
+          <h3 style="color:var(--p2)">ExpatBuildr 2026 Edge</h3>
+          <ul>
+            <li><span>◆</span> AI Lead Scoring — only pitch leads with intent signals</li>
+            <li><span>◆</span> AI Routing — match lead to offer automatically via Make.com</li>
+            <li><span>◆</span> Lifestyle Arbitrage Calculator — live USD→PHP salary widget</li>
+            <li><span>◆</span> GrantWisdom SaaS — proprietary AI grant discovery engine</li>
+            <li><span>◆</span> Remote Work Sniper — private scraper surfacing hidden jobs first</li>
+            <li><span>◆</span> Galaxy Arbitrage Newsletter — proof flywheel for every video</li>
+            <li><span>◆</span> 50-Agent AI Factory — content at scale without AI-slop quality</li>
+          </ul>
+        </div>
+        <div class="strategy-card">
+          <h3 style="color:var(--p3)">Remake Formula (Every Video)</h3>
+          <ul>
+            <li><span>01</span> Find the Outlier — Views/Subs &gt;5× in niche via vidIQ/1of10</li>
+            <li><span>02</span> Mine the comments — extract the top 3 unanswered questions</li>
+            <li><span>03</span> Cut runtime 30% — remove every explanation that lacks a demo</li>
+            <li><span>04</span> Lead with a screen-share result in the first 90 seconds</li>
+            <li><span>05</span> Inject ExpatBuildr proprietary system as the "2026 layer"</li>
+            <li><span>06</span> Title: Number + Specific Outcome + Unexpected Mechanism</li>
+            <li><span>07</span> Thumbnail: Dark bg, single face/result, 4-word max text</li>
+          </ul>
+        </div>
+        <div class="strategy-card">
+          <h3 style="color:var(--p4)">Channel Hybrid Model</h3>
+          <ul>
+            <li><span>◆</span> B-roll: cinematic city-at-night, screen dashboards, peso stacks</li>
+            <li><span>◆</span> Screen-share: live software demos, Make.com flows, GrantWisdom</li>
+            <li><span>◆</span> On-cam: Tony Leads personal brand, DC5 build updates as hooks</li>
+            <li><span>◆</span> Voiceover: authoritative but conversational — no AI robotic tone</li>
+            <li><span>◆</span> Pacing: cut to b-roll every 30–45 sec maximum</li>
+            <li><span>◆</span> CTA: "Join Galaxy Arbitrage newsletter for the full system"</li>
+            <li><span>◆</span> Funnel: YouTube → Beehiiv → Email list → SaaS/Services offer</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ PILLAR 1: REMOTE INCOME ══════════════ -->
+    <div id="panel-1" class="panel">
+      <div class="pillar-hero" style="background:linear-gradient(135deg,#0c0b08 60%,var(--p1-dim))">
+        <div class="pillar-label">
+          <span class="pillar-badge c1">PILLAR 01 — REMOTE INCOME</span>
+          <span class="pillar-tag c1 b1">The System</span>
+        </div>
+        <div class="pillar-stat bg1" style="border-color:rgba(255,209,102,0.2)">
+          <div class="stat-num c1">50×</div>
+          <div class="stat-label">Target Views/Subs Ratio</div>
+          <div class="stat-note">Outlier threshold begins at 5×. System videos peak at 30–80×</div>
+        </div>
+        <div class="pillar-stat bg1" style="border-color:rgba(255,209,102,0.2)">
+          <div class="stat-num c1">$83B</div>
+          <div class="stat-label">Marketing Automation Market</div>
+          <div class="stat-note">Viewers are searching for the automated version — not the hustle</div>
+        </div>
+        <div class="pillar-stat bg1" style="border-color:rgba(255,209,102,0.2)">
+          <div class="stat-num c1">22%</div>
+          <div class="stat-label">US Workforce Now Remote</div>
+          <div class="stat-note">32M people primed for geo-arb and system content crossover</div>
+        </div>
+      </div>
+
+      <div class="section-header">OUTLIER VIDEO CONCEPTS — 13 IDEAS</div>
+
+      <div class="video-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Outlier Hook (Viral Angle)</th>
+              <th>Why It Wins</th>
+              <th>Title / Thumbnail Combo</th>
+              <th>Screen-Shares to Include</th>
+              <th>ExpatBuildr 2026 Edge</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr>
+              <td class="row-num">01</td>
+              <td>
+                <div class="viral-angle c1 b1">IDENTITY THREAT</div>
+                <div class="outlier-hook">The Job Board Is a Trap — Here's the Exit</div>
+                <div class="hook-sub">Reframes applying to jobs as a wealth leak, not a path</div>
+              </td>
+              <td>
+                <span class="why-badge why-controversy">Controversy</span><br />
+                Challenges the consensus belief. "Hard work = success" is the villain here.
+              </td>
+              <td>
+                <div class="title-combo">"Stop Applying. Start Printing." [Remote Income System]</div>
+                <div class="thumb-note">🖼 Red X over job board logo. Dark bg. "THEY DON'T WANT YOU TO SEE THIS"</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Make.com automation flow sending job alerts to email list</li>
+                  <li>Revenue dashboard: retainer client vs one-off gig income comparison</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">Galaxy-Engine job scraper</span>
+                <span class="edge-pill">AI Lead Routing (client auto-assign)</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">02</td>
+              <td>
+                <div class="viral-angle c1 b1">SPEED / PROOF</div>
+                <div class="outlier-hook">$3,000 in 30 Days: No Freelance Platform, No Fiverr</div>
+                <div class="hook-sub">Result-first hook. Shows the "how" is counterintuitive</div>
+              </td>
+              <td>
+                <span class="why-badge why-utility">Utility</span><br />
+                Specific number + specific timeframe = maximum curiosity gap.
+              </td>
+              <td>
+                <div class="title-combo">"I Made $3K This Month Without Touching Upwork"</div>
+                <div class="thumb-note">🖼 Phone/laptop showing Stripe payment. Split: before (job board) vs after</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Stripe/PayPal dashboard with blurred name but real amounts</li>
+                  <li>Outreach system in Make.com — one automation, three clients booked</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">9-niche referral lead system</span>
+                <span class="edge-pill">AI Scoring (only pitch hot leads)</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">03</td>
+              <td>
+                <div class="viral-angle c1 b1">FORBIDDEN KNOWLEDGE</div>
+                <div class="outlier-hook">The Reason $100K Remote Jobs Never Post Online</div>
+                <div class="hook-sub">Explains why the best jobs are invisible — and how to access them</div>
+              </td>
+              <td>
+                <span class="why-badge why-controversy">Controversy</span><br />
+                "Hidden" + "They don't want you to know" triggers massive CTR.
+              </td>
+              <td>
+                <div class="title-combo">"The $100K Remote Job That Will Never Be Posted"</div>
+                <div class="thumb-note">🖼 Job listing with "HIDDEN" stamp. Dark. Yellow accent text on black</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Remote Work Sniper (anonymized) scraping unlisted job sources</li>
+                  <li>Galaxy Arbitrage newsletter email showing pre-public job alerts</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">Remote Work Sniper (private)</span>
+                <span class="edge-pill">Galaxy Arbitrage newsletter CTA</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">04</td>
+              <td>
+                <div class="viral-angle c1 b1">MATH ATTACK</div>
+                <div class="outlier-hook">Your Salary Is Worth 3× More in the Philippines</div>
+                <div class="hook-sub">Live salary conversion showing the purchasing power gap</div>
+              </td>
+              <td>
+                <span class="why-badge why-utility">Utility</span><br />
+                Numbers make it concrete. Crossover audience: geo-arb + remote income.
+              </td>
+              <td>
+                <div class="title-combo">"$5,000/mo USD = What in the Philippines? (You'll Be Shocked)"</div>
+                <div class="thumb-note">🖼 Two side-by-side: Manila luxury condo vs NYC studio. Same price</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>ExpatBuildr USD/PHP salary calculator widget (live demo)</li>
+                  <li>Numbeo cost-of-living comparison walkthrough</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">Lifestyle Arbitrage Calculator</span>
+                <span class="edge-pill">Galaxy Arbitrage brand crossover</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">05</td>
+              <td>
+                <div class="viral-angle c1 b1">ANTI-GURU</div>
+                <div class="outlier-hook">I Tested Every "Passive Income" System So You Don't Have To</div>
+                <div class="hook-sub">Destroys 5 popular methods, then reveals the one that works</div>
+              </td>
+              <td>
+                <span class="why-badge why-controversy">Controversy</span><br />
+                Anti-guru positioning is the fastest growing trust signal in 2026.
+              </td>
+              <td>
+                <div class="title-combo">"5 Passive Income Lies vs. 1 System That Actually Pays"</div>
+                <div class="thumb-note">🖼 Red X on course thumbnails montage. One gold checkmark at end</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Side-by-side revenue dashboards: gig work vs retainer automation</li>
+                  <li>ExpatBuildr automation client case study (anonymized monthly ARR)</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">Done-for-you /systems page</span>
+                <span class="edge-pill">50-Agent AI Factory proof</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">06</td>
+              <td>
+                <div class="viral-angle c1 b1">FAMILY HOOK</div>
+                <div class="outlier-hook">How a Dad of 4 Built a USD Income Without Leaving Home</div>
+                <div class="hook-sub">Personal story arc with Tony Leads on-camera — highest trust format</div>
+              </td>
+              <td>
+                <span class="why-badge why-identity">Identity</span><br />
+                Family-centric angle humanizes the brand. Audience sees themselves.
+              </td>
+              <td>
+                <div class="title-combo">"Dad of 4 Builds USD Business from Philippines (Full Story)"</div>
+                <div class="thumb-note">🖼 Tony on-cam with kids visible. Casual setting. Raw, unpolished thumbnail</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>ExpatBuildr Beehiiv dashboard showing subscriber growth</li>
+                  <li>Make.com automation delivering client reports — zero manual input</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">Tony Leads personal brand</span>
+                <span class="edge-pill">ExpatBuildr ecosystem reveal</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">07</td>
+              <td>
+                <div class="viral-angle c1 b1">COUNTERINTUITIVE</div>
+                <div class="outlier-hook">Stop Learning New Skills. Monetize What You Already Know</div>
+                <div class="hook-sub">Challenges the "reskilling" narrative. You're already qualified</div>
+              </td>
+              <td>
+                <span class="why-badge why-speed">Speed</span><br />
+                Removes the #1 barrier (not knowing enough) immediately in the hook.
+              </td>
+              <td>
+                <div class="title-combo">"You're Already Qualified. Here's How to Get Paid for It Remotely"</div>
+                <div class="thumb-note">🖼 "STOP LEARNING" in bold. Course icons crossed out. Your current skill highlighted</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Service packaging walkthrough using current skill → retainer offer</li>
+                  <li>Outreach sequence in Smartlead booking calls automatically</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">9-niche referral system</span>
+                <span class="edge-pill">AI Lead Scoring overlay</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">08</td>
+              <td>
+                <div class="viral-angle c1 b1">SYSTEM REVEAL</div>
+                <div class="outlier-hook">The Exact Automation Stack That Runs My Business While I Sleep</div>
+                <div class="hook-sub">Full system teardown — tools, flows, prompts — nothing held back</div>
+              </td>
+              <td>
+                <span class="why-badge why-utility">Utility</span><br />
+                "Exact" + "while I sleep" = high shareability. Saved thousands of times.
+              </td>
+              <td>
+                <div class="title-combo">"My Exact Automation Stack (Full Walkthrough, Nothing Hidden)"</div>
+                <div class="thumb-note">🖼 Flow diagram screenshot on dark bg. "NOTHING HELD BACK" badge</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Make.com full flow: lead capture → score → route → nurture → close</li>
+                  <li>Beehiiv dashboard showing automated welcome + upsell sequences</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">Galaxy-engine architecture</span>
+                <span class="edge-pill">AI Routing (Make.com live demo)</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">09</td>
+              <td>
+                <div class="viral-angle c1 b1">ARBITRAGE MATH</div>
+                <div class="outlier-hook">Hire a $3/hr VA, Charge Your Client $75/hr — Legal, Ethical, Scalable</div>
+                <div class="hook-sub">Exposes the staffing arbitrage model most agencies use secretly</div>
+              </td>
+              <td>
+                <span class="why-badge why-controversy">Controversy</span><br />
+                The math is shocking. The transparency is disarming. Watch time spikes.
+              </td>
+              <td>
+                <div class="title-combo">"The VA Arbitrage Model: $3 In, $75 Out (Is This Ethical?)"</div>
+                <div class="thumb-note">🖼 Two dollar amounts split screen. Question mark as visual hook</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Contra or OnlineJobs.ph showing real VA rates by skill</li>
+                  <li>Client invoice showing blended rate after VA arbitrage margin</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">VA hiring scale phase (90-day plan)</span>
+                <span class="edge-pill">ExpatBuildr /systems pricing model</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">10</td>
+              <td>
+                <div class="viral-angle c1 b1">FRAMEWORK DROP</div>
+                <div class="outlier-hook">The 3-Client Rule: Why You Should Never Have More Than This</div>
+                <div class="hook-sub">Counterintuitive cap on client count — forces premium pricing</div>
+              </td>
+              <td>
+                <span class="why-badge why-speed">Speed</span><br />
+                Specific number + "why less is more" = saved to watch list universally.
+              </td>
+              <td>
+                <div class="title-combo">"3 Clients Maximum. Here's Why More Will Destroy Your Income"</div>
+                <div class="thumb-note">🖼 "3" massive font. Slash through pile of logos. Minimalist dark</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Revenue model: 3 retainer clients at $2K vs 20 gig clients at $300</li>
+                  <li>AI Lead Scoring filtering out low-value leads automatically</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">AI Lead Scoring system</span>
+                <span class="edge-pill">Retainer pricing framework</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">11</td>
+              <td>
+                <div class="viral-angle c1 b1">COMPARISON TRAP</div>
+                <div class="outlier-hook">Dropshipping vs Lead Gen Agency vs Automation Services — 2026 Honest Breakdown</div>
+                <div class="hook-sub">Decision framework that filters out bad paths and lands on ExpatBuildr's model</div>
+              </td>
+              <td>
+                <span class="why-badge why-utility">Utility</span><br />
+                Comparison content is saved and shared. Algorithm loves the high dwell time.
+              </td>
+              <td>
+                <div class="title-combo">"3 Online Business Models Ranked — 1 Actually Works in 2026"</div>
+                <div class="thumb-note">🖼 Three logos ranked with trophy on one. Bold without being gimmicky</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Revenue timeline: each model shown month 1, 3, 6, 12 projections</li>
+                  <li>ExpatBuildr /systems page walkthrough as the winning model</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">Revenue projection dashboard</span>
+                <span class="edge-pill">ExpatBuildr root landing page</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">12</td>
+              <td>
+                <div class="viral-angle c1 b1">EMAIL LIST GOSPEL</div>
+                <div class="outlier-hook">Why Your Social Following Is Worth $0 (Build This Instead)</div>
+                <div class="hook-sub">Targets creators who lost accounts — references Tony's own backstory</div>
+              </td>
+              <td>
+                <span class="why-badge why-identity">Identity</span><br />
+                Shared trauma of account loss. The email list as survival asset resonates deeply.
+              </td>
+              <td>
+                <div class="title-combo">"Your Instagram Followers Are Not Yours. Build This Instead."</div>
+                <div class="thumb-note">🖼 IG logo greyed out. Envelope icon in gold. "$0 vs $∞" text</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Beehiiv dashboard: open rates, subscriber growth, revenue per subscriber</li>
+                  <li>Email automation sequence that auto-monetizes new subscribers</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">Galaxy Arbitrage Beehiiv brand</span>
+                <span class="edge-pill">100K subscriber email goal system</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">13</td>
+              <td>
+                <div class="viral-angle c1 b1">SELF-LIQ FUNNEL</div>
+                <div class="outlier-hook">The Funnel That Pays for Its Own Ads — Step by Step</div>
+                <div class="hook-sub">Self-liquidating funnel concept explained practically with real numbers</div>
+              </td>
+              <td>
+                <span class="why-badge why-speed">Speed</span><br />
+                "Pays for itself" is the most powerful concept in advertising. People share this.
+              </td>
+              <td>
+                <div class="title-combo">"This Funnel Pays for Its Own Ads (Copy It)"</div>
+                <div class="thumb-note">🖼 Funnel graphic with arrows showing money recycling back. Green glow effect</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Meta Ads Manager showing ROAS on front-end offer covering ad spend</li>
+                  <li>Beehiiv landing page + tripwire product flow walkthrough</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">Self-liquidating paid ads funnel</span>
+                <span class="edge-pill">Post-payment thank you page with pixel</span>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-header">VIRAL REMAKE MASTER-SCRIPT — REMOTE INCOME</div>
+
+      <div class="master-script">
+        <div class="script-header" style="background:var(--p1-dim);border-bottom-color:rgba(255,209,102,0.2)">
+          <span class="script-badge" style="background:var(--p1);color:#000">Remake</span>
+          <span class="script-title">"I Built a $5K/Month System in the Philippines With 0 Social Followers"</span>
+          <span class="meta-chip">~12 min target</span>
+        </div>
+        <div class="script-body">
+
+          <div class="script-section">
+            <div class="script-section-title c1">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--p1);display:block"></span>
+              TOP COMMENT PAIN POINTS ANSWERED
+            </div>
+            <div class="pain-item">
+              <div class="pain-q">"But I have no portfolio or clients to start with…"</div>
+              <div class="pain-a">→ Address at 2:30: The cold email audit method. Offer to audit their existing process for free, then sell the fix.</div>
+            </div>
+            <div class="pain-item">
+              <div class="pain-q">"What if my timezone is wrong for US clients?"</div>
+              <div class="pain-a">→ Address at 5:00: Philippines +8 advantage — you deliver while clients sleep. Results waiting in their inbox every morning.</div>
+            </div>
+            <div class="pain-item">
+              <div class="pain-q">"I tried this and got scammed / ghosted by clients"</div>
+              <div class="pain-a">→ Address at 8:00: AI Lead Scoring demo. Show how to filter time-wasters before a single DM is sent.</div>
+            </div>
+          </div>
+
+          <div class="script-section">
+            <div class="script-section-title c1">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--p1);display:block"></span>
+              BEAT-BY-BEAT SCRIPT STRUCTURE
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">0:00</div>
+              <div class="tl-content"><strong>The Forbidden Statement</strong><span>Open on result: "This dashboard made money while I drove my kids to school." Show screen first, context second.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">0:45</div>
+              <div class="tl-content"><strong>Destroy the Alternative</strong><span>30-second takedown of job boards, freelance platforms, drop-shipping — with one data point each.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">2:00</div>
+              <div class="tl-content"><strong>SCREEN-SHARE #1</strong><span>Make.com automation flow live. Show the pipeline: lead in, scored, routed, client email sent. Zero manual steps.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">4:30</div>
+              <div class="tl-content"><strong>The ExpatBuildr System Layer</strong><span>Introduce the 9-niche referral system + AI routing. Explain what legacy creators miss in 2026.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">7:00</div>
+              <div class="tl-content"><strong>SCREEN-SHARE #2</strong><span>Stripe/revenue dashboard. Blur personal info. Show retainer income vs one-off gig comparison.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">9:00</div>
+              <div class="tl-content"><strong>Pain Point Answers</strong><span>Directly address the top 3 comments from competing videos. Show empathy + solution in &lt;60 sec each.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">11:00</div>
+              <div class="tl-content"><strong>The Curiosity CTA</strong><span>"The piece I didn't show here — the actual scraper that finds clients before they post — is in the newsletter. Link below."</span></div>
+            </div>
+          </div>
+
+          <div class="script-section">
+            <div class="script-section-title c1">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--p1);display:block"></span>
+              SCREEN-SHARES REQUIRED
+            </div>
+            <ul class="screen-share-list">
+              <li>Make.com: 6-step lead-to-client automation flow (live run, not screenshot)</li>
+              <li>Stripe/PayPal: Monthly retainer income — real numbers, blurred names</li>
+              <li>AI Lead Scoring: Show a lead scored 87/100 vs 23/100 — explain the difference</li>
+              <li>Beehiiv: Subscriber growth chart + revenue per subscriber from Galaxy Arbitrage</li>
+              <li>ExpatBuildr /systems page: Live pricing + service tiers as the offer</li>
+            </ul>
+          </div>
+
+          <div class="script-section">
+            <div class="script-section-title c1">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--p1);display:block"></span>
+              WHY THE ORIGINAL FAILED + YOUR EDGE
+            </div>
+            <ul class="screen-share-list">
+              <li>Original missed: No proof of system working — only theory and voiceover</li>
+              <li>Original missed: No answer to "how do I get first client with zero portfolio"</li>
+              <li>Original missed: No geo-arb angle — treating remote work as location-neutral</li>
+              <li>Your edge: Show the Philippines context explicitly — viewers in SEA will share this</li>
+              <li>Your edge: Tony Leads on-cam humanizes the data. Faceless channels can't do this</li>
+              <li>Your edge: ExpatBuildr systems are real and demoable — not a hypothetical course</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ PILLAR 2: LEAD GEN ══════════════ -->
+    <div id="panel-2" class="panel">
+      <div class="pillar-hero" style="background:linear-gradient(135deg,#080e0c 60%,var(--p2-dim))">
+        <div class="pillar-label">
+          <span class="pillar-badge c2">PILLAR 02 — LEAD GENERATION</span>
+          <span class="pillar-tag c2 b2">Data Assets + B2B Arbitrage</span>
+        </div>
+        <div class="pillar-stat bg2" style="border-color:rgba(6,214,160,0.2)">
+          <div class="stat-num c2">79%</div>
+          <div class="stat-label">B2B Marketers Using AI</div>
+          <div class="stat-note">Your audience is already sold on AI — show them the implementation</div>
+        </div>
+        <div class="pillar-stat bg2" style="border-color:rgba(6,214,160,0.2)">
+          <div class="stat-num c2">20–30%</div>
+          <div class="stat-label">Reply Rates: Intent-Based Outreach</div>
+          <div class="stat-note">vs industry average of 2–4%. The data asset angle is the gap</div>
+        </div>
+        <div class="pillar-stat bg2" style="border-color:rgba(6,214,160,0.2)">
+          <div class="stat-num c2">50+</div>
+          <div class="stat-label">Data Sources Clay Can Enrich From</div>
+          <div class="stat-note">Stack this with AI routing = 2026's highest-margin lead engine</div>
+        </div>
+      </div>
+
+      <div class="section-header">OUTLIER VIDEO CONCEPTS — 12 IDEAS</div>
+
+      <div class="video-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Outlier Hook (Viral Angle)</th>
+              <th>Why It Wins</th>
+              <th>Title / Thumbnail Combo</th>
+              <th>Screen-Shares to Include</th>
+              <th>ExpatBuildr 2026 Edge</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="row-num">01</td>
+              <td>
+                <div class="viral-angle c2 b2">DATA ASSET</div>
+                <div class="outlier-hook">Why Your List is Worthless — And What to Build Instead</div>
+                <div class="hook-sub">Reframes lead gen from volume to intent-signal data ownership</div>
+              </td>
+              <td>
+                <span class="why-badge why-controversy">Controversy</span><br />
+                Attacks the sacred cow of "more leads = more money." Triggers debate.
+              </td>
+              <td>
+                <div class="title-combo">"Your Lead List is Worthless. Build This Data Asset Instead."</div>
+                <div class="thumb-note">🖼 Spreadsheet with big red X. New "SIGNAL" visual replacing it</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Clay enrichment flow: raw contact → 50-source intent profile</li>
+                  <li>Reply rate dashboard: old list vs intent-enriched list comparison</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">AI Lead Scoring system</span>
+                <span class="edge-pill">Galaxy-engine data layer</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">02</td>
+              <td>
+                <div class="viral-angle c2 b2">STACK REVEAL</div>
+                <div class="outlier-hook">The $0 Lead Gen Stack That Books 15 Calls a Month</div>
+                <div class="hook-sub">Full tool stack walkthrough — free tier versions of Clay, Apollo, n8n</div>
+              </td>
+              <td>
+                <span class="why-badge why-utility">Utility</span><br />
+                "$0" removes the barrier. "15 calls" is the specific, believable outcome.
+              </td>
+              <td>
+                <div class="title-combo">"$0 Lead Gen Stack That Books 15 Calls/Month (Full Setup)"</div>
+                <div class="thumb-note">🖼 Tool logos floating around "$0". Green accent. Clean dark bg</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>n8n free workflow: LinkedIn trigger → Apollo enrichment → Smartlead sequence</li>
+                  <li>Booked calls calendar showing 15+ meetings from one automation</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">Make.com AI orchestration</span>
+                <span class="edge-pill">ExpatBuildr /systems DFY offer</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">03</td>
+              <td>
+                <div class="viral-angle c2 b2">ARBITRAGE EXPOSE</div>
+                <div class="outlier-hook">US Agencies Pay $5,000 for This. You Can Build It for $200.</div>
+                <div class="hook-sub">Breaks down the B2B lead gen agency pricing model from inside</div>
+              </td>
+              <td>
+                <span class="why-badge why-controversy">Controversy</span><br />
+                Exposes the markup. Agencies hate this video. Everyone else shares it.
+              </td>
+              <td>
+                <div class="title-combo">"Agencies Charge $5K for This. I'll Show You the $200 Version."</div>
+                <div class="thumb-note">🖼 "$5,000 → $200" in split. Shocked face or clean data visual</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Agency proposal PDF vs your DIY stack cost breakdown (live calc)</li>
+                  <li>ExpatBuildr automation services pricing — show the arbitrage gap</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">B2B arbitrage model</span>
+                <span class="edge-pill">/systems page as the "do it yourself" alternative</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">04</td>
+              <td>
+                <div class="viral-angle c2 b2">INTENT DATA</div>
+                <div class="outlier-hook">I Only Reach Out to People Who Are Already Ready to Buy</div>
+                <div class="hook-sub">Intent signal filtering — G2 reviews, job postings, LinkedIn activity</div>
+              </td>
+              <td>
+                <span class="why-badge why-utility">Utility</span><br />
+                Solves the #1 outreach complaint: wasted time on unqualified leads.
+              </td>
+              <td>
+                <div class="title-combo">"How I Only DM People Who Are Already Looking to Buy"</div>
+                <div class="thumb-note">🖼 Target crosshairs on "ready buyer" profile. Sniper aesthetic</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Trigify: live intent signal dashboard showing G2 + LinkedIn triggers</li>
+                  <li>AI Lead Scoring showing 80+ scored leads vs filtered low-intent</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">AI Lead Scoring (ExpatBuildr proprietary)</span>
+                <span class="edge-pill">Remote Work Sniper signal-detection logic</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">05</td>
+              <td>
+                <div class="viral-angle c2 b2">COLD EMAIL KILL</div>
+                <div class="outlier-hook">Cold Email is Dead. Here's What Replaced It in 2026.</div>
+                <div class="hook-sub">Omnichannel signal-triggered outreach as the successor</div>
+              </td>
+              <td>
+                <span class="why-badge why-speed">Speed</span><br />
+                "Dead" in a title is a perpetual outlier trigger. Saved by every cold emailer.
+              </td>
+              <td>
+                <div class="title-combo">"Cold Email is Dead in 2026 (What Actually Works Now)"</div>
+                <div class="thumb-note">🖼 R.I.P. tombstone with "Cold Email" engraved. Dark. Dramatic</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Warmly: real-time website visitor → immediate LinkedIn + email trigger</li>
+                  <li>Old cold email reply rate vs signal-triggered reply rate side-by-side</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">AI Routing (lead to right channel auto)</span>
+                <span class="edge-pill">ReplyGun hybrid AI+human reply engine</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">06</td>
+              <td>
+                <div class="viral-angle c2 b2">CLAY TUTORIAL</div>
+                <div class="outlier-hook">Clay.com Full Walkthrough — The Tool Every Agency Hides From Clients</div>
+                <div class="hook-sub">Step-by-step Clay enrichment tutorial — agencies don't teach this publicly</div>
+              </td>
+              <td>
+                <span class="why-badge why-utility">Utility</span><br />
+                Tutorial + "agencies hide this" = saved to watch later 10× more often.
+              </td>
+              <td>
+                <div class="title-combo">"Clay.com Full Tutorial — Why Agencies Don't Want You to See This"</div>
+                <div class="thumb-note">🖼 Clay interface screenshot. "AGENCIES HATE THIS" badge overlay</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Clay: build a 500-contact enriched list from scratch in real time</li>
+                  <li>Export the list + drop into Smartlead sequence — full pipeline live</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">AI Lead Scoring integrated on top of Clay</span>
+                <span class="edge-pill">ExpatBuildr DFY offer as the upgrade path</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">07</td>
+              <td>
+                <div class="viral-angle c2 b2">REFERRAL ENGINE</div>
+                <div class="outlier-hook">The 9-Niche Referral System That Sends Me Warm Leads Daily</div>
+                <div class="hook-sub">How to build a referral flywheel across adjacent niches without ads</div>
+              </td>
+              <td>
+                <span class="why-badge why-identity">Identity</span><br />
+                "Warm leads daily" is the dream state. Specific number (9) creates curiosity gap.
+              </td>
+              <td>
+                <div class="title-combo">"I Get Warm Leads Every Day From 9 Niches (No Ads)"</div>
+                <div class="thumb-note">🖼 9 icons in a web/network diagram flowing into one inbox</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>CRM showing referral source tags across all 9 niches live</li>
+                  <li>Automated thank-you + reciprocal referral sequence in Make.com</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">9-niche referral lead system (proprietary)</span>
+                <span class="edge-pill">AI routing by niche-to-offer match</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">08</td>
+              <td>
+                <div class="viral-angle c2 b2">RETARGETING REVEAL</div>
+                <div class="outlier-hook">How I Retarget Website Visitors Without Installing a Single Pixel</div>
+                <div class="hook-sub">Cookieless retargeting using LinkedIn + email signal matching</div>
+              </td>
+              <td>
+                <span class="why-badge why-speed">Speed</span><br />
+                "Without a pixel" challenges conventional wisdom. Retargeting audience is huge.
+              </td>
+              <td>
+                <div class="title-combo">"Retargeting Without a Pixel — The 2026 Method"</div>
+                <div class="thumb-note">🖼 Pixel icon with X. New flow diagram showing cookieless method</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Surfe + LinkedIn: visitor ID → CRM tag → automated outreach trigger</li>
+                  <li>GA4 + Meta Pixel combo showing retargeting audience build without direct cookie</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">ExpatBuildr analytics stack (GA4, Meta, MS Clarity, TikTok)</span>
+                <span class="edge-pill">Self-liq funnel retargeting layer</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">09</td>
+              <td>
+                <div class="viral-angle c2 b2">VOICE AI</div>
+                <div class="outlier-hook">I Used an AI Voice Agent to Qualify 200 Leads While I Was Offline</div>
+                <div class="hook-sub">AI voice call qualification — Retell or Air AI demo</div>
+              </td>
+              <td>
+                <span class="why-badge why-speed">Speed</span><br />
+                "While I was offline" is the passive income dream made literal and technical.
+              </td>
+              <td>
+                <div class="title-combo">"AI Called 200 Leads For Me While I Slept (Here's What Happened)"</div>
+                <div class="thumb-note">🖼 AI voice wave graphic. "200 LEADS QUALIFIED" counter visual</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Retell AI: live call recording played back + transcript with lead score</li>
+                  <li>CRM showing which leads advanced to booked call after AI qualification</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">AI Routing (voice → CRM → human handoff)</span>
+                <span class="edge-pill">ExpatBuildr /systems DFY implementation offer</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">10</td>
+              <td>
+                <div class="viral-angle c2 b2">COMMUNITY REPLY</div>
+                <div class="outlier-hook">I Generated 47 Leads From Reddit Comments in 30 Days (No Ads)</div>
+                <div class="hook-sub">ReplyGun methodology: community comment-to-lead pipeline</div>
+              </td>
+              <td>
+                <span class="why-badge why-utility">Utility</span><br />
+                Specific number (47) + zero ad spend = maximum save rate. Audience is curious.
+              </td>
+              <td>
+                <div class="title-combo">"47 Leads From Reddit Comments. $0 Ad Spend. (How I Did It)"</div>
+                <div class="thumb-note">🖼 Reddit alien icon + leads counter. Dark industrial aesthetic</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>ReplyGun desktop app walkthrough (without revealing source code)</li>
+                  <li>Lead tracking: Reddit comment → DM → email opt-in → call booked</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">ReplyGun (Electron app, Claude API — show without fully revealing)</span>
+                <span class="edge-pill">Tony Leads persona Reddit community play</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">11</td>
+              <td>
+                <div class="viral-angle c2 b2">SCORING FRAMEWORK</div>
+                <div class="outlier-hook">I Stop Talking to Leads Who Score Below 60 — Here's My System</div>
+                <div class="hook-sub">AI lead scoring threshold framework — ruthless efficiency positioning</div>
+              </td>
+              <td>
+                <span class="why-badge why-controversy">Controversy</span><br />
+                "I refuse leads" is a power move most people have never heard. Must-watch.
+              </td>
+              <td>
+                <div class="title-combo">"I Reject 70% of My Leads. Here's Why I Make More Money."</div>
+                <div class="thumb-note">🖼 70% in red. 30% in gold. "REJECTED" stamp. Clean dark layout</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>AI Lead Scoring dashboard: live score breakdown on real lead (blurred)</li>
+                  <li>Revenue comparison: high-volume low-quality vs low-volume high-quality</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">AI Lead Scoring (ExpatBuildr proprietary system)</span>
+                <span class="edge-pill">3-client rule framework (cross-pillar tie-in)</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">12</td>
+              <td>
+                <div class="viral-angle c2 b2">CASE STUDY</div>
+                <div class="outlier-hook">From 0 to 15 B2B Clients in 90 Days: The Exact Playbook</div>
+                <div class="hook-sub">Narrative case study format — most credible video type for B2B audience</div>
+              </td>
+              <td>
+                <span class="why-badge why-identity">Identity</span><br />
+                "From 0" positioning means even beginners see themselves in the story.
+              </td>
+              <td>
+                <div class="title-combo">"0 to 15 B2B Clients in 90 Days — Complete Playbook"</div>
+                <div class="thumb-note">🖼 Timeline graphic: Day 0 → Day 90 with milestones. Minimal. Dark</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>CRM timeline showing client acquisition dates over 90 days</li>
+                  <li>Full outreach sequence (email + LinkedIn + voice) shown in Make.com</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">90-day 3-phase execution plan (organic → retargeting → VA)</span>
+                <span class="edge-pill">ExpatBuildr ecosystem as the proof vehicle</span>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-header">VIRAL REMAKE MASTER-SCRIPT — LEAD GEN</div>
+
+      <div class="master-script">
+        <div class="script-header" style="background:var(--p2-dim);border-bottom-color:rgba(6,214,160,0.2)">
+          <span class="script-badge" style="background:var(--p2);color:#000">Remake</span>
+          <span class="script-title">"The B2B Data Asset That Replaces Cold Email (2026 Stack Reveal)"</span>
+          <span class="meta-chip">~14 min target</span>
+        </div>
+        <div class="script-body">
+          <div class="script-section">
+            <div class="script-section-title c2">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--p2);display:block"></span>
+              TOP COMMENT PAIN POINTS ANSWERED
+            </div>
+            <div class="pain-item">
+              <div class="pain-q">"Clay is too expensive for a beginner, what's the free alternative?"</div>
+              <div class="pain-a">→ Address at 3:00: n8n + Apollo free tier stack. Show exact same output for $0/mo.</div>
+            </div>
+            <div class="pain-item">
+              <div class="pain-q">"My emails keep hitting spam even with warmup tools."</div>
+              <div class="pain-a">→ Address at 6:30: Inbox rotation strategy in Smartlead. Show deliverability score before and after.</div>
+            </div>
+            <div class="pain-item">
+              <div class="pain-q">"I got replies but no one books a call — what's broken?"</div>
+              <div class="pain-a">→ Address at 10:00: AI routing demo — replies auto-scored, hot leads get human follow-up within 5 min.</div>
+            </div>
+          </div>
+
+          <div class="script-section">
+            <div class="script-section-title c2">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--p2);display:block"></span>
+              BEAT-BY-BEAT SCRIPT STRUCTURE
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">0:00</div>
+              <div class="tl-content"><strong>Result First</strong><span>"This is a booked call. It came from someone who visited our website 4 minutes ago." Show Warmly notification live.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">1:30</div>
+              <div class="tl-content"><strong>The Data Asset Thesis</strong><span>Your list of contacts is a liability. A list of contacts with intent scores is an asset. Define the difference clearly.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">3:30</div>
+              <div class="tl-content"><strong>SCREEN-SHARE #1: Clay Build</strong><span>Live: pull 500 leads from LinkedIn search → enrich in Clay → score with AI scoring layer. Show 80+ vs sub-60 leads.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">7:00</div>
+              <div class="tl-content"><strong>SCREEN-SHARE #2: Outreach Sequence</strong><span>Drop enriched list into Smartlead. Show the 5-step sequence. Show inbox rotation. Show reply rate dashboard.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">10:00</div>
+              <div class="tl-content"><strong>AI Routing Layer</strong><span>ExpatBuildr's proprietary layer: reply comes in → AI reads sentiment → routes hot lead to human, warm to nurture, cold to unsubscribe.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">12:30</div>
+              <div class="tl-content"><strong>Pain Point Responses</strong><span>Answer the top 3 comments from the original video. Use their exact language. This creates a direct community bridge.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">13:30</div>
+              <div class="tl-content"><strong>CTA: The Missing Piece</strong><span>"I didn't show the scoring model logic here — that's protected IP. But the framework is in the Galaxy Arbitrage newsletter."</span></div>
+            </div>
+          </div>
+
+          <div class="script-section">
+            <div class="script-section-title c2">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--p2);display:block"></span>
+              SCREEN-SHARES REQUIRED
+            </div>
+            <ul class="screen-share-list">
+              <li>Warmly: real-time website visitor identified → auto-trigger fired</li>
+              <li>Clay: 500-contact enrichment from LinkedIn in real time</li>
+              <li>AI Lead Scoring: live score display with signal breakdown (no source code)</li>
+              <li>Smartlead: sequence setup + deliverability score + reply rate dashboard</li>
+              <li>Make.com: AI routing flow from reply to human handoff</li>
+            </ul>
+          </div>
+
+          <div class="script-section">
+            <div class="script-section-title c2">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--p2);display:block"></span>
+              WHY THE ORIGINAL FAILED + YOUR EDGE
+            </div>
+            <ul class="screen-share-list">
+              <li>Original: Taught cold email tactics without intent data layer — outdated in 2026</li>
+              <li>Original: No AI routing — manual follow-up = bottleneck every viewer hits</li>
+              <li>Original: No B2B arbitrage framing — didn't show the agency margin opportunity</li>
+              <li>Your edge: ExpatBuildr AI scoring is proprietary — nobody else has this demo</li>
+              <li>Your edge: ReplyGun + Make.com combo shown = the only full-stack lead engine on YouTube</li>
+              <li>Your edge: Philippines context = geo-arb cost advantage for outreach at scale</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ PILLAR 3: GEO-ARBITRAGE ══════════════ -->
+    <div id="panel-3" class="panel">
+      <div class="pillar-hero" style="background:linear-gradient(135deg,#0e080a 60%,var(--p3-dim))">
+        <div class="pillar-label">
+          <span class="pillar-badge c3">PILLAR 03 — GEO-ARBITRAGE</span>
+          <span class="pillar-tag c3 b3">Family Compound + Lifestyle Arbitrage</span>
+        </div>
+        <div class="pillar-stat bg3" style="border-color:rgba(239,71,111,0.2)">
+          <div class="stat-num c3">32M</div>
+          <div class="stat-label">Americans Working Remotely (2025)</div>
+          <div class="stat-note">All of them are potential geo-arb audience members</div>
+        </div>
+        <div class="pillar-stat bg3" style="border-color:rgba(239,71,111,0.2)">
+          <div class="stat-num c3">$80K</div>
+          <div class="stat-label">Economic Impact Per Remote Worker</div>
+          <div class="stat-note">Governments now building infrastructure to attract arb workers</div>
+        </div>
+        <div class="pillar-stat bg3" style="border-color:rgba(239,71,111,0.2)">
+          <div class="stat-num c3">7–12yr</div>
+          <div class="stat-label">FIRE Timeline Reduction via Geo-Arb</div>
+          <div class="stat-note">The real hook: it's not just savings — it's decades back</div>
+        </div>
+      </div>
+
+      <div class="section-header">OUTLIER VIDEO CONCEPTS — 12 IDEAS</div>
+
+      <div class="video-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Outlier Hook (Viral Angle)</th>
+              <th>Why It Wins</th>
+              <th>Title / Thumbnail Combo</th>
+              <th>Screen-Shares to Include</th>
+              <th>ExpatBuildr 2026 Edge</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="row-num">01</td>
+              <td>
+                <div class="viral-angle c3 b3">FAMILY MATH</div>
+                <div class="outlier-hook">How I'm Building a Compound for My 4 Kids on a USD Income in PH</div>
+                <div class="hook-sub">Personal story + family compound vision + USD/PHP math</div>
+              </td>
+              <td>
+                <span class="why-badge why-identity">Identity</span><br />
+                Family audience + specific number of kids = maximum relatability and share.
+              </td>
+              <td>
+                <div class="title-combo">"Building a Family Compound in PH on USD Income (Our Plan)"</div>
+                <div class="thumb-note">🖼 Tony on-cam or property/blueprint visual. Family-warm aesthetic</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>ExpatBuildr USD/PHP calculator showing monthly savings vs Manila costs</li>
+                  <li>Property research: PH land cost per sqm vs equivalent in US suburbs</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">Lifestyle Arbitrage Calculator (live demo)</span>
+                <span class="edge-pill">Tony Leads personal brand — this is the on-cam anchor video</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">02</td>
+              <td>
+                <div class="viral-angle c3 b3">TAX BOMB</div>
+                <div class="outlier-hook">The Philippines Has No Capital Gains Tax on Foreign Income — Here's What That Means</div>
+                <div class="hook-sub">Tax advantage of Philippines for USD earners — legal, documented</div>
+              </td>
+              <td>
+                <span class="why-badge why-utility">Utility</span><br />
+                Tax content has the highest save rate on YouTube. Everyone wants this.
+              </td>
+              <td>
+                <div class="title-combo">"How I Pay Almost Zero Tax on My USD Income (Philippines Legal Setup)"</div>
+                <div class="thumb-note">🖼 Tax forms with big X. PH flag icon. "LEGAL" badge prominent</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>BIR vs IRS comparison slide — foreign-sourced income treatment</li>
+                  <li>Annual tax liability calculator: PH-based USD earner vs US-based equivalent</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">Galaxy Arbitrage newsletter — tax issue deep dive</span>
+                <span class="edge-pill">GrantWisdom cross-promotion (PH gov grants)</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">03</td>
+              <td>
+                <div class="viral-angle c3 b3">DECADES BACK</div>
+                <div class="outlier-hook">Geo-Arbitrage Gave Me 10 Years Back — Here's the Math</div>
+                <div class="hook-sub">FIRE timeline compression framed as time reclaimed, not money saved</div>
+              </td>
+              <td>
+                <span class="why-badge why-identity">Identity</span><br />
+                "Time back" is the ultimate life-design hook. Saves > likes every time.
+              </td>
+              <td>
+                <div class="title-combo">"Moving to Southeast Asia Gave Me 10 Years of My Life Back"</div>
+                <div class="thumb-note">🖼 Calendar with "10 YEARS" reclaimed visual. Dark + warm tones</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Compound interest calculator: same savings rate, PH costs vs US costs, FIRE date difference</li>
+                  <li>Lifestyle Arbitrage Calculator showing monthly surplus for reinvestment</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">Lifestyle Arbitrage Calculator</span>
+                <span class="edge-pill">ExpatBuildr root landing page — this video is the top of funnel</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">04</td>
+              <td>
+                <div class="viral-angle c3 b3">REALITY CHECK</div>
+                <div class="outlier-hook">Nobody Talks About the Dark Side of Geo-Arbitrage</div>
+                <div class="hook-sub">Honest breakdown of isolation, client timezone friction, and lifestyle inflation</div>
+              </td>
+              <td>
+                <span class="why-badge why-controversy">Controversy</span><br />
+                Honesty in a hype-heavy niche is the fastest trust-builder. Anti-guru positioning.
+              </td>
+              <td>
+                <div class="title-combo">"The Dark Side of Living in SE Asia on USD (Nobody Says This)"</div>
+                <div class="thumb-note">🖼 Split: paradise beach vs isolation/dark room. "THE TRUTH" text</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Cost reality check: actual monthly spend vs YouTube influencer claims</li>
+                  <li>Lifestyle inflation calculator showing the common trap and how to avoid it</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">Tony Leads personal brand — credibility through honesty</span>
+                <span class="edge-pill">Galaxy Arbitrage newsletter as the solution resource</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">05</td>
+              <td>
+                <div class="viral-angle c3 b3">STACKING</div>
+                <div class="outlier-hook">The 3-Stack Strategy: Geo-Arb + Grants + Automation = Unstoppable</div>
+                <div class="hook-sub">ExpatBuildr ecosystem video — all pillars combined into one framework</div>
+              </td>
+              <td>
+                <span class="why-badge why-utility">Utility</span><br />
+                Cross-pillar framework. Extremely shareable. Introduces the ExpatBuildr ecosystem organically.
+              </td>
+              <td>
+                <div class="title-combo">"Stack These 3 Systems and Nothing Can Stop Your Income"</div>
+                <div class="thumb-note">🖼 3 stacked blocks: GEO / GRANTS / AUTOMATION. Pyramid visual. Gold top</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>ExpatBuildr root landing page — all three pillars shown live</li>
+                  <li>Revenue projection dashboard — stacked income streams modeled</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">ExpatBuildr full ecosystem reveal</span>
+                <span class="edge-pill">GrantWisdom + ArbRemote + /systems as the 3-stack proof</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">06</td>
+              <td>
+                <div class="viral-angle c3 b3">COMPARISON TOOL</div>
+                <div class="outlier-hook">Philippines vs Bali vs Mexico City for USD Earners — 2026 Honest Comparison</div>
+                <div class="hook-sub">Data-driven location comparison. Highly searched, highly saved.</div>
+              </td>
+              <td>
+                <span class="why-badge why-utility">Utility</span><br />
+                Comparison videos dominate geo-arb search. This is the annual "update" format.
+              </td>
+              <td>
+                <div class="title-combo">"Philippines vs Bali vs Mexico City — Which is Best for USD Remote Workers? (2026)"</div>
+                <div class="thumb-note">🖼 3 flag icons in brackets. Tournament-bracket visual. Minimal dark</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Numbeo: side-by-side cost breakdown across all three cities (live)</li>
+                  <li>Lifestyle Arbitrage Calculator: $5K/mo shown in each location's context</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">Lifestyle Arbitrage Calculator — embed as the decision tool</span>
+                <span class="edge-pill">Galaxy Arbitrage newsletter for the deep-dive report</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">07</td>
+              <td>
+                <div class="viral-angle c3 b3">KIDS + ARBI</div>
+                <div class="outlier-hook">Raising Kids in Southeast Asia on USD Income: What the Gurus Don't Show You</div>
+                <div class="hook-sub">Education, healthcare, safety — family-specific geo-arb concerns addressed honestly</div>
+              </td>
+              <td>
+                <span class="why-badge why-identity">Identity</span><br />
+                Parents with kids are the fastest-growing geo-arb subaudience. Almost zero content targets them.
+              </td>
+              <td>
+                <div class="title-combo">"Raising 4 Kids in the Philippines on USD. Real Talk."</div>
+                <div class="thumb-note">🖼 Tony + kids. Genuine setting. Not travel-blog aesthetic. Raw</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>International school school cost comparison: PH vs US vs UK (real tuition data)</li>
+                  <li>Monthly family budget breakdown — real numbers, all 6 people</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">Tony Leads personal brand — this IS the brand differentiation</span>
+                <span class="edge-pill">DC5 content angle as cultural identity hook</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">08</td>
+              <td>
+                <div class="viral-angle c3 b3">REMOTE VISA</div>
+                <div class="outlier-hook">Every Country Now Has a Remote Work Visa — Which One Actually Works?</div>
+                <div class="hook-sub">2026 digital nomad visa landscape ranked by practicality</div>
+              </td>
+              <td>
+                <span class="why-badge why-speed">Speed</span><br />
+                "Every country" feels like breaking news. High urgency + high utility.
+              </td>
+              <td>
+                <div class="title-combo">"Digital Nomad Visas in 2026 — Ranked by Someone Who Actually Researched Them"</div>
+                <div class="thumb-note">🖼 Passport with country flags. Tier list visual format. Ranked A–F</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Side-by-side visa requirement chart: income threshold, tax treatment, duration</li>
+                  <li>GrantWisdom showing PH government grants for returning remote workers</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">Galaxy Arbitrage newsletter — visa tracker as lead magnet</span>
+                <span class="edge-pill">GrantWisdom cross-pillar integration</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">09</td>
+              <td>
+                <div class="viral-angle c3 b3">LIFESTYLE CALC</div>
+                <div class="outlier-hook">I Built a Calculator That Shows Your Real Purchasing Power Anywhere</div>
+                <div class="hook-sub">Live demo of the ExpatBuildr USD/PHP calculator widget</div>
+              </td>
+              <td>
+                <span class="why-badge why-utility">Utility</span><br />
+                Interactive tools = highest share rate on YouTube. Viewers share to test with friends.
+              </td>
+              <td>
+                <div class="title-combo">"Enter Your Salary. See What You're ACTUALLY Worth Around the World."</div>
+                <div class="thumb-note">🖼 Calculator UI screenshot with "$5,000 → ₱280,000/mo" shown large</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>ExpatBuildr salary calculator widget — live demo on screen</li>
+                  <li>Numbeo integration showing real-time cost adjustments by city</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">Lifestyle Arbitrage Calculator (ExpatBuildr proprietary)</span>
+                <span class="edge-pill">ExpatBuildr root landing page as the destination</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">10</td>
+              <td>
+                <div class="viral-angle c3 b3">COMPOUND BUILD</div>
+                <div class="outlier-hook">The Arbitrage Compound: How I Plan to Own Land, a Home, and a Business by 40</div>
+                <div class="hook-sub">Long-form vision document / roadmap for compound-building via USD income</div>
+              </td>
+              <td>
+                <span class="why-badge why-identity">Identity</span><br />
+                Vision-casting content is the most-subscribed-after format. People want to follow the journey.
+              </td>
+              <td>
+                <div class="title-combo">"Land. Home. Business. All by 40. My Full Plan."</div>
+                <div class="thumb-note">🖼 Blueprint/compound sketch. Property + business icons. "MY PLAN" bold</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Revenue projection dashboard: year-by-year compound asset accumulation</li>
+                  <li>ExpatBuildr current ecosystem overview — this IS the business component</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">Revenue projection dashboard</span>
+                <span class="edge-pill">ExpatBuildr brand ecosystem reveal — the compound IS the business</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">11</td>
+              <td>
+                <div class="viral-angle c3 b3">CAR + CULTURE</div>
+                <div class="outlier-hook">Building a Track Car in the Philippines on USD Income — Why This is the Dream</div>
+                <div class="hook-sub">DC5 build story as a cultural identity hook — Codie Sanchez "interesting life" angle</div>
+              </td>
+              <td>
+                <span class="why-badge why-identity">Identity</span><br />
+                Crossover: car community + finance community + PH culture. Three audiences in one video.
+              </td>
+              <td>
+                <div class="title-combo">"Building My Dream Track Car in the Philippines Using USD Income"</div>
+                <div class="thumb-note">🖼 DC5 on track or garage. Tony on-cam. ExpatBuildr aesthetic subtle in bg</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>USD cost of DC5 mods in PH vs equivalent in US/Japan market comparison</li>
+                  <li>Monthly budget split: business reinvestment + family + car build fund</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">DC5 brand content strategy — serialized protagonist story</span>
+                <span class="edge-pill">Tony Leads personal brand magnetism</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">12</td>
+              <td>
+                <div class="viral-angle c3 b3">ESCAPE PLAN</div>
+                <div class="outlier-hook">If I Lost Everything Tomorrow, Here's Exactly What I Would Do First</div>
+                <div class="hook-sub">Reset scenario planning — the geo-arb + USD income rebuild from scratch</div>
+              </td>
+              <td>
+                <span class="why-badge why-speed">Speed</span><br />
+                Survival + rebuild framing is universally relatable. "From zero" is the most-saved video type.
+              </td>
+              <td>
+                <div class="title-combo">"Starting Over With $0 in the Philippines — My Exact First 90 Days"</div>
+                <div class="thumb-note">🖼 Empty wallet + Philippine skyline. "$0" in red. "90 DAYS" countdown</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Step-by-step: remote job in week 1 → first client by week 3 → system built by day 60</li>
+                  <li>Lifestyle Arbitrage Calculator: minimum income needed to live well in PH</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">Remote Work Sniper + 9-niche system as the "starting" tools</span>
+                <span class="edge-pill">ExpatBuildr ecosystem rebuild from scratch — credibility proof</span>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-header">VIRAL REMAKE MASTER-SCRIPT — GEO-ARBITRAGE</div>
+
+      <div class="master-script">
+        <div class="script-header" style="background:var(--p3-dim);border-bottom-color:rgba(239,71,111,0.2)">
+          <span class="script-badge" style="background:var(--p3);color:#fff">Remake</span>
+          <span class="script-title">"$5K/Month USD in the Philippines — How Our Family Actually Lives"</span>
+          <span class="meta-chip">~16 min target</span>
+        </div>
+        <div class="script-body">
+          <div class="script-section">
+            <div class="script-section-title c3">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--p3);display:block"></span>
+              TOP COMMENT PAIN POINTS ANSWERED
+            </div>
+            <div class="pain-item">
+              <div class="pain-q">"What about healthcare? Is it actually safe there?"</div>
+              <div class="pain-a">→ Address at 5:00: Private hospital cost comparison. Show actual invoice from Makati Medical vs US equivalent.</div>
+            </div>
+            <div class="pain-item">
+              <div class="pain-q">"My employer won't let me work outside the US. What do I do?"</div>
+              <div class="pain-a">→ Address at 8:30: The contractor pivot — how to restructure as a freelancer/contractor legally.</div>
+            </div>
+            <div class="pain-item">
+              <div class="pain-q">"I have kids in school — is international school expensive there?"</div>
+              <div class="pain-a">→ Address at 11:00: Real international school tuition data. Show it's 30–50% less than US private school.</div>
+            </div>
+          </div>
+
+          <div class="script-section">
+            <div class="script-section-title c3">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--p3);display:block"></span>
+              BEAT-BY-BEAT SCRIPT STRUCTURE
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">0:00</div>
+              <div class="tl-content"><strong>The Wealth Reveal</strong><span>Open mid-scene: Tony on camera in family home. "Our family monthly spend is ₱85,000. That's $1,500 USD. Watch what we get." Let the visuals sell it.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">1:30</div>
+              <div class="tl-content"><strong>The Math Layer</strong><span>Pull up Lifestyle Arbitrage Calculator live. Enter $5,000/mo. Show what that buys in Manila vs New York. Let the gap speak.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">3:30</div>
+              <div class="tl-content"><strong>SCREEN-SHARE #1: Budget Breakdown</strong><span>Actual monthly expenses: rent, school, food, transport, healthcare, car build fund, reinvestment. Real numbers. Real family.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">6:00</div>
+              <div class="tl-content"><strong>The USD Income Engine</strong><span>How ExpatBuildr generates the USD income. Brief system overview — no deep dive. CTA: full system in separate video.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">8:30</div>
+              <div class="tl-content"><strong>Pain Point 1 + 2</strong><span>Healthcare cost demo + contractor pivot explanation. Screen-share: actual invoice or Numbeo medical cost data.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">11:00</div>
+              <div class="tl-content"><strong>SCREEN-SHARE #2: FIRE Calculator</strong><span>Show the compound interest model: same savings rate in PH vs US. Retirement date shifts by 9 years. Emotional peak of the video.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">13:30</div>
+              <div class="tl-content"><strong>The DC5 Hook</strong><span>"And this is why I'm building a track car here — because I can afford to." 30-second DC5 b-roll. Subscribe CTA baked into it.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">15:00</div>
+              <div class="tl-content"><strong>CTA: Galaxy Arbitrage Newsletter</strong><span>"Every week I share the exact numbers — what I earn, spend, reinvest. No gatekeeping. Link below."</span></div>
+            </div>
+          </div>
+
+          <div class="script-section">
+            <div class="script-section-title c3">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--p3);display:block"></span>
+              SCREEN-SHARES REQUIRED
+            </div>
+            <ul class="screen-share-list">
+              <li>ExpatBuildr Lifestyle Arbitrage Calculator — live $5K USD → PHP demonstration</li>
+              <li>Real family monthly budget spreadsheet (blurred on sensitive line items)</li>
+              <li>FIRE date calculator: PH savings rate vs US savings rate comparison</li>
+              <li>Numbeo: Manila healthcare + school + rent vs US equivalent (live)</li>
+              <li>Revenue projection dashboard showing compound accumulation toward "family compound"</li>
+            </ul>
+          </div>
+
+          <div class="script-section">
+            <div class="script-section-title c3">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--p3);display:block"></span>
+              WHY THE ORIGINAL FAILED + YOUR EDGE
+            </div>
+            <ul class="screen-share-list">
+              <li>Original: Solo nomad framing — no content for parents or family units</li>
+              <li>Original: Lifestyle porn, no actual numbers — viewers can't replicate it</li>
+              <li>Original: No income engine shown — assumes viewer already has USD income</li>
+              <li>Your edge: 4 kids + compound-building goal = completely differentiated persona</li>
+              <li>Your edge: Real budget breakdown + ExpatBuildr as the live income engine</li>
+              <li>Your edge: DC5 build arc creates a serialized following no nomad channel has</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ PILLAR 4: GRANTS ══════════════ -->
+    <div id="panel-4" class="panel">
+      <div class="pillar-hero" style="background:linear-gradient(135deg,#080c10 60%,var(--p4-dim))">
+        <div class="pillar-label">
+          <span class="pillar-badge c4">PILLAR 04 — BUSINESS GRANTS</span>
+          <span class="pillar-tag c4 b4">AI Discovery + Hidden Funding</span>
+        </div>
+        <div class="pillar-stat bg4" style="border-color:rgba(17,138,178,0.2)">
+          <div class="stat-num c4">$4B+</div>
+          <div class="stat-label">Annual SBIR Grant Funding</div>
+          <div class="stat-note">Most founders never apply. The application gap is the content opportunity</div>
+        </div>
+        <div class="pillar-stat bg4" style="border-color:rgba(17,138,178,0.2)">
+          <div class="stat-num c4">42%</div>
+          <div class="stat-label">VC Dollars Went to AI Startups (2024)</div>
+          <div class="stat-note">Grants are the non-dilutive alternative every founder wants to know about</div>
+        </div>
+        <div class="pillar-stat bg4" style="border-color:rgba(17,138,178,0.2)">
+          <div class="stat-num c4">0%</div>
+          <div class="stat-label">Equity Given Up With Grant Funding</div>
+          <div class="stat-note">This one number is the hook that opens every grants video</div>
+        </div>
+      </div>
+
+      <div class="section-header">OUTLIER VIDEO CONCEPTS — 13 IDEAS</div>
+
+      <div class="video-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Outlier Hook (Viral Angle)</th>
+              <th>Why It Wins</th>
+              <th>Title / Thumbnail Combo</th>
+              <th>Screen-Shares to Include</th>
+              <th>ExpatBuildr 2026 Edge</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="row-num">01</td>
+              <td>
+                <div class="viral-angle c4 b4">EQUITY BOMB</div>
+                <div class="outlier-hook">You Don't Have to Give Away Equity — The Grants Nobody Told You About</div>
+                <div class="hook-sub">0% equity framing as the counterpoint to VC culture</div>
+              </td>
+              <td>
+                <span class="why-badge why-controversy">Controversy</span><br />
+                VC culture is the villain. Grants are the hero. A whole YouTube subculture is primed for this.
+              </td>
+              <td>
+                <div class="title-combo">"Stop Giving Away Equity. This Money is Free and Nobody Applies."</div>
+                <div class="thumb-note">🖼 VC handshake crossed out. Money bag with "FREE" label. Blue accent</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>GrantWisdom dashboard showing live grant opportunities by category</li>
+                  <li>Grants.gov SBIR search — show how few applications some grants receive</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">GrantWisdom SaaS — this IS the product demo video</span>
+                <span class="edge-pill">Galaxy Arbitrage newsletter grants section</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">02</td>
+              <td>
+                <div class="viral-angle c4 b4">AI DISCOVERY</div>
+                <div class="outlier-hook">I Used AI to Find $250,000 in Grants in 20 Minutes</div>
+                <div class="hook-sub">GrantWisdom demo as the hero — speed + dollar amount = outlier hook formula</div>
+              </td>
+              <td>
+                <span class="why-badge why-speed">Speed</span><br />
+                "20 minutes" + "$250,000" is the clearest value proposition in grants content.
+              </td>
+              <td>
+                <div class="title-combo">"AI Found Me $250K in Grants in 20 Minutes (Watch This)"</div>
+                <div class="thumb-note">🖼 AI interface with dollar figure prominently displayed. Timer visual</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>GrantWisdom: live search → AI match scoring → top 10 opportunities ranked</li>
+                  <li>Total eligible funding summed in real time as results populate</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">GrantWisdom SaaS — primary product demo</span>
+                <span class="edge-pill">AI matching algorithm shown (not source code) as differentiator</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">03</td>
+              <td>
+                <div class="viral-angle c4 b4">HIDDEN FUNDING</div>
+                <div class="outlier-hook">The $50K Grant That Has 8 Applicants — Here's Why Nobody Applies</div>
+                <div class="hook-sub">Surfaces real undersubscribed grants. Scarcity of competition is the hook</div>
+              </td>
+              <td>
+                <span class="why-badge why-utility">Utility</span><br />
+                "8 applicants" makes the opportunity feel personally accessible. FOMO + hope combo.
+              </td>
+              <td>
+                <div class="title-combo">"This $50K Grant Has 8 Applicants. I'll Show You Where to Find More."</div>
+                <div class="thumb-note">🖼 Grant listing with application count circled low. Spotlight effect</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>GrantWisdom: filter by competition score — show lowest-competition high-value grants</li>
+                  <li>Grants.gov application analytics: award rate vs average applicants per award</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">GrantWisdom competition-score filter (proprietary ranking)</span>
+                <span class="edge-pill">Galaxy Arbitrage newsletter — "hidden grants" as weekly feature</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">04</td>
+              <td>
+                <div class="viral-angle c4 b4">SBIR TUTORIAL</div>
+                <div class="outlier-hook">SBIR Grants Explained in 10 Minutes — The $4B Program Nobody Knows</div>
+                <div class="hook-sub">Foundational education content — evergreen, high search volume</div>
+              </td>
+              <td>
+                <span class="why-badge why-utility">Utility</span><br />
+                Educational anchor content. Builds trust. Drives GrantWisdom signups as the tool.
+              </td>
+              <td>
+                <div class="title-combo">"The $4 Billion Grant Program Nobody Applies To (SBIR Explained)"</div>
+                <div class="thumb-note">🖼 "$4,000,000,000" prominently displayed. Government seal muted in bg</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Seedfund.nsf.gov walkthrough — Phase I vs Phase II funding breakdown</li>
+                  <li>GrantWisdom: filter by SBIR → show AI-matched opportunities for typical startup</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">GrantWisdom SBIR category filter</span>
+                <span class="edge-pill">Galaxy Arbitrage grants newsletter section</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">05</td>
+              <td>
+                <div class="viral-angle c4 b4">WIN RATE HACK</div>
+                <div class="outlier-hook">The Grant Application Pattern That Gets Funded 3× More Often</div>
+                <div class="hook-sub">Statistical analysis of funded vs unfunded applications — pattern recognition angle</div>
+              </td>
+              <td>
+                <span class="why-badge why-utility">Utility</span><br />
+                "3× more often" is specific and believable. Writers save this to use immediately.
+              </td>
+              <td>
+                <div class="title-combo">"3× Higher Grant Win Rate — The Pattern No One Talks About"</div>
+                <div class="thumb-note">🖼 Success rate bar chart. 3× bar highlighted in blue. Clean minimal</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>GrantWisdom: AI-generated application brief showing winning pattern structure</li>
+                  <li>Granter.ai or OpenGrants comparison — show where GrantWisdom goes further</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">GrantWisdom AI brief generator (proprietary)</span>
+                <span class="edge-pill">Competitive differentiation from Granter + OpenGrants shown live</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">06</td>
+              <td>
+                <div class="viral-angle c4 b4">STACK ATTACK</div>
+                <div class="outlier-hook">You Can Apply to Multiple Grants Simultaneously — The Stack Strategy</div>
+                <div class="hook-sub">Grant stacking: apply to 5 simultaneously, one win funds the others</div>
+              </td>
+              <td>
+                <span class="why-badge why-speed">Speed</span><br />
+                "Simultaneously" breaks the one-at-a-time mental model. Counterintuitive + actionable.
+              </td>
+              <td>
+                <div class="title-combo">"Apply to 5 Grants at Once. Here's the Strategy."</div>
+                <div class="thumb-note">🖼 5 grant applications radiating from one document. Systematic visual</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>GrantWisdom: saved grants list → batch export → application tracker</li>
+                  <li>Project management board showing 5 simultaneous applications tracked</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">GrantWisdom saved opportunities + deadline tracker</span>
+                <span class="edge-pill">ExpatBuildr 50-agent factory to help write applications at scale</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">07</td>
+              <td>
+                <div class="viral-angle c4 b4">FOUNDER TYPE</div>
+                <div class="outlier-hook">These 5 Founder Types Get Grants Approved Every Time</div>
+                <div class="hook-sub">Persona-based grant matching — which type of founder has the highest hit rate</div>
+              </td>
+              <td>
+                <span class="why-badge why-identity">Identity</span><br />
+                Identity-based framework. Viewers identify themselves instantly. Max comment engagement.
+              </td>
+              <td>
+                <div class="title-combo">"Which Founder Type Wins Grants? (You Might Be Surprised)"</div>
+                <div class="thumb-note">🖼 5 character icons or silhouettes. Quiz-style visual. "ARE YOU ONE?"</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>GrantWisdom founder profile input → personalized grant match output</li>
+                  <li>Success rate overlay by founder type (aggregated, anonymized data)</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">GrantWisdom personalization engine</span>
+                <span class="edge-pill">Galaxy Arbitrage newsletter — "which type are you?" as list builder</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">08</td>
+              <td>
+                <div class="viral-angle c4 b4">AI WRITER</div>
+                <div class="outlier-hook">AI Wrote My Entire Grant Application. Here's What Happened.</div>
+                <div class="hook-sub">Experiment format — AI-written application success/fail analysis</div>
+              </td>
+              <td>
+                <span class="why-badge why-controversy">Controversy</span><br />
+                "AI wrote it" is polarizing. Both camps (pro-AI and skeptic) watch to the end.
+              </td>
+              <td>
+                <div class="title-combo">"I Let AI Write My Grant Application. Here's the Honest Result."</div>
+                <div class="thumb-note">🖼 Robot writing + question mark. "DID IT WORK?" tension text</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>GrantWisdom AI brief generator: input prompt → full application draft output</li>
+                  <li>Granter.ai comparison — show the quality gap between generic AI and GrantWisdom</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">GrantWisdom AI brief generator — the superior AI approach</span>
+                <span class="edge-pill">50-agent factory: human editorial layer over AI draft shown</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">09</td>
+              <td>
+                <div class="viral-angle c4 b4">NICHE GRANTS</div>
+                <div class="outlier-hook">Grants for Minority Founders, Single Parents, and Remote Workers — The List Nobody Compiled</div>
+                <div class="hook-sub">Underserved audience grant roundup — maximum shareability across communities</div>
+              </td>
+              <td>
+                <span class="why-badge why-utility">Utility</span><br />
+                Multiple identity groups share this to their own communities. Natural viral distribution.
+              </td>
+              <td>
+                <div class="title-combo">"Grants Made for You (That Nobody Told You About)"</div>
+                <div class="thumb-note">🖼 Diverse icons + envelope/money symbol. Warm inclusive visual</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>GrantWisdom: demographic filter applied → targeted opportunity list</li>
+                  <li>GrantWatch aggregator showing niche-specific grants (minority, parent, remote)</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">GrantWisdom demographic filter</span>
+                <span class="edge-pill">Galaxy Arbitrage newsletter — remote worker grant category</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">10</td>
+              <td>
+                <div class="viral-angle c4 b4">DEADLINE URGENCY</div>
+                <div class="outlier-hook">These Grants Close in 30 Days — Most Founders Have No Idea</div>
+                <div class="hook-sub">Time-sensitive content that drives immediate action (and newsletter signups)</div>
+              </td>
+              <td>
+                <span class="why-badge why-speed">Speed</span><br />
+                Urgency drives the highest immediate click rate of any content format.
+              </td>
+              <td>
+                <div class="title-combo">"7 Grants Closing This Month — Apply Before You Miss Them"</div>
+                <div class="thumb-note">🖼 Countdown clock visual. Grant logos fading out. Red urgency palette</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>GrantWisdom deadline tracker — grants closing within 30 days sorted by value</li>
+                  <li>One-click save to application tracker — show the workflow live</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">GrantWisdom deadline alert feature</span>
+                <span class="edge-pill">Galaxy Arbitrage newsletter — weekly "closing soon" grants feature</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">11</td>
+              <td>
+                <div class="viral-angle c4 b4">REJECTION AUDIT</div>
+                <div class="outlier-hook">I Got Rejected From 3 Grants. Here's Exactly Why (And How to Avoid It)</div>
+                <div class="hook-sub">Failure analysis — builds trust faster than any success story</div>
+              </td>
+              <td>
+                <span class="why-badge why-controversy">Controversy</span><br />
+                Failure content outperforms success content in trust-building. Vulnerable positioning.
+              </td>
+              <td>
+                <div class="title-combo">"3 Grant Rejections Analyzed — What the Reviewers Actually Look For"</div>
+                <div class="thumb-note">🖼 Rejection letter visual. "WHAT WENT WRONG" as the text hook</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>GrantWisdom rejection pattern detector — show common failure signals in applications</li>
+                  <li>Revised application scored by AI showing improvement from 43 → 78/100</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">GrantWisdom application scoring (before/after revision)</span>
+                <span class="edge-pill">Tony Leads personal brand — honest failure story = trust anchor</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">12</td>
+              <td>
+                <div class="viral-angle c4 b4">INTERNATIONAL</div>
+                <div class="outlier-hook">Grants Available to Non-US Founders (Most People Don't Know These Exist)</div>
+                <div class="hook-sub">International grant landscape — opens the addressable audience globally</div>
+              </td>
+              <td>
+                <span class="why-badge why-utility">Utility</span><br />
+                Opens a massive underserved audience. PH audience specifically needs this angle.
+              </td>
+              <td>
+                <div class="title-combo">"You Don't Have to Be American to Get This Grant Money"</div>
+                <div class="thumb-note">🖼 Globe with money flowing. "WORLDWIDE" text. Blue-dominant palette</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>GrantWisdom: international filter → Philippines-eligible grants shown</li>
+                  <li>World Bank + EU grant portals walkthrough for non-US founders</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">GrantWisdom international coverage</span>
+                <span class="edge-pill">Galaxy Arbitrage geo-arb + grants crossover angle</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="row-num">13</td>
+              <td>
+                <div class="viral-angle c4 b4">SAAS REVEAL</div>
+                <div class="outlier-hook">I Built a SaaS That Finds Grants — Here's the Full Product Walkthrough</div>
+                <div class="hook-sub">GrantWisdom product launch video — authority-building + user acquisition</div>
+              </td>
+              <td>
+                <span class="why-badge why-identity">Identity</span><br />
+                Founder-building-in-public content is the fastest-growing YouTube genre. Subscribes convert.
+              </td>
+              <td>
+                <div class="title-combo">"I Built an AI That Finds Grant Money — Here's the Full Demo"</div>
+                <div class="thumb-note">🖼 GrantWisdom interface UI prominently featured. Clean product screenshot</div>
+              </td>
+              <td>
+                <ul class="screen-share-list">
+                  <li>Full GrantWisdom product walkthrough: search → match → score → brief → track</li>
+                  <li>Behind-the-scenes: how the AI match scoring was built (high level, no code)</li>
+                </ul>
+              </td>
+              <td>
+                <span class="edge-pill">GrantWisdom full product (stealth → launch reveal)</span>
+                <span class="edge-pill">ExpatBuildr ecosystem — GrantWisdom as the SaaS pillar</span>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-header">VIRAL REMAKE MASTER-SCRIPT — GRANTS</div>
+
+      <div class="master-script">
+        <div class="script-header" style="background:var(--p4-dim);border-bottom-color:rgba(17,138,178,0.2)">
+          <span class="script-badge" style="background:var(--p4);color:#fff">Remake</span>
+          <span class="script-title">"The AI Found $340K in Grants My Business Qualifies For — Full Walkthrough"</span>
+          <span class="meta-chip">~13 min target</span>
+        </div>
+        <div class="script-body">
+          <div class="script-section">
+            <div class="script-section-title c4">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--p4);display:block"></span>
+              TOP COMMENT PAIN POINTS ANSWERED
+            </div>
+            <div class="pain-item">
+              <div class="pain-q">"I applied to 2 grants and got rejected. Is it even worth trying?"</div>
+              <div class="pain-a">→ Address at 4:00: Show competition-score filter — most people apply to oversubscribed grants. Wrong targeting, not wrong effort.</div>
+            </div>
+            <div class="pain-item">
+              <div class="pain-q">"I don't know how to write a grant proposal. It seems too technical."</div>
+              <div class="pain-a">→ Address at 7:30: GrantWisdom AI brief generator demo. Show it produces an 80% draft in 3 minutes.</div>
+            </div>
+            <div class="pain-item">
+              <div class="pain-q">"Do grants even exist for online businesses / international founders?"</div>
+              <div class="pain-a">→ Address at 10:30: GrantWisdom international + SaaS/digital business filter — show results live.</div>
+            </div>
+          </div>
+
+          <div class="script-section">
+            <div class="script-section-title c4">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--p4);display:block"></span>
+              BEAT-BY-BEAT SCRIPT STRUCTURE
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">0:00</div>
+              <div class="tl-content"><strong>The Equity Shock Open</strong><span>"Investors wanted 20% of my company for $50K. I said no — and found $340K for free. Here's how." Title card. No fluff.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">1:00</div>
+              <div class="tl-content"><strong>The Grants Myth Bust</strong><span>"Most people think grants are for nonprofits and universities. Wrong. The SBIR alone distributes $4B a year to for-profit startups."</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">2:30</div>
+              <div class="tl-content"><strong>SCREEN-SHARE #1: GrantWisdom Live Search</strong><span>Open GrantWisdom. Enter business profile. Show AI matching populate in real time. Running total of eligible funding on screen.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">5:00</div>
+              <div class="tl-content"><strong>Competition Score Filter</strong><span>"This is the feature that changes everything." Filter by lowest competition. Show a $75K grant with 12 total applicants historically.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">7:30</div>
+              <div class="tl-content"><strong>SCREEN-SHARE #2: AI Brief Generator</strong><span>Select one grant. Click "Generate Brief." Show the AI output in 3 minutes. Explain the 80/20: AI writes structure, you add specifics.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">10:00</div>
+              <div class="tl-content"><strong>Pain Point Answers</strong><span>Directly address the 3 top comments. International filter live demo. Then stack strategy walkthrough — apply to 5 simultaneously.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="tl-time">12:00</div>
+              <div class="tl-content"><strong>CTA: GrantWisdom + Newsletter</strong><span>"GrantWisdom is in beta. Early users get the competition-score filter free. Link below. And subscribe to Galaxy Arbitrage for the weekly hidden grants list."</span></div>
+            </div>
+          </div>
+
+          <div class="script-section">
+            <div class="script-section-title c4">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--p4);display:block"></span>
+              SCREEN-SHARES REQUIRED
+            </div>
+            <ul class="screen-share-list">
+              <li>GrantWisdom: full live search with business profile input → match results → total funding shown</li>
+              <li>Competition-score filter: sort by lowest competition → show $75K grant with 12 applicants</li>
+              <li>AI brief generator: 3-minute generation for one selected grant opportunity</li>
+              <li>GrantWisdom international filter: Philippines-eligible + digital business grants</li>
+              <li>Deadline tracker: grants closing within 30 days sorted by value + competition score</li>
+            </ul>
+          </div>
+
+          <div class="script-section">
+            <div class="script-section-title c4">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--p4);display:block"></span>
+              WHY THE ORIGINAL FAILED + YOUR EDGE
+            </div>
+            <ul class="screen-share-list">
+              <li>Original: Listed grants without helping viewers find their match — information overload</li>
+              <li>Original: No AI layer — all manual research, too time-consuming for most viewers</li>
+              <li>Original: No competition-score framing — viewers applied to the most popular, most contested grants</li>
+              <li>Your edge: GrantWisdom is the only demo tool in this space — you own the product and the content</li>
+              <li>Your edge: AI brief generator is a tangible, demoable shortcut nobody else shows</li>
+              <li>Your edge: International + Philippines angle opens a 300M+ person audience other channels ignore</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footnote">
+      EXPATBUILDR YOUTUBE OUTLIER ARCHITECTURE — 2026 ◆ 4 PILLARS ◆ 50 VIDEO CONCEPTS ◆ 4 MASTER SCRIPTS ◆ PROPRIETARY SYSTEMS: AI LEAD SCORING / AI ROUTING / LIFESTYLE ARBITRAGE CALCULATOR / GRANTWISDOM / REMOTE WORK SNIPER ◆ TARGET: Views/Subs &gt;5× ◆ NEVER REFERENCE: Remote Work Sniper source, galaxy-engine private repo, or ArbRemote before 500 email subscribers
+    </div>
+
+    <script is:inline>
+      function switchTab(idx) {
+        document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', i === idx));
+        document.querySelectorAll('.panel').forEach((p, i) => p.classList.toggle('active', i === idx));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    </script>
+  </div>
+</Layout>

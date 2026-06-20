@@ -1,0 +1,16 @@
+---
+import Strategy from '../../../strategy/galaxy-tweet-remixer.jsx';
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Tweet Remixer" noindex={true}>
+  <script is:inline>
+    if (localStorage.getItem('devMode') !== 'true') {
+      window.location.href = '/';
+    }
+  </script>
+
+  <div class="max-w-7xl mx-auto">
+    <Strategy client:load />
+  </div>
+</Layout>

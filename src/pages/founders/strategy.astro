@@ -1,0 +1,710 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/funnel.css';
+---
+
+<Layout minimal={true} noAnimations={true} title="Free Founder Launch Checklist">
+  <script is:inline>
+    (() => {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+    })();
+  </script>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="/images/logo.jpg" alt="ExpatBuildr Logo" class="nav-logo-img" />
+        <div class="logo-text">GALAXY<span class="built">BUILT</span><span class="slug">/founders</span></div>
+      </a>
+      <div class="nav-tag">Free Resource</div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="kicker fade-1">Founder Launch Checklist · Free Download</div>
+
+    <h1 class="fade-2">
+      12 things you need<br />
+      <em>before you go live.</em>
+    </h1>
+
+    <p class="sub fade-3">
+      Most founders launch broken. Wrong pixel, no email capture, copy that converts nobody.
+      This checklist fixes that — before you spend a dollar on ads.
+    </p>
+
+    <!-- CHECKLIST PREVIEW -->
+    <div class="preview fade-3">
+      <div class="preview-label">// Inside the checklist</div>
+      <div class="checklist">
+        <div class="check-item"><span class="tick">✓</span> Landing page above fold</div>
+        <div class="check-item"><span class="tick">✓</span> Email capture live</div>
+        <div class="check-item"><span class="tick">✓</span> Meta pixel firing</div>
+        <div class="check-item"><span class="tick">✓</span> Welcome sequence set</div>
+        <div class="check-item locked"><span class="lock">⌀</span> Lead magnet ready</div>
+        <div class="check-item locked"><span class="lock">⌀</span> Thank-you redirect</div>
+        <div class="check-item locked"><span class="lock">⌀</span> Paid offer hook</div>
+        <div class="check-item locked"><span class="lock">⌀</span> Exit intent trigger</div>
+        <div class="check-item locked"><span class="lock">⌀</span> Analytics confirmed</div>
+        <div class="check-item locked"><span class="lock">⌀</span> Social proof placed</div>
+        <div class="check-item locked"><span class="lock">⌀</span> Mobile tested</div>
+        <div class="check-item locked"><span class="lock">⌀</span> Stripe connected</div>
+      </div>
+    </div>
+
+    <!-- 3-STEP FLOW -->
+    <div class="steps-label fade-4">// 3 steps to download</div>
+
+    <div class="steps-flow fade-5">
+
+      <!-- STEP 1 -->
+      <div class="step-card active" id="step1">
+        <div class="step-header">
+          <span class="step-num">STEP 01</span>
+          <span class="step-title">Enter your email</span>
+          <span class="step-status" id="s1-status">CURRENT</span>
+        </div>
+        <div class="step-body">
+        <div class="email-capture">
+          <input type="email" id="optin-email" placeholder="Enter your email" autocomplete="email" />
+          <button id="optin-btn" class="btn-optin">Get Free Access →</button>
+          <p id="optin-error" class="optin-error" style="display:none">Please enter a valid email.</p>
+        </div>
+        <p class="form-note">Joins the Galaxy Arbitrage list. Forwarded to Step 2 automatically.</p>
+      </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step-card" id="step2">
+        <div class="step-header">
+          <span class="step-num">STEP 02</span>
+          <span class="step-title">Follow for launch updates <span style="font-size:0.6rem;color:var(--text-dim);margin-left:0.3rem;">(optional)</span></span>
+          <span class="step-status" id="s2-status">LOCKED</span>
+        </div>
+        <div class="step-body">
+          <div class="follow-wrap" style="align-items: flex-start; gap: 1rem;">
+            <div class="follow-info">
+              <p><strong>Step 1: Follow @expatbuildr on X</strong></p>
+              <div class="optional">Get real-time founder tips and launch teardowns.</div>
+            </div>
+            <div class="follow-actions">
+              <a href="https://x.com/expatbuildr" target="_blank" rel="noopener" class="btn-follow" id="follow-x-btn">
+                <span class="x-icon">𝕏</span> Follow
+              </a>
+            </div>
+          </div>
+
+          <div class="follow-wrap" style="align-items: flex-start; gap: 1rem; border-top: 1px solid var(--border-hi); padding-top: 1.5rem;">
+            <div class="follow-info">
+              <p><strong>Step 2: Subscribe on YouTube</strong></p>
+              <div class="optional">Watch me build these systems live.</div>
+            </div>
+            <div class="follow-actions">
+              <a href="https://youtube.com/@GalaxyArb?sub_confirmation=1" target="_blank" rel="noopener" class="btn-follow" id="follow-yt-btn" style="background:#ff0000; color:#fff; border-color:transparent;">
+                ▶ Subscribe
+              </a>
+            </div>
+          </div>
+          
+          <button class="skip-follow" id="skip-btn" style="margin-top: 1.5rem;">skip and go to download →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step-card" id="step3">
+        <div class="step-header">
+          <span class="step-num">STEP 03</span>
+          <span class="step-title">Download your checklist</span>
+          <span class="step-status" id="s3-status">LOCKED</span>
+        </div>
+        <div class="step-body">
+          <div class="download-wrap">
+            <p>Your checklist is ready. Click below to download — you'll be redirected to the full offer page after.</p>
+            <a href="/downloads/Founder_Launch_Checklist.pdf" download class="btn-download" id="download-btn">
+              ↓ Download Checklist PDF
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PROOF -->
+    <div class="proof-strip fade-5">
+      <div class="proof-item">
+        <div class="num">40<span>+</span></div>
+        <div class="desc">Systems built</div>
+      </div>
+      <div class="proof-item">
+        <div class="num">12<span>k+</span></div>
+        <div class="desc">Hours automated</div>
+      </div>
+      <div class="proof-item">
+        <div class="num">3<span>–7</span></div>
+        <div class="desc">Day delivery</div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    ExpatBuildr · Built in the Philippines 🇵🇭 · <a href="/privacy" style="color:inherit">Privacy</a>
+  </footer>
+
+  <script is:inline src="/beehiiv-v2.js"></script>
+  <script is:inline>
+    function activateStep(n) {
+      ['step1','step2','step3'].forEach((id, i) => {
+        const el = document.getElementById(id);
+        el.classList.remove('active','done');
+        if (i + 1 < n) el.classList.add('done');
+        if (i + 1 === n) el.classList.add('active');
+      });
+      document.getElementById('s1-status').textContent = n > 1 ? '✓ DONE' : 'CURRENT';
+      document.getElementById('s2-status').textContent = n > 2 ? '✓ DONE' : n === 2 ? 'CURRENT' : 'LOCKED';
+      document.getElementById('s3-status').textContent = n === 3 ? 'CURRENT' : 'LOCKED';
+    }
+
+    // Step 1 — email submit
+    document.getElementById('optin-btn').addEventListener('click', async () => {
+      const emailEl = document.getElementById('optin-email');
+      const errorEl = document.getElementById('optin-error');
+      const btn = document.getElementById('optin-btn');
+      const email = emailEl.value.trim();
+
+      if (!isValidEmail(email)) {
+        errorEl.style.display = 'block';
+        errorEl.textContent = 'Please enter a valid email.';
+        emailEl.focus();
+        return;
+      }
+
+      errorEl.style.display = 'none';
+      const originalText = btn.textContent;
+      btn.textContent = 'Verifying...';
+      btn.disabled = true;
+
+      try {
+        const success = await subscribeToBeehiiv({
+          email,
+          tags: ['founder', 'checklist_download', 'lead_magnet'],
+          utm_medium: 'optin_page',
+          utm_campaign: 'founder_checklist'
+        });
+
+        if (success === true) {
+          // Advance to step 2 only on success
+          activateStep(2);
+        } else if (success === "already_subscribed") {
+          btn.disabled = false;
+          btn.textContent = originalText;
+          errorEl.style.display = 'block';
+          errorEl.textContent = 'You are already subscribed!';
+        } else {
+          btn.disabled = false;
+          btn.textContent = originalText;
+          errorEl.style.display = 'block';
+          errorEl.textContent = 'Connection error. Please try again or check your email.';
+        }
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = originalText;
+        errorEl.style.display = 'block';
+        errorEl.textContent = 'System error. Please try again.';
+      }
+    });
+
+    document.getElementById('optin-email').addEventListener('keydown', e => {
+      if (e.key === 'Enter') document.getElementById('optin-btn').click();
+    });
+
+    const followXBtn = document.getElementById('follow-x-btn');
+    const followYtBtn = document.getElementById('follow-yt-btn');
+    const skipBtn = document.getElementById('skip-btn');
+
+    let xClicked = false;
+    let ytClicked = false;
+
+    function checkStep2Unlock() {
+      if (xClicked && ytClicked) {
+        setTimeout(() => activateStep(3), 500);
+      }
+    }
+
+    if (followXBtn) {
+      followXBtn.addEventListener('click', () => {
+        xClicked = true;
+        followXBtn.innerHTML = '✓ Done';
+        followXBtn.style.background = '#40a858';
+        followXBtn.style.borderColor = 'transparent';
+        checkStep2Unlock();
+      });
+    }
+
+    if (followYtBtn) {
+      followYtBtn.addEventListener('click', () => {
+        ytClicked = true;
+        followYtBtn.innerHTML = '✓ Done';
+        followYtBtn.style.background = '#40a858';
+        checkStep2Unlock();
+      });
+    }
+
+    if (skipBtn) {
+      skipBtn.addEventListener('click', () => activateStep(3));
+    }
+
+    // Removed the broken download-btn redirect override
+    // The HTML link <a href="/downloads/..." download> will now work naturally.
+
+  </script>
+</Layout>
+
+<style>
+  /* EMAIL CAPTURE */
+  .email-capture {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin-bottom: 0.75rem;
+  }
+  .email-capture input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border-hi);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .email-capture input::placeholder { color: var(--text-dim); }
+  .email-capture input:focus { border-color: var(--accent-1); }
+  .btn-optin {
+    width: 100%;
+    padding: 0.9rem 1.5rem;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    color: #000;
+    border: none;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: filter 0.15s, transform 0.15s;
+  }
+  .btn-optin:hover { filter: brightness(1.1); transform: translateY(-1px); }
+  .btn-optin:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .optin-error {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: #f87171;
+    letter-spacing: 0.04em;
+  }
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border);
+    background: rgba(5,5,5,0.9);
+    backdrop-filter: blur(12px);
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1rem clamp(1.25rem,5vw,2.5rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+  }
+  .nav-logo-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  .logo-text {
+    font-family: var(--sans);
+    font-weight: 900;
+    font-size: 1.4rem;
+    letter-spacing: -0.04em;
+    color: var(--text);
+    text-transform: uppercase;
+  }
+  .logo-text .built { color: var(--accent-1); font-weight: 400; }
+  .logo-text .slug {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-left: 0.3rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+  }
+  .nav-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-1);
+    border: 1px solid var(--accent-1);
+    background: var(--accent-glow);
+    padding: 0.3em 0.75em;
+  }
+
+  /* MAIN */
+  main {
+    position: relative;
+    z-index: 5;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: clamp(3rem,8vw,6rem) clamp(1.25rem,5vw,2.5rem);
+  }
+
+  .kicker {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent-1);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+  }
+  .kicker::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent-1);
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse {
+    0%,100%{opacity:1;transform:scale(1)}
+    50%{opacity:.4;transform:scale(.7)}
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem,7vw,4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+    color: var(--text);
+  }
+  h1 em { font-style: italic; color: var(--accent-1); }
+
+  .sub {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    max-width: 52ch;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+
+  /* CHECKLIST PREVIEW */
+  .preview {
+    background: var(--bg-3);
+    border: 1px solid var(--border-hi);
+    padding: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .preview-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 1rem;
+  }
+  .checklist {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+  .check-item.locked { color: var(--text-dim); }
+  .check-item .tick { color: var(--accent-1); flex-shrink: 0; margin-top: 1px; }
+  .check-item .lock { color: var(--text-dim); flex-shrink: 0; }
+
+  /* STEPS */
+  .steps-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .steps-label::after {
+    content: '';
+    display: block;
+    height: 1px;
+    flex: 1;
+    background: var(--border-hi);
+  }
+
+  .steps-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* STEP CARD */
+  .step-card {
+    border: 1px solid var(--border-hi);
+    background: var(--bg-2);
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .step-card + .step-card { border-top: none; }
+  .step-card.active { border-color: var(--accent-1); }
+
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+  }
+  .step-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+  .step-card.active .step-num { color: var(--accent-1); }
+  .step-title {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    flex: 1;
+  }
+  .step-card.active .step-title { color: var(--text); }
+  .step-status {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    letter-spacing: 0.08em;
+  }
+  .step-card.done .step-status { color: #40a858; }
+  .step-card.done .step-title { color: var(--text-dim); }
+
+  .step-body {
+    padding: 0 1.5rem 1.5rem;
+    display: none;
+  }
+  .step-card.active .step-body { display: block; }
+
+  /* STEP 1 — EMAIL */
+  .email-form {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .email-form input[type="email"] {
+    flex: 1;
+    min-width: 220px;
+    background: var(--bg);
+    border: 1px solid var(--border-hi);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    padding: 0.85rem 1rem;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .email-form input[type="email"]:focus { border-color: var(--accent-1); }
+  .email-form input[type="email"]::placeholder { color: var(--text-dim); }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.85em 1.6em;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    color: #000;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .form-note {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+    margin-top: 0.6rem;
+  }
+
+  /* STEP 2 — FOLLOW */
+  .follow-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .follow-info p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    max-width: 36ch;
+  }
+  .follow-info .optional {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    letter-spacing: 0.08em;
+    margin-top: 0.4rem;
+  }
+  .follow-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+  .btn-follow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    padding: 0.75em 1.4em;
+    background: #000;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-follow:hover { background: #111; border-color: rgba(255,255,255,0.4); }
+  .x-icon { font-size: 1rem; font-weight: 900; }
+  .skip-follow {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    letter-spacing: 0.08em;
+    text-decoration: underline;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+  .skip-follow:hover { color: var(--text-muted); }
+
+  /* STEP 3 — DOWNLOAD */
+  .download-wrap { text-align: center; padding: 0.5rem 0; }
+  .download-wrap p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+    line-height: 1.65;
+  }
+  .btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    padding: 1em 2em;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    color: #000;
+    transition: all 0.15s;
+  }
+  .btn-download:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+  /* SOCIAL PROOF */
+  .proof-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .proof-item .num {
+    font-family: var(--serif);
+    font-size: 1.75rem;
+    color: var(--text);
+    line-height: 1;
+  }
+  .proof-item .num span { color: var(--accent-1); }
+  .proof-item .desc {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 0.25rem;
+  }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 5;
+    border-top: 1px solid var(--border);
+    padding: 1.5rem clamp(1.25rem,5vw,2.5rem);
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    letter-spacing: 0.06em;
+  }
+
+  @keyframes fadeUp {
+    from{opacity:0;transform:translateY(16px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  .fade-1{animation:fadeUp .6s ease both}
+  .fade-2{animation:fadeUp .6s .1s ease both}
+  .fade-3{animation:fadeUp .6s .2s ease both}
+  .fade-4{animation:fadeUp .6s .3s ease both}
+  .fade-5{animation:fadeUp .6s .4s ease both}
+
+  @media(max-width:600px){
+    .checklist{grid-template-columns:1fr}
+    .follow-wrap{flex-direction:column;align-items:flex-start}
+  }
+</style>

@@ -3,7 +3,7 @@ Disallow: /internal
 Disallow: /portfolio
 Allow: /
 
-Sitemap: https://galaxybuilt.dev/sitemap-index.xml
+Sitemap: https://expatbuildr.com/sitemap-index.xml
 
 # AI Crawlers — explicitly allowed for AI SEO (Perplexity, ChatGPT, Claude, Gemini citations)
 User-agent: GPTBot

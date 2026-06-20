@@ -1,0 +1,792 @@
+---
+// src/pages/download.astro
+// Usage:
+//   /download?magnet=remote-jobs-pack&ref=newsletter  → no friction, direct download
+//   /download?magnet=arbitrage-calculator&ref=web     → shows newsletter CTA
+//   /download?magnet=prompt-vault                     → shows newsletter CTA
+//   /download?magnet=grant-cheatsheet&ref=newsletter  → no friction, direct download
+
+const magnets = {
+  "remote-jobs-pack": {
+    title: "Remote Jobs Pack",
+    subtitle: "50 Remote-First Companies Actively Hiring",
+    description: "Curated list of companies with remote-first cultures that pay in USD and hire globally. Filtered, ranked, and ready to apply.",
+    file: "/downloads/remote-jobs-pack.pdf",
+    icon: "💼",
+    accent: "#f5c842",
+    stats: [
+      { value: "50", label: "Companies" },
+      { value: "12", label: "Niches" },
+      { value: "80%", label: "Async-Friendly" },
+    ],
+    tags: ["Remote Work", "Job Search", "USD Income"],
+  },
+  "arbitrage-calculator": {
+    title: "Arbitrage Calculator",
+    subtitle: "The Math Behind Earning USD in the Philippines",
+    description: "Full cost-of-living breakdown, salary tier analysis, FIRE number calculator, and the Austin vs Manila comparison that changes how you see money.",
+    file: "/downloads/arbitrage-calculator.pdf",
+    icon: "📊",
+    accent: "#00e5ff",
+    stats: [
+      { value: "4.75x", label: "Cheaper Living" },
+      { value: "$36k", label: "Extra Saved/Year" },
+      { value: "3 cities", label: "Compared" },
+    ],
+    tags: ["Geographic Arbitrage", "Financial Planning", "Philippines"],
+  },
+  "prompt-vault": {
+    title: "Prompt Vault",
+    subtitle: "50 Battle-Tested AI Prompts",
+    description: "Production prompts for client acquisition, content creation, freelance operations, automation, grant writing, and research. Copy, paste, ship.",
+    file: "/downloads/prompt-vault.pdf",
+    icon: "🤖",
+    accent: "#00e9a3",
+    stats: [
+      { value: "50", label: "Prompts" },
+      { value: "6", label: "Categories" },
+      { value: "0", label: "Fluff" },
+    ],
+    tags: ["AI Tools", "Productivity", "Freelance"],
+  },
+  "grant-cheatsheet": {
+    title: "Grant Cheat Sheet",
+    subtitle: "SBIR/STTR Federal Funding — 2025",
+    description: "Everything you need to apply for federal grants. Program overview, 11 agencies, application timeline, top 10 mistakes, and eligibility rules.",
+    file: "/downloads/grant-cheatsheet.pdf",
+    icon: "🏛️",
+    accent: "#ff6b35",
+    stats: [
+      { value: "$4B+", label: "Yearly Grants" },
+      { value: "11", label: "Agencies" },
+      { value: "~20%", label: "Phase I Rate" },
+    ],
+    tags: ["SBIR", "Federal Grants", "Non-Dilutive Funding"],
+  },
+};
+
+// Read URL params
+const url = new URL(Astro.request.url);
+const magnetKey = url.searchParams.get("magnet") || "remote-jobs-pack";
+const ref = url.searchParams.get("ref") || "web";
+const isSubscriber = ref === "newsletter";
+const magnet = magnets[magnetKey] || magnets["remote-jobs-pack"];
+
+// Meta
+const pageTitle = `Download: ${magnet.title} — ExpatBuildr`;
+const metaDesc = magnet.description;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{pageTitle}</title>
+  <meta name="description" content={metaDesc} />
+  <meta name="robots" content="noindex, nofollow" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={Astro.url} />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={metaDesc} />
+  <meta property="og:image" content={new URL('/og-resource.png', Astro.site || 'https://expatbuildr.com')} />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content={Astro.url} />
+  <meta property="twitter:title" content={pageTitle} />
+  <meta property="twitter:description" content={metaDesc} />
+  <meta property="twitter:image" content={new URL('/og-resource.png', Astro.site || 'https://expatbuildr.com')} />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Meta Pixel -->
+  <script is:inline define:vars={{ magnetKey }}>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1480646753745240');
+    fbq('track', 'PageView');
+    fbq('track', 'ViewContent', {
+      content_name: 'Download Page',
+      content_category: 'Lead Magnet',
+      content_ids: [magnetKey],
+    });
+  </script>
+
+  <!-- Google Tag -->
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-SD1015FGKZ');
+    gtag('event', 'page_view', { page_title: 'Download Page' });
+  </script>
+
+  <style define:vars={{ accentColor: magnet.accent }}>
+    :root {
+      --bg: #0a0a0f;
+      --dark: #111118;
+      --card: rgba(255,255,255,0.03);
+      --border: rgba(255,255,255,0.07);
+      --gold: #f5c842;
+      --orange: #ff6b35;
+      --cyan: #00e5ff;
+      --emerald: #00e9a3;
+      --white: #ffffff;
+      --gray: #8888aa;
+      --light: #ccccdd;
+      --accent-color: var(--accentColor);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Syne', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* grid bg */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .top-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--orange), var(--cyan));
+      z-index: 100;
+    }
+
+    nav {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    .nav-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--gray);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+
+    .breadcrumb {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--gray);
+      letter-spacing: 0.1em;
+      margin-bottom: 32px;
+      text-transform: uppercase;
+    }
+
+    .breadcrumb span { color: var(--accent-color); }
+
+    /* Hero card */
+    .hero-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent-color);
+    }
+
+    .magnet-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .magnet-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 6vw, 52px);
+      letter-spacing: 0.05em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .magnet-subtitle {
+      font-size: 14px;
+      color: var(--accent-color);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .magnet-desc {
+      font-size: 15px;
+      color: var(--light);
+      line-height: 1.7;
+      max-width: 560px;
+      margin-bottom: 24px;
+    }
+
+    .stats-row {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: var(--accent-color);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 2px;
+    }
+
+    .tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 11px;
+      color: var(--light);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Download button */
+    .download-section {
+      margin-bottom: 32px;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent-color);
+      color: #000;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 0.1em;
+      padding: 16px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.3);
+    }
+
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 40px rgba(var(--accent-rgb), 0.5);
+    }
+
+    .download-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .download-note {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--gray);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Newsletter CTA (cold traffic only) */
+    .newsletter-cta {
+      background: linear-gradient(135deg, rgba(245,200,66,0.08), rgba(0,229,255,0.08));
+      border: 1px solid rgba(245,200,66,0.2);
+      border-radius: 16px;
+      padding: 36px 40px;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .cta-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .cta-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .cta-desc {
+      font-size: 14px;
+      color: var(--light);
+      line-height: 1.6;
+      max-width: 500px;
+      margin: 0 auto 24px;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold);
+      color: #000;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 0.1em;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 30px rgba(245,200,66,0.4);
+    }
+
+    /* Other magnets */
+    .other-magnets h3 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--gray);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .magnet-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .magnet-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Subscriber reward card — matches hero-card quality */
+    .reward-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 28px 20px;
+      text-decoration: none;
+      display: block;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+    .reward-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--rc-accent, #f5c842);
+    }
+    .reward-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--rc-accent, #f5c842);
+      box-shadow: 0 8px 32px -8px var(--rc-accent, #f5c842);
+    }
+    .reward-card.downloaded {
+      border-color: rgba(0,233,163,0.4);
+    }
+    .reward-card.downloaded::before { background: #00e9a3; }
+
+    .rc-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; }
+    .rc-icon { font-size: 36px; line-height: 1; }
+    .rc-check {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(0,233,163,0.12); border: 1px solid rgba(0,233,163,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: #00e9a3;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .reward-card.downloaded .rc-check { opacity: 1; }
+
+    .rc-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .rc-subtitle {
+      font-size: 11px;
+      color: var(--rc-accent, #f5c842);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .rc-desc {
+      font-size: 13px;
+      color: var(--light);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .rc-stats {
+      display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 16px;
+    }
+    .rc-stat-value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      color: var(--rc-accent, #f5c842);
+      line-height: 1;
+    }
+    .rc-stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .rc-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--rc-accent, #f5c842);
+      color: #000;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 16px; letter-spacing: 0.08em;
+      padding: 10px 22px; border-radius: 6px;
+      transition: opacity 0.2s;
+      pointer-events: none;
+    }
+    .reward-card:hover .rc-btn { opacity: 0.9; }
+    .reward-card.downloaded .rc-btn {
+      background: rgba(0,233,163,0.15);
+      color: #00e9a3;
+      border: 1px solid rgba(0,233,163,0.3);
+    }
+
+    /* Cold-traffic small cards (unchanged style) */
+    .magnet-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: block;
+    }
+    .magnet-card:hover {
+      border-color: rgba(255,255,255,0.15);
+      transform: translateY(-2px);
+    }
+    .mc-icon { font-size: 24px; margin-bottom: 8px; }
+    .mc-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700; font-size: 13px;
+      color: var(--white); margin-bottom: 4px;
+    }
+    .mc-desc { font-size: 11px; color: var(--gray); line-height: 1.4; }
+
+    /* Subscriber badge */
+    .subscriber-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,233,163,0.1);
+      border: 1px solid rgba(0,233,163,0.3);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--emerald);
+      margin-bottom: 24px;
+    }
+
+    .subscriber-badge::before {
+      content: '✓';
+      font-size: 12px;
+    }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 24px;
+      border-top: 1px solid var(--border);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--gray);
+    }
+
+    footer a { color: var(--gold); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      main { padding: 40px 16px 60px; }
+      .hero-card { padding: 24px 20px; }
+      .newsletter-cta { padding: 24px 20px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="top-bar"></div>
+
+  <nav>
+    <a href="/" class="nav-logo" style="display: flex; align-items: center; gap: 12px;">
+      <img src="/images/logo.jpg" alt="Galaxy" style="width: 32px; height: 32px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);" />
+      ExpatBuildr
+    </a>
+    <span class="nav-tag">Free Download</span>
+  </nav>
+
+  <main>
+    <p class="breadcrumb">
+      <a href="/" style="color:var(--gray);text-decoration:none">Home</a>
+      {' / '}
+      <a href="/newsletter" style="color:var(--gray);text-decoration:none">Newsletter</a>
+      {' / '}
+      <span id="breadcrumb-name">{magnet.title}</span>
+    </p>
+
+    {isSubscriber && (
+      <div class="subscriber-badge">Newsletter Subscriber — Thanks for being here</div>
+    )}
+
+    <!-- Hero Card -->
+    <div class="hero-card" id="hero-card">
+      <span class="magnet-icon">{magnet.icon}</span>
+      <h1 class="magnet-title">{magnet.title}</h1>
+      <p class="magnet-subtitle">{magnet.subtitle}</p>
+      <p class="magnet-desc">{magnet.description}</p>
+
+      <div class="stats-row">
+        {magnet.stats.map(s => (
+          <div class="stat">
+            <div class="stat-value">{s.value}</div>
+            <div class="stat-label">{s.label}</div>
+          </div>
+        ))}
+      </div>
+
+      <div class="tags" style="margin-top: 16px;">
+        {magnet.tags.map(t => <span class="tag">{t}</span>)}
+      </div>
+    </div>
+
+    <!-- Download -->
+    <div class="download-section">
+      <a
+        href={magnet.file}
+        class="download-btn"
+        id="download-btn"
+        download
+        onclick="trackDownload()"
+      >
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        Download Free PDF
+      </a>
+      <p class="download-note">// Free forever. No upsell. No catch.</p>
+    </div>
+
+    <!-- Shop CTA (cold traffic only) -->
+    {!isSubscriber && (
+      <div class="newsletter-cta">
+        <p class="cta-label">// Ready to go deeper?</p>
+        <h2 class="cta-title">TOOLS, SYSTEMS & SERVICES</h2>
+        <p class="cta-desc">
+          Done-for-you landing pages, automation systems, lead gen builds, and digital tools for remote operators.
+          Everything you need to build, launch, and scale.
+        </p>
+        <a href="/shop" class="cta-btn" onclick="trackNewsletterClick()">
+          Browse the Shop →
+        </a>
+      </div>
+    )}
+
+    <!-- Other Magnets -->
+    <div class="other-magnets">
+      <h3>{isSubscriber ? '// Your 4 Free Downloads — All Unlocked' : '// Other Free Resources'}</h3>
+      <div class="magnet-grid" id="magnet-grid"></div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 <a href="/">ExpatBuildr</a> — <a href="/newsletter">Newsletter</a> — <a href="/blog">Blog</a></p>
+  </footer>
+
+  <script is:inline define:vars={{ magnetKey, magnets, magnet, isSubscriber }}>
+    // Set accent color CSS var
+    const accentColor = magnet.accent;
+    document.documentElement.style.setProperty('--accent-color', accentColor);
+
+    // Set accent RGB for box shadows
+    const hex = accentColor.replace('#','');
+    const r = parseInt(hex.slice(0,2),16);
+    const g = parseInt(hex.slice(2,4),16);
+    const b = parseInt(hex.slice(4,6),16);
+    document.documentElement.style.setProperty('--accent-rgb', `${r},${g},${b}`);
+
+    const STORAGE_KEY = 'gb_downloaded';
+    function getDownloaded() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch(e) { return []; }
+    }
+    function markDownloaded(key) {
+      const d = getDownloaded();
+      if (!d.includes(key)) { d.push(key); localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); }
+    }
+
+    const grid = document.getElementById('magnet-grid');
+    const downloaded = getDownloaded();
+
+    Object.entries(magnets).forEach(([key, m]) => {
+      if (isSubscriber) {
+        const isDone = downloaded.includes(key);
+        const hex = m.accent.replace('#','');
+        const rr = parseInt(hex.slice(0,2),16), gg = parseInt(hex.slice(2,4),16), bb = parseInt(hex.slice(4,6),16);
+        const statsHtml = m.stats.map(s => `
+          <div>
+            <div class="rc-stat-value">${s.value}</div>
+            <div class="rc-stat-label">${s.label}</div>
+          </div>`).join('');
+        const btnLabel = isDone ? '✓ Downloaded' : '⬇ Download PDF';
+        const a = document.createElement('a');
+        a.href = m.file;
+        a.setAttribute('download', '');
+        a.className = 'reward-card' + (isDone ? ' downloaded' : '');
+        a.style.setProperty('--rc-accent', m.accent);
+        a.style.setProperty('--rc-rgb', `${rr},${gg},${bb}`);
+        a.innerHTML = `
+          <div class="rc-top">
+            <div class="rc-icon">${m.icon}</div>
+            <div class="rc-check">✓</div>
+          </div>
+          <div class="rc-title">${m.title}</div>
+          <div class="rc-subtitle">${m.subtitle}</div>
+          <div class="rc-desc">${m.description}</div>
+          <div class="rc-stats">${statsHtml}</div>
+          <div class="rc-btn" id="rc-btn-${key}">${btnLabel}</div>
+        `;
+        a.addEventListener('click', () => {
+          markDownloaded(key);
+          a.classList.add('downloaded');
+          const btn = a.querySelector(`#rc-btn-${key}`);
+          if (btn) btn.textContent = '✓ Downloaded';
+          if (typeof gtag !== 'undefined') gtag('event', 'lead_magnet_download', { magnet_name: key, ref_source: 'newsletter' });
+          if (typeof fbq !== 'undefined') fbq('track', 'Lead', { content_name: m.title, content_category: 'Lead Magnet Download' });
+        });
+        grid.appendChild(a);
+      } else {
+        if (key === magnetKey) return;
+        const a = document.createElement('a');
+        a.href = `/downloads/${key}?ref=web`;
+        a.className = 'magnet-card';
+        a.innerHTML = `
+          <div class="mc-icon">${m.icon}</div>
+          <div class="mc-title">${m.title}</div>
+          <div class="mc-desc">${m.subtitle}</div>
+        `;
+        grid.appendChild(a);
+      }
+    });
+
+    // Track download click
+    function trackDownload() {
+      // Meta Pixel
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'Lead', {
+          content_name: magnet.title,
+          content_category: 'Lead Magnet Download',
+        });
+      }
+      // GA4
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'lead_magnet_download', {
+          magnet_name: magnetKey,
+          ref_source: isSubscriber ? 'newsletter' : 'web',
+        });
+      }
+    }
+
+    // Track newsletter CTA click
+    function trackNewsletterClick() {
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'InitiateCheckout', { content_name: 'Newsletter CTA - Download Page' });
+      }
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'newsletter_cta_click', { source: 'download_page', magnet: magnetKey });
+      }
+    }
+
+    // Make functions global
+    window.trackDownload = trackDownload;
+    window.trackNewsletterClick = trackNewsletterClick;
+  </script>
+</body>
+</html>

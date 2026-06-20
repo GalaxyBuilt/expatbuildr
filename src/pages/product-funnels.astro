@@ -1,0 +1,100 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Pixels from '../components/Pixels.astro';
+
+const title = "Expat Buildr — Product Funnels for Remote Income, Lead Gen & Geo‑Arbitrage";
+const description = "How our funnels and digital products connect to the three pillars: Remote Income, Lead Generation, and Geo‑Arbitrage. The canonical guide for converting readers into customers.";
+---
+
+<Layout title={title} description={description} minimal={true}>
+  <Fragment slot="head">
+    <Pixels page="money-hub" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+  </Fragment>
+
+  <main class="container" style="padding:40px 24px; max-width:980px;">
+    <a href="/blog" class="back-link">← Back to Blog</a>
+    <h1 style="margin-top:18px;">Product Funnels: How Content Becomes Revenue</h1>
+
+    <p style="color:var(--text-secondary); max-width:90%;">This is the canonical page that maps our content and digital products to conversion funnels for the three core pillars: Remote Income, Lead Generation, and Geo‑Arbitrage. Use this as the single source of truth for landing pages, click funnels, and product sequencing.</p>
+
+    <section style="margin-top:24px;">
+      <h2>The Funnel Archetype</h2>
+      <p style="color:var(--text-secondary); max-width:85%;">Every pillar follows the same five-stage funnel. Standardizing this reduces friction and simplifies analytics.</p>
+      <ol>
+        <li><strong>Awareness</strong> — SEO content, case studies, and social posts that capture intent.</li>
+        <li><strong>Lead Magnet</strong> — High-value downloads (playbooks, starter kits, calculators) to capture email and first trust signal.</li>
+        <li><strong>Tripwire</strong> — Low-priced, high ROI product (report, audit, mini-course) that converts cold leads to paying customers.</li>
+        <li><strong>Core Offer</strong> — Main paid product/service (course, implementation, retainer, advisory).</li>
+        <li><strong>Ascension</strong> — Ongoing subscription, concierge, or enterprise solution that maximizes LTV.</li>
+      </ol>
+    </section>
+
+    <section style="margin-top:20px;">
+      <h2>Product Map by Pillar</h2>
+      <p style="color:var(--text-secondary); max-width:85%;">Below are the recommended digital products tied to each funnel stage. Each product has a single landing page, a one-click purchase path, and an upsell sequence.</p>
+
+      <h3>Remote Income</h3>
+      <ul>
+        <li>Lead Magnet: Remote Income Pack (templates, job list, negotiation scripts)</li>
+        <li>Tripwire: Micro‑SaaS Quickstart — a short course + checklist</li>
+        <li>Core Offer: 1:1 Career Poach Coaching or Micro‑SaaS Launch Program</li>
+        <li>Ascension: Done‑for‑you hiring / arbitrage bots and ongoing advisory</li>
+      </ul>
+
+      <h3>Lead Generation</h3>
+      <ul>
+        <li>Lead Magnet: Lead Engine Playbook (scoring templates, sequences)</li>
+        <li>Tripwire: Audit + intent list (paid, delivered in 48 hours)</li>
+        <li>Core Offer: Implemented Lead Engine (retainer or SaaS onboarding)</li>
+        <li>Ascension: Managed outbound + enterprise integrations</li>
+      </ul>
+
+      <h3>Geo‑Arbitrage</h3>
+      <ul>
+        <li>Lead Magnet: Geo Arbitrage Starter Kit (checklists, banking, visas)</li>
+        <li>Tripwire: Personalized Arbitrage Report (calculator + recommendations)</li>
+        <li>Core Offer: Relocation Advisory (end‑to‑end setup)</li>
+        <li>Ascension: Concierge services for tax, banking, and company formation</li>
+      </ul>
+    </section>
+
+    <section style="margin-top:20px;">
+      <h2>Click Funnel Mechanics</h2>
+      <ul>
+        <li>Dedicated landing pages for each lead magnet with a single conversion goal (email + intent tag).</li>
+        <li>Immediate value delivery via download + in‑browser checklist to reduce refund risk.</li>
+        <li>Automated email sequence: Day 0 (deliver), Day 2 (case study), Day 4 (tripwire), Day 9 (core offer invite).</li>
+        <li>Post-purchase funnel: immediate upsell, 7-day onboarding sequence, and feedback loop to product development.</li>
+      </ul>
+    </section>
+
+    <section style="margin-top:20px;">
+      <h2>Metrics & CRO</h2>
+      <p style="color:var(--text-secondary); max-width:85%;">Focus on conversion rates across the funnel, revenue per lead, and payback period. Benchmark goals:</p>
+      <ul>
+        <li>Email capture rate: 5–15% from blog traffic.</li>
+        <li>Tripwire conversion: 2–8% of email list.</li>
+        <li>Core offer conversion: 3–10% of tripwire buyers.</li>
+        <li>Target LTV/CAC &gt; 3x for paid funnels.</li>
+      </ul>
+    </section>
+
+    <section style="margin-top:22px;">
+      <h2>Next Steps</h2>
+      <ol>
+        <li>Wire up landing pages for each lead magnet (I've created starter pages at <code>/remote-income</code>, <code>/lead-generation</code>, <code>/geo-arbitrage</code>).</li>
+        <li>Connect /api/subscribe to your email provider and add intent tags per magnet.</li>
+        <li>Create tripwire fulfillment flows (Stripe + download + tagged email).</li>
+        <li>Run 2-week tests for each funnel: monitor email capture, tripwire sales, and CPA.</li>
+      </ol>
+    </section>
+
+    <section style="margin-top:22px;">
+      <a href="/newsletter" class="btn-primary">Join the Arbitrage Newsletter →</a>
+      <span style="margin-left:12px; color:var(--text-secondary);">Or <a href="/contact">book a consult</a> for hands‑on funnel setup.</span>
+    </section>
+
+  </main>
+</Layout>

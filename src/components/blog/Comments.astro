@@ -1,0 +1,69 @@
+---
+// Giscus comments — powered by GitHub Discussions (free, no backend needed)
+// Setup: go to https://giscus.app, connect your repo, paste the repo ID and category ID below.
+// Until configured, this renders a placeholder with setup instructions.
+
+const GISCUS_REPO = 'ExpatBuildr/ExpatBuildr'; // your GitHub org/repo
+const GISCUS_REPO_ID = ''; // paste from https://giscus.app after setup
+const GISCUS_CATEGORY = 'Comments'; // create a "Comments" Discussion category in your repo
+const GISCUS_CATEGORY_ID = ''; // paste from https://giscus.app after setup
+
+const isConfigured = GISCUS_REPO_ID !== '' && GISCUS_CATEGORY_ID !== '';
+---
+
+<div class="max-w-4xl mx-auto mt-12">
+  <div class="mb-6 flex items-center gap-4">
+    <h3 class="text-xl font-black font-display text-institutional-primary uppercase tracking-tight shrink-0">Comments</h3>
+    <div class="h-px flex-1 bg-slate-200 dark:bg-white/10"></div>
+    <span class="text-[9px] font-mono text-institutional-muted uppercase tracking-widest whitespace-nowrap">via GitHub</span>
+  </div>
+
+  {isConfigured ? (
+    <div class="glass-card p-6 rounded-[2rem] border border-slate-200 dark:border-white/5">
+      <div
+        class="giscus"
+        data-repo={GISCUS_REPO}
+        data-repo-id={GISCUS_REPO_ID}
+        data-category={GISCUS_CATEGORY}
+        data-category-id={GISCUS_CATEGORY_ID}
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="dark"
+        data-lang="en"
+        data-loading="lazy"
+      ></div>
+    </div>
+  ) : (
+    <div class="glass-card p-8 rounded-[2rem] border border-slate-200 dark:border-white/5 text-center">
+      <p class="text-[10px] font-mono uppercase tracking-widest text-institutional-muted mb-3">Comments Coming Soon</p>
+      <p class="text-institutional-secondary font-inter text-sm">
+        Have thoughts? Reply on{' '}
+        <a href="https://x.com/expatbuildr" target="_blank" class="text-accent-blue hover:underline">X / Twitter</a>
+        {' '}or{' '}
+        <a href="https://www.youtube.com/@GalaxyArb" target="_blank" class="text-red-500 hover:underline">YouTube</a>.
+      </p>
+    </div>
+  )}
+</div>
+
+{isConfigured && (
+  <script src="https://giscus.app/client.js"
+    data-repo={GISCUS_REPO}
+    data-repo-id={GISCUS_REPO_ID}
+    data-category={GISCUS_CATEGORY}
+    data-category-id={GISCUS_CATEGORY_ID}
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="dark"
+    data-lang="en"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async
+  ></script>
+)}

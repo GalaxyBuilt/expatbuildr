@@ -1,0 +1,275 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Mail, Zap, ExternalLink, Shield, Settings, DollarSign, Activity, FileText, Wrench } from 'lucide-astro';
+import '../../styles/global.css';
+
+const title = "ExpatBuildr Turbo — High Performance Systems";
+const description = "Capture-all redirect for lead projects. Systems architect and car enthusiast. RSX DC5 Build & Automation Systems.";
+const ogImage = "/images/turbo-rsx-og.png";
+---
+
+<Layout title={title} description={description} ogImage={ogImage} minimal={false}>
+  <!-- Background Layer Override -->
+  <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+    <!-- Texture overlay for premium feel -->
+    <div class="absolute inset-0 bg-[#080808]/40 dark:bg-black/70 mix-blend-multiply z-20"></div>
+    <!-- The Racetrack Image -->
+    <div 
+      class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 scale-105"
+      style="background-image: url('/images/racetrack-bg.png');"
+    ></div>
+    <!-- Motion blur simulation overlays -->
+    <div class="absolute inset-0 opacity-20 dark:opacity-40 z-10 bg-gradient-to-r from-transparent via-accent-cyan/10 to-accent-purple/10"></div>
+  </div>
+
+  <div class="relative z-10 max-w-[420px] mx-auto px-4 py-8 md:py-12">
+    <!-- Profile Header -->
+    <div class="text-center mb-10 reveal-on-scroll">
+      <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-slate-900/50 dark:bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center text-3xl shadow-2xl floating">
+        ⚡
+      </div>
+      <h1 class="text-2xl font-black tracking-tighter text-slate-900 dark:text-white uppercase mb-1">
+        Galaxy <span class="text-accent-blue font-light">— Systems</span>
+      </h1>
+      <p class="text-[11px] font-mono tracking-[0.2em] text-accent-cyan uppercase mb-4">
+        601hp AWD RSX · SYSTEMS ARCHITECT
+      </p>
+      <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-[300px] mx-auto">
+        I build high-performance systems that scale. From 1320ft to autonomous AI workflows.
+      </p>
+    </div>
+
+    <!-- Featured Email Capture -->
+    <div class="mb-8 glass-card p-6 rounded-[2rem] border-accent-blue/30 shadow-[0_0_40px_rgba(59,130,246,0.15)] reveal-on-scroll">
+      <div class="flex items-center gap-2 mb-3">
+        <div class="p-1.5 rounded-lg bg-accent-blue/20 text-accent-blue">
+          <Mail size={16} />
+        </div>
+        <span class="text-[10px] font-bold tracking-[0.2em] text-slate-900 dark:text-white uppercase">Galaxy Arbitrage</span>
+        <span class="ml-auto flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 text-[8px] font-black uppercase tracking-widest border border-emerald-500/20">
+          <span class="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></span> Free Access
+        </span>
+      </div>
+      <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-2 tracking-tight">Join the Inner Circle</h2>
+      <p class="text-xs text-slate-500 mb-4">Weekly teardowns of systems, income ops, and geo-arbitrage plays.</p>
+      
+      <form 
+        id="turbo-signup"
+        class="space-y-3"
+        onsubmit="event.preventDefault(); window.handleSignup(this);"
+      >
+        <div class="grid grid-cols-1 gap-3">
+          <input 
+            type="text" 
+            name="firstName"
+            placeholder="First Name" 
+            required
+            class="w-full px-5 py-4 rounded-2xl bg-slate-950/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent-blue/50 transition-all font-mono"
+          />
+          <input 
+            type="email" 
+            name="email"
+            placeholder="your@email.com" 
+            required
+            class="w-full px-5 py-4 rounded-2xl bg-slate-950/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent-blue/50 transition-all font-mono"
+          />
+        </div>
+        <button 
+          type="submit" 
+          class="w-full py-4 rounded-2xl bg-accent-blue text-white font-black text-xs uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-lg shadow-accent-blue/20"
+        >
+          Secure Access
+        </button>
+      </form>
+    </div>
+
+    <!-- Funnel Buttons -->
+    <div class="space-y-4 reveal-on-scroll">
+      <p class="text-[9px] font-mono tracking-[0.3em] text-slate-400 uppercase pl-4 mb-2">Systems & Arbitrage</p>
+      
+      <!-- Button: Automation -->
+      <button 
+        onclick="window.trackAndGo('Automation','/automation-systems/automation')"
+        class="w-full glass-card p-5 rounded-2xl border border-white/10 hover:border-accent-blue/30 hover:bg-white/5 transition-all group flex items-center gap-4 text-left shadow-xl"
+      >
+        <div class="w-12 h-12 rounded-xl bg-accent-blue/10 flex items-center justify-center text-accent-blue group-hover:scale-110 transition-all duration-500 shadow-inner">
+          <Settings size={22} />
+        </div>
+        <div class="flex-1">
+          <div class="font-black text-sm text-slate-900 dark:text-white uppercase tracking-tight">Business Automation</div>
+          <div class="text-[10px] text-slate-500">Autonomous Workflows · Scalable Systems</div>
+        </div>
+        <ExternalLink size={14} class="text-slate-600 group-hover:text-accent-blue transition-colors" />
+      </button>
+
+      <!-- Button: Remote Income -->
+      <button 
+        onclick="window.trackAndGo('RemoteIncome','/geo-arbitrage/arbjobs')"
+        class="w-full glass-card p-5 rounded-2xl border border-white/10 hover:border-emerald-500/30 hover:bg-white/5 transition-all group flex items-center gap-4 text-left shadow-xl"
+      >
+        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 group-hover:scale-110 transition-all duration-500 shadow-inner">
+          <DollarSign size={22} />
+        </div>
+        <div class="flex-1">
+          <div class="font-black text-sm text-slate-900 dark:text-white uppercase tracking-tight">Remote Income Streams</div>
+          <div class="text-[10px] text-slate-500">Geo-Arbitrage · US Remote Roles in USD</div>
+        </div>
+        <ExternalLink size={14} class="text-slate-600 group-hover:text-emerald-500 transition-colors" />
+      </button>
+
+      <div class="h-4"></div>
+      <p class="text-[9px] font-mono tracking-[0.3em] text-slate-400 uppercase pl-4 mb-2">High Performance Leads</p>
+
+      <!-- Button: Car Accident -->
+      <button 
+        onclick="window.trackAndGo('AccidentHelp','https://t.me/galaxyleads')"
+        class="w-full glass-card p-5 rounded-2xl border border-white/10 hover:border-red-500/30 hover:bg-white/5 transition-all group flex items-center gap-4 text-left shadow-xl"
+      >
+        <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500 group-hover:scale-110 transition-all duration-500 shadow-inner">
+          <Activity size={22} />
+        </div>
+        <div class="flex-1">
+          <div class="font-black text-sm text-slate-900 dark:text-white uppercase tracking-tight">Car Accident Claim</div>
+          <div class="text-[10px] text-slate-500">Legal Referrals · Claim Support</div>
+        </div>
+        <ExternalLink size={14} class="text-slate-600 group-hover:text-red-500 transition-colors" />
+      </button>
+
+      <!-- Button: Insurance -->
+      <button 
+        onclick="window.trackAndGo('Insurance','https://t.me/galaxyleads')"
+        class="w-full glass-card p-5 rounded-2xl border border-white/10 hover:border-accent-purple/30 hover:bg-white/5 transition-all group flex items-center gap-4 text-left shadow-xl"
+      >
+        <div class="w-12 h-12 rounded-xl bg-accent-purple/10 flex items-center justify-center text-accent-purple group-hover:scale-110 transition-all duration-500 shadow-inner">
+          <Shield size={22} />
+        </div>
+        <div class="flex-1">
+          <div class="font-black text-sm text-slate-900 dark:text-white uppercase tracking-tight">Better Car Insurance</div>
+          <div class="text-[10px] text-slate-500">High-Risk Auto · Coverage Optimization</div>
+        </div>
+        <ExternalLink size={14} class="text-slate-600 group-hover:text-accent-purple transition-colors" />
+      </button>
+
+      <!-- Button: Parts -->
+      <button 
+        onclick="window.trackAndGo('PerformanceParts','/shop')"
+        class="w-full glass-card p-5 rounded-2xl border border-white/10 hover:border-accent-cyan/30 hover:bg-white/5 transition-all group flex items-center gap-4 text-left shadow-xl"
+      >
+        <div class="w-12 h-12 rounded-xl bg-accent-cyan/10 flex items-center justify-center text-accent-cyan group-hover:scale-110 transition-all duration-500 shadow-inner">
+          <Wrench size={22} />
+        </div>
+        <div class="flex-1">
+          <div class="font-black text-sm text-slate-900 dark:text-white uppercase tracking-tight">Performance Parts</div>
+          <div class="text-[10px] text-slate-500">RSX DC5 Build · Sourcing · Vendors</div>
+        </div>
+        <ExternalLink size={14} class="text-slate-600 group-hover:text-accent-cyan transition-colors" />
+      </button>
+
+      <div class="h-8"></div>
+      <a 
+        href="/"
+        onclick="window.trackAndGo('Portfolio','/')"
+        class="block w-fit mx-auto text-[10px] font-mono tracking-[0.4em] text-slate-500 hover:text-accent-blue transition-colors uppercase py-2 border-b border-transparent hover:border-accent-blue/30"
+      >
+        Full Systems Portfolio
+      </a>
+    </div>
+  </div>
+
+  <!-- Client-side Logic -->
+  <script is:inline>
+    // ─── Pixel Hub [STRIKE READY] ─────────────────────
+    window.trackAndGo = function(name, url) {
+      console.log(`[TURBO] Tracking Event: ${name}`);
+      
+      // Meta (Facebook) Pixel
+      if (window.fbq) {
+        fbq('trackCustom', 'TurboLinkClick', { destination: name });
+      }
+      
+      // TikTok Pixel
+      if (window.ttq) {
+        ttq.track('ClickButton', { contents: name });
+      }
+      
+      // Google Analytics
+      if (window.gtag) {
+        gtag('event', 'turbo_click', {
+          'link_name': name,
+          'event_category': 'Engagement',
+          'event_label': 'Turbo Link in Bio'
+        });
+      }
+      
+      // Reddit Pixel
+      if (window.rdt) {
+        rdt('track', 'Lead', {
+          'link_name': name
+        });
+      }
+
+      // Delay for sync
+      setTimeout(() => {
+        window.location.href = url;
+      }, 350);
+    };
+
+    window.handleSignup = async function(form) {
+      const email = form.querySelector('input[name="email"]').value;
+      const firstName = form.querySelector('input[name="firstName"]').value;
+      console.log(`[TURBO] Signup Captured: ${firstName} <${email}>`);
+      
+      // Fire pixel Lead events on signup
+      if (window.fbq) fbq('track', 'Lead');
+      if (window.ttq) ttq.track('CompleteRegistration');
+      if (window.gtag) gtag('event', 'generate_lead');
+      if (window.rdt) rdt('track', 'SignUp');
+
+      // Show success state
+      const btn = form.querySelector('button');
+      btn.innerHTML = 'ACCESS GRANTED';
+      btn.classList.replace('bg-accent-blue', 'bg-emerald-500');
+      btn.disabled = true;
+      form.querySelectorAll('input').forEach(i => i.disabled = true);
+
+      // Beehiiv Subscription with Custom Fields & Tags
+      try {
+        await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email,
+            tags: ["lead magnet", "freedom_seeker", "lead_builder", "automation_buyer", "founder"],
+            custom_fields: {
+              "First Name": firstName,
+              "automation_services": "interest",
+              "remote_job_list": "interest",
+              "geo-arbitrage": "interest",
+              "lead-generation": "interest",
+              "remote-income": "interest"
+            }
+          })
+        });
+      } catch (err) {
+        console.error("[TURBO] Subscription error:", err);
+      }
+      
+      setTimeout(() => {
+        window.location.href = '/geo-arbitrage/welcome'; 
+      }, 2000);
+    };
+  </script>
+
+  <style is:global>
+    /* Premium Motion Blur Effect */
+    @keyframes panBackground {
+      0% { transform: scale(1.05) translate(0, 0); }
+      50% { transform: scale(1.1) translate(-1%, -1%); }
+      100% { transform: scale(1.05) translate(0, 0); }
+    }
+    
+    .fixed.inset-0.z-0 div[style*="racetrack-bg.png"] {
+      animation: panBackground 20s ease-in-out infinite;
+    }
+  </style>
+</Layout>

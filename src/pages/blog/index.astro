@@ -1,0 +1,419 @@
+---
+export const prerender = true;
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { pillars } from '../../config/pillars';
+import { buildInPublicArticles } from '../../config/build-in-public-articles';
+import { ArrowRight, ArrowUpRight, BookOpen, Clock, Pencil, Rss, FileJson } from 'lucide-astro';
+import NewsletterAd from '../../components/blog/NewsletterAd.astro';
+
+const allPosts = await getCollection('blog', ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true : true;
+});
+
+const contentPosts = allPosts.filter(p =>
+  p.data.category !== 'Pillar Hub' && p.data.category !== 'Service'
+).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const featuredPost = contentPosts.find(p => p.id.includes('freelance-vs-remote-job-which-pays-more')) ?? contentPosts[0] ?? null;
+
+const pillarPreviews = pillars.map(pillar => ({
+  pillar,
+  posts: contentPosts.filter(p => p.data.pillarId === pillar.id).slice(0, 3)
+}));
+
+const postCountByPillar = allPosts.reduce((acc: Record<string, number>, post) => {
+  const pillarId = post.data.pillarId;
+  if (pillarId) acc[pillarId] = (acc[pillarId] ?? 0) + 1;
+  return acc;
+}, {});
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(date);
+
+const calcReadTime = (body: string): number =>
+  Math.max(1, Math.ceil(body.trim().split(/\s+/).length / 220));
+---
+
+<Layout
+  title="Lead Generation, Geo-Arbitrage & Remote Income Blog | Expat Buildr"
+  description="Protocols for lead generation, geographic arbitrage, and remote income. The Expat Buildr intelligence index — tactical guides for founders operating across borders."
+>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Expat Buildr Intelligence Index",
+    "description": "Lead generation, geographic arbitrage, and remote income protocols for founders operating across borders.",
+    "url": "https://expatbuildr.com/blog",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Expat Buildr",
+      "alternateName": "Galaxy Arbitrage",
+      "url": "https://expatbuildr.com"
+    }
+  })} />
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
+
+    <!-- Header -->
+    <div class="text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent-blue/10 border border-accent-blue/20 text-accent-blue text-xs uppercase tracking-[0.2em] font-mono mb-8">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-blue opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-accent-blue"></span>
+        </span>
+        Intelligence Index
+      </div>
+      <h1 class="text-3xl sm:text-6xl md:text-8xl font-black font-display tracking-tighter text-slate-900 dark:text-white mb-4 uppercase leading-tight md:leading-none text-center">
+        <span class="block sm:inline">4 PATHS TO</span> <span class="text-gradient block sm:inline">SOVEREIGNTY.</span>
+      </h1>
+      <h2 class="text-base md:text-lg font-mono tracking-[0.2em] text-accent-cyan uppercase font-semibold mb-6">
+        Protocols for lead generation, remote income &amp; geographic arbitrage.
+      </h2>
+      <p class="text-xl text-institutional-secondary max-w-2xl mx-auto font-inter leading-relaxed mb-8">
+        Protocols for income automation, client acquisition, and global living. Pick your objective.
+      </p>
+      <div class="flex items-center justify-center gap-4">
+        <span class="text-xs font-mono uppercase tracking-[0.2em] text-institutional-muted font-semibold">Subscribe via</span>
+        <a
+          href="/rss.xml"
+          title="RSS Feed"
+          class="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 dark:border-white/10 text-institutional-muted hover:text-orange-500 hover:border-orange-500/40 transition-all text-xs font-mono uppercase tracking-wider font-semibold"
+        >
+          <Rss size={14} /> RSS
+        </a>
+        <a
+          href="/feed.json"
+          title="JSON Feed"
+          class="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 dark:border-white/10 text-institutional-muted hover:text-accent-cyan hover:border-accent-cyan/40 transition-all text-xs font-mono uppercase tracking-wider font-semibold"
+        >
+          <FileJson size={14} /> JSON
+        </a>
+      </div>
+    </div>
+
+    <!-- Featured Post -->
+    {featuredPost && (
+      <section>
+        <div class="flex items-center gap-3 mb-5">
+          <span class="px-2.5 py-1 rounded-md bg-accent-blue text-white text-[9px] font-mono uppercase tracking-widest">Latest</span>
+          <div class="h-px flex-1 bg-slate-200 dark:bg-white/10"></div>
+        </div>
+
+        <a
+          href={`/blog/${featuredPost.id.replace(/\.mdx?$/, '')}`}
+          class="group relative flex overflow-hidden rounded-2xl border border-slate-200 dark:border-white/15 hover:border-accent-blue/40 transition-all duration-500 bg-white dark:bg-white/[0.06]"
+        >
+          {(featuredPost.data.heroImage || featuredPost.data.ogImage) && (
+            <div class="hidden md:flex w-72 lg:w-96 shrink-0 relative overflow-hidden self-stretch">
+              <img
+                src={featuredPost.data.heroImage || featuredPost.data.ogImage}
+                alt={featuredPost.data.title}
+                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+              />
+              <div class="absolute inset-0 bg-linear-to-r from-transparent to-white/10 dark:to-black/20"></div>
+            </div>
+          )}
+
+          <div class="flex-1 p-8 md:p-10 flex flex-col justify-between gap-5">
+            <div>
+              <div class="flex flex-wrap items-center gap-3 text-[10px] font-mono uppercase tracking-widest text-institutional-muted mb-4">
+                <span class="text-accent-blue font-semibold">{featuredPost.data.pillarId?.replace(/-/g, ' ')}</span>
+                <span>·</span>
+                <span>{formatDate(featuredPost.data.pubDate)}</span>
+                {featuredPost.body && (
+                  <>
+                    <span>·</span>
+                    <span class="flex items-center gap-1"><Clock size={10} /> {calcReadTime(featuredPost.body)} min</span>
+                  </>
+                )}
+              </div>
+              <h2 class="text-2xl md:text-4xl font-black font-display text-slate-900 dark:text-white group-hover:text-accent-blue transition-colors uppercase tracking-tight leading-tight mb-3">
+                {featuredPost.data.title}
+              </h2>
+              <p class="text-institutional-secondary font-inter text-base leading-relaxed max-w-2xl">
+                {featuredPost.data.description}
+              </p>
+            </div>
+            <div class="flex items-center gap-2 text-sm font-black font-display text-accent-blue uppercase tracking-wider">
+              Read Article <ArrowRight size={15} class="group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
+        </a>
+      </section>
+    )}
+
+    <!-- Pillar Navigation -->
+    <section>
+      <div class="flex items-center gap-3 mb-5">
+        <h2 class="text-xs font-mono text-institutional-muted uppercase tracking-widest shrink-0">Browse by Pillar</h2>
+        <div class="h-px flex-1 bg-slate-200 dark:bg-white/10"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {pillars.map((pillar) => (
+          <a
+            href={`/blog/${pillar.id}`}
+            class="group relative overflow-hidden rounded-2xl border border-slate-200 dark:border-white/15 hover:border-accent-blue/40 transition-all duration-300 bg-white dark:bg-white/[0.06] p-7 flex flex-col gap-4 min-h-[280px]"
+          >
+            {pillar.heroImage && (
+              <div class="absolute inset-0 z-0">
+                <img
+                  src={pillar.heroImage}
+                  alt=""
+                  class="w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-opacity duration-500"
+                />
+                <!-- Overlay to improve text contrast -->
+                <div class="absolute inset-0 bg-black/40 dark:bg-black/50 z-10 pointer-events-none"></div>
+              </div>
+            )}
+            <div class="relative z-10 flex items-start justify-between">
+              <div class={`p-3 rounded-lg ${pillar.accent} ${pillar.color} group-hover:scale-110 transition-transform duration-300`}>
+                <pillar.icon size={24} />
+              </div>
+              <span class="text-[10px] font-mono text-slate-400 dark:text-white/40 uppercase tracking-widest font-semibold">
+                {pillar.id === 'build-in-public' ? buildInPublicArticles.length : (postCountByPillar[pillar.id] || 0)} posts
+              </span>
+            </div>
+            <div class="relative z-10">
+              <h3 class="text-xl md:text-2xl font-black font-display text-slate-900 dark:text-white group-hover:text-accent-blue transition-colors uppercase tracking-tight leading-tight mb-2">
+                {pillar.name}
+              </h3>
+              <p class="text-sm text-institutional-muted font-inter leading-snug line-clamp-3">
+                {pillar.description}
+              </p>
+            </div>
+            <div class="relative z-10 mt-auto flex items-center gap-1 text-[10px] font-mono text-accent-blue uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">
+              Explore <ArrowRight size={10} />
+            </div>
+          </a>
+        ))}
+
+        
+      </div>
+
+    </section>
+
+    <!-- Newsletter Ad Banner - Horizontal on mobile, hidden on desktop for now -->
+    <div class="md:hidden">
+      <NewsletterAd variant="horizontal" />
+    </div>
+
+    <!-- Per-Pillar Post Lists -->
+    {pillarPreviews.filter(pp => pp.posts.length > 0 && pp.pillar.id !== 'build-in-public').map(({ pillar, posts: pillarPosts }) => (
+      <section>
+        <div class="flex items-center gap-4 mb-8 px-4 py-2">
+          <div class={`${pillar.color}`}>
+            <pillar.icon size={20} />
+          </div>
+          <h2 class="text-2xl md:text-3xl font-black font-display text-slate-900 dark:text-white uppercase tracking-widest shrink-0">
+            {pillar.name}
+          </h2>
+          <div class="h-px flex-1 bg-slate-200 dark:bg-white/10"></div>
+          <a
+            href={`/blog/${pillar.id}`}
+            class="text-sm md:text-base font-mono font-bold text-accent-blue uppercase tracking-widest whitespace-nowrap hover:underline flex items-center gap-2 shrink-0"
+          >
+            All <ArrowRight size={14} />
+          </a>
+        </div>
+
+        <!-- Start Here: Hub + Resources cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 px-4">
+          <a
+            href={`/blog/${pillar.id}`}
+            class={`group flex items-center gap-4 p-5 rounded-2xl border bg-white dark:bg-white/[0.03] hover:bg-opacity-80 transition-all duration-300 border-slate-200 dark:border-white/10 hover:border-current`}
+            style={`--tw-border-opacity:0.4`}
+          >
+            <div class={`shrink-0 w-10 h-10 rounded-xl ${pillar.accent} flex items-center justify-center`}>
+              <pillar.icon size={18} class={pillar.color} />
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-[10px] font-mono uppercase tracking-widest text-slate-400 mb-0.5">Start Here</div>
+              <div class="font-black font-display text-slate-900 dark:text-white text-sm uppercase tracking-tight">{pillar.name} Hub</div>
+              <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Overview, strategy &amp; all guides</div>
+            </div>
+            <ArrowRight size={14} class="text-slate-400 group-hover:text-accent-blue group-hover:translate-x-1 transition-all shrink-0" />
+          </a>
+
+          <a
+            href={`/blog/${pillar.id}-links`}
+            class="group flex items-center gap-4 p-5 rounded-2xl border bg-white dark:bg-white/[0.03] transition-all duration-300 border-slate-200 dark:border-white/10"
+          >
+            <div class={`shrink-0 w-10 h-10 rounded-xl ${pillar.accent} flex items-center justify-center`}>
+              <BookOpen size={18} class={pillar.color} />
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-[10px] font-mono uppercase tracking-widest text-slate-400 mb-0.5">Resources</div>
+              <div class="font-black font-display text-slate-900 dark:text-white text-sm uppercase tracking-tight">{pillar.name} Resources</div>
+              <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Tools, services &amp; downloads</div>
+            </div>
+            <ArrowRight size={14} class="text-slate-400 group-hover:text-accent-blue group-hover:translate-x-1 transition-all shrink-0" />
+          </a>
+        </div>
+
+        <div class="divide-y divide-slate-100 dark:divide-white/8 px-4">
+          {pillarPosts.map((p, i) => {
+            const rt = p.body ? calcReadTime(p.body) : null;
+            return (
+              <a
+                href={`/blog/${p.id.replace(/\.mdx?$/, '')}`}
+                class="group flex items-start gap-6 py-8 hover:bg-slate-50 dark:hover:bg-white/[0.04] -mx-4 px-4 rounded-lg transition-colors"
+              >
+                <span class="text-sm font-mono text-institutional-muted w-6 shrink-0 mt-1 tabular-nums font-semibold">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div class="flex-1 min-w-0">
+                  <div class="flex flex-wrap items-center gap-3 text-xs md:text-sm font-mono text-institutional-muted uppercase tracking-widest mb-2">
+                    <span>{formatDate(p.data.pubDate)}</span>
+                    {rt && <><span>·</span><span class="flex items-center gap-1"><Clock size={11}/> {rt}m</span></>}
+                    <span>·</span>
+                    <span class="text-accent-blue/70">{p.data.category}</span>
+                  </div>
+                  <h3 class="text-lg md:text-2xl font-bold font-display text-slate-900 dark:text-white group-hover:text-accent-blue transition-colors tracking-tight leading-snug mb-2">
+                    {p.data.title}
+                  </h3>
+                  <p class="text-base text-institutional-secondary font-inter leading-relaxed line-clamp-2">
+                    {p.data.description}
+                  </p>
+                </div>
+                <ArrowRight size={18} class="text-institutional-muted group-hover:text-accent-blue group-hover:translate-x-1 transition-all shrink-0 mt-1" />
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    ))}
+
+    <!-- Build in Public Section -->
+    <section>
+      <div class="flex items-center gap-4 mb-8 px-4 py-2">
+        <div class="text-violet-400">
+          <Pencil size={20} />
+        </div>
+        <h2 class="text-2xl md:text-3xl font-black font-display text-slate-900 dark:text-white uppercase tracking-widest shrink-0">
+          Build in Public
+        </h2>
+        <div class="h-px flex-1 bg-slate-200 dark:bg-white/10"></div>
+        <a
+          href="/blog/build-in-public"
+          class="text-sm md:text-base font-mono font-bold text-accent-blue uppercase tracking-widest whitespace-nowrap hover:underline flex items-center gap-2 shrink-0"
+        >
+          All <ArrowRight size={14} />
+        </a>
+      </div>
+
+      <div class="divide-y divide-slate-100 dark:divide-white/8 px-4">
+        {buildInPublicArticles.map((article, i) => (
+          <a
+            href={article.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group flex items-start gap-6 py-8 hover:bg-slate-50 dark:hover:bg-white/[0.04] -mx-4 px-4 rounded-lg transition-colors"
+          >
+            <span class="text-sm font-mono text-institutional-muted w-6 shrink-0 mt-1 tabular-nums font-semibold">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <div class="flex-1 min-w-0">
+              <div class="flex flex-wrap items-center gap-3 text-xs md:text-sm font-mono text-institutional-muted uppercase tracking-widest mb-2">
+                <span>{article.date}</span>
+                <span>·</span>
+                <span class="flex items-center gap-1"><Clock size={11}/> {article.readTime}</span>
+                <span>·</span>
+                <span class="text-violet-400/80">{article.category}</span>
+              </div>
+              <h3 class="text-lg md:text-2xl font-bold font-display text-slate-900 dark:text-white group-hover:text-violet-400 transition-colors tracking-tight leading-snug mb-2">
+                {article.title}
+              </h3>
+              <p class="text-base text-institutional-secondary font-inter leading-relaxed line-clamp-2">
+                {article.description}
+              </p>
+            </div>
+            <ArrowUpRight size={18} class="text-institutional-muted group-hover:text-violet-400 transition-all shrink-0 mt-1" />
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Newsletter CTA — inline email capture -->
+    <div class="py-14 px-8 md:px-14 rounded-2xl border text-center" style="border-color: rgba(245,200,66,0.25); background: rgba(245,200,66,0.05);">
+      <p class="text-[10px] font-mono uppercase tracking-[0.2em] mb-3" style="color: #f5c842;">Free Weekly Newsletter</p>
+      <h2 class="text-4xl md:text-5xl font-black font-display text-white uppercase tracking-tighter mb-3">GET THE INTEL<br/><span style="color: #f5c842;">EVERY WEEK.</span></h2>
+      <p class="text-slate-400 font-inter mb-7 max-w-md mx-auto text-sm">Geo-arbitrage, remote income systems, and AI tools — delivered free every week. Plus 4 resources on signup.</p>
+
+      <form id="blog-newsletter-form" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        <input
+          type="email"
+          id="blog-newsletter-email"
+          placeholder="Your best email..."
+          required
+          class="flex-1 px-5 py-3.5 rounded-full bg-white/10 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:border-[#f5c842]/60 transition-colors font-inter text-sm"
+        />
+        <button
+          type="submit"
+          id="blog-newsletter-submit"
+          class="px-7 py-3.5 rounded-full font-display font-black text-black text-sm uppercase tracking-wider whitespace-nowrap transition-opacity hover:opacity-90"
+          style="background: linear-gradient(135deg, #f5c842, #ff6b35);"
+        >
+          Join Free →
+        </button>
+      </form>
+
+      <p id="blog-newsletter-error" class="hidden mt-3 text-red-400 text-xs font-mono uppercase tracking-widest">Something went wrong — try again.</p>
+      <p class="mt-5 text-[10px] font-mono text-slate-500 uppercase tracking-widest">✓ Weekly Intel · ✓ 4 Free Resources · ✓ No Spam</p>
+
+      <div class="mt-8 pt-6 border-t border-white/5 flex items-center justify-center gap-4 flex-wrap">
+        <span class="text-[9px] font-mono uppercase tracking-[0.2em] text-slate-600">Prefer a feed reader?</span>
+        <a href="/rss.xml" title="RSS Feed" class="flex items-center gap-1.5 px-4 py-2 rounded-full border border-white/10 text-slate-500 hover:text-orange-400 hover:border-orange-400/40 transition-all text-[9px] font-mono uppercase tracking-wider min-h-[44px] justify-center">
+          <Rss size={11} /> RSS
+        </a>
+        <a href="/feed.json" title="JSON Feed" class="flex items-center gap-1.5 px-4 py-2 rounded-full border border-white/10 text-slate-500 hover:text-accent-cyan hover:border-accent-cyan/40 transition-all text-[9px] font-mono uppercase tracking-wider min-h-[44px] justify-center">
+          <FileJson size={11} /> JSON
+        </a>
+      </div>
+    </div>
+
+  </div>
+</Layout>
+
+<script>
+  const form = document.getElementById('blog-newsletter-form') as HTMLFormElement;
+  const emailInput = document.getElementById('blog-newsletter-email') as HTMLInputElement;
+  const submitBtn = document.getElementById('blog-newsletter-submit') as HTMLButtonElement;
+  const errorMsg = document.getElementById('blog-newsletter-error');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = emailInput.value.trim();
+    if (!email) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Joining...';
+    errorMsg?.classList.add('hidden');
+
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'web', magnet: 'remote-jobs-pack', tags: ['founder'] })
+      });
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        window.location.href = data.redirect_url || '/newsletter/thank-you?ref=blog';
+      } else {
+        throw new Error(data.error || 'Failed');
+      }
+    } catch {
+      errorMsg?.classList.remove('hidden');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Join Free →';
+    }
+  });
+</script>
+
+<style>
+  @reference "../../styles/global.css";
+  .text-gradient {
+    @apply bg-linear-to-r from-accent-blue via-accent-purple to-accent-cyan bg-clip-text text-transparent;
+  }
+</style>

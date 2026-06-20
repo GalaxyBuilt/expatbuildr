@@ -1,0 +1,584 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const creators = {
+  finance: [
+    { name: "Graham Stephan", handle: "@GrahamStephan", meta: "Real Estate · Investing · Personal Finance", icon: "📈", tag: "Finance" },
+    { name: "Andrei Jikh", handle: "@AndreIJikh", meta: "Crypto · Investing · Passive Income", icon: "₿", tag: "Finance" },
+    { name: "Alex Hormozi", handle: "@AlexHormozi", meta: "Business · Sales · Wealth Building", icon: "💼", tag: "Finance" },
+    { name: "Vincent Chan", handle: "@VincentChan", meta: "Wealth Building · Young Entrepreneur", icon: "🚀", tag: "Finance" },
+    { name: "Nischa", handle: "@nischa", meta: "Personal Finance · Investing · Money Tips", icon: "💎", tag: "Finance" },
+    { name: "Minority Mindset", handle: "@MinorityMindset", meta: "Financial Education · Investing · Wealth", icon: "🧠", tag: "Finance" },
+    { name: "Iman Gadzhi", handle: "@ImanGadzhi", meta: "Business · Lifestyle · Agency Growth", icon: "🕶️", tag: "Finance" },
+  ],
+  ai: [
+    { name: "Matt Wolfe", handle: "@mreflow", meta: "AI Tools · Reviews · Automation", icon: "🤖", tag: "AI" },
+    { name: "Lex Fridman", handle: "@lexfridman", meta: "AI Research · Tech · Deep Conversations", icon: "🧠", tag: "AI" },
+    { name: "Greg Isenberg", handle: "@gregisenberg", meta: "AI Business Ideas · Startup Strategy", icon: "💡", tag: "AI" },
+    { name: "Tina Huang", handle: "@tinahuang1", meta: "Data Science · AI Tools · Tech Career", icon: "⚡", tag: "AI" },
+    { name: "AI Explained", handle: "@aiexplained-official", meta: "AI Research · Simplified · Future Tech", icon: "🔬", tag: "AI" },
+    { name: "Kevin Stratvert", handle: "@KevinStratvert", meta: "AI Tools · Tutorials · Productivity", icon: "🎓", tag: "AI" },
+  ]
+};
+---
+
+<Layout 
+  title="Creator Credits — EliteCashClips"
+  description="Official credits and attribution for the world's top finance and AI creators featured on EliteCashClips. Powered by ExpatBuildr."
+  ogImage="/images/credits-og.png"
+>
+  <div class="credits-container">
+    <!-- HEADER -->
+    <header class="credits-header reveal-on-scroll">
+      <div class="credits-badge">ExpatBuildr · EliteCashClips</div>
+      <h1>Creator <span class="text-gradient">Credits.</span></h1>
+      <p>EliteCashClips curates the best short-form moments from the world's top finance and AI creators. All intellectual property belongs exclusively to the original creators below.</p>
+    </header>
+
+    <!-- STATS ROW -->
+    <div class="credits-stats reveal-on-scroll" style="transition-delay: 100ms;">
+      <div class="stat-card glass-card">
+        <div class="stat-number text-accent-cyan">13</div>
+        <div class="stat-label">Creators Featured</div>
+      </div>
+      <div class="stat-card glass-card">
+        <div class="stat-number text-accent-blue">2</div>
+        <div class="stat-label">Niches Covered</div>
+      </div>
+      <div class="stat-card glass-card">
+        <div class="stat-number text-accent-purple">Daily</div>
+        <div class="stat-label">Clips Posted</div>
+      </div>
+    </div>
+
+    <!-- FINANCE CREATORS -->
+    <section class="credits-section reveal-on-scroll" style="transition-delay: 200ms;">
+      <div class="section-header">
+        <div class="section-icon icon-cyan">💰</div>
+        <div class="section-header-text">
+          <h2>Finance Creators</h2>
+          <p>Money · Crypto · Investing · Trading</p>
+        </div>
+      </div>
+
+      <div class="creator-grid">
+        {creators.finance.map((creator) => (
+          <a href={`https://www.youtube.com/${creator.handle}`} target="_blank" rel="noopener" class="creator-card finance glass-card">
+            <div class="creator-avatar avatar-finance">{creator.icon}</div>
+            <div class="creator-info">
+              <div class="creator-name">{creator.name}</div>
+              <div class="creator-meta">{creator.meta}</div>
+            </div>
+            <span class="creator-tag tag-finance">{creator.tag}</span>
+            <span class="creator-arrow">→</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <div class="credits-divider"></div>
+
+    <!-- AI CREATORS -->
+    <section class="credits-section reveal-on-scroll" style="transition-delay: 300ms;">
+      <div class="section-header">
+        <div class="section-icon icon-purple">🤖</div>
+        <div class="section-header-text">
+          <h2>AI & Automation Creators</h2>
+          <p>Tools · Workflows · Future of Tech</p>
+        </div>
+      </div>
+
+      <div class="creator-grid">
+        {creators.ai.map((creator) => (
+          <a href={`https://www.youtube.com/${creator.handle}`} target="_blank" rel="noopener" class="creator-card ai glass-card">
+            <div class="creator-avatar avatar-ai">{creator.icon}</div>
+            <div class="creator-info">
+              <div class="creator-name">{creator.name}</div>
+              <div class="creator-meta">{creator.meta}</div>
+            </div>
+            <span class="creator-tag tag-ai">{creator.tag}</span>
+            <span class="creator-arrow">→</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <div class="credits-divider"></div>
+
+    <!-- DISCLOSURE -->
+    <section class="credits-section reveal-on-scroll" style="transition-delay: 400ms;">
+      <div class="section-header" style="margin-bottom: 16px;">
+        <div class="section-icon icon-cyan">📋</div>
+        <div class="section-header-text">
+          <h2>Disclosure</h2>
+          <p>Transparency · Fair Use · Credit</p>
+        </div>
+      </div>
+
+      <div class="disclosure-card glass-card" style="margin-bottom: 12px;">
+        <div class="disclosure-title">About EliteCashClips</div>
+        <p>EliteCashClips is an independent short-form clip curation channel operated under ExpatBuildr. We highlight transformative short-form moments from publicly available YouTube content for educational and informational purposes.</p>
+        <p>All original content, intellectual property, and full-length videos belong exclusively to the creators listed above. EliteCashClips does not claim ownership of any source material. Our clips are intended to direct viewers back to the original creators' channels and increase their reach.</p>
+        <p>If you are a creator featured here and would like your content removed or have any concerns, please contact us immediately — we will respond within 24 hours.</p>
+      </div>
+
+      <div class="disclosure-card glass-card">
+        <div class="disclosure-title text-accent-purple">Affiliate Disclosure</div>
+        <p>Some links shared across EliteCashClips platforms may be affiliate links. This means ExpatBuildr may earn a small commission if you make a purchase through those links at no additional cost to you. We only reference products and services we genuinely use and believe in.</p>
+      </div>
+    </section>
+
+    <div class="credits-divider"></div>
+
+    <!-- ULTIMATE CTA SECTION -->
+    <section class="credits-section reveal-on-scroll" style="transition-delay: 500ms;">
+      <div class="signup-card glass-card highlight">
+        <div class="signup-badge">STAY AHEAD</div>
+        <h2>Join Galaxy <span class="text-gradient">Arbitrage.</span></h2>
+        <p class="signup-desc">Get the world's best finance and AI clips, plus the automation workflows I use to build these systems. No fluff. Just leverage.</p>
+        
+        <form id="beehiiv-form" class="signup-form">
+          <input 
+            type="email" 
+            id="beehiiv-email" 
+            placeholder="your@email.com" 
+            required 
+            class="signup-input"
+          />
+          <button type="submit" id="beehiiv-submit" class="btn-primary">
+            Unlock Access →
+          </button>
+        </form>
+        <div id="beehiiv-message" class="signup-message"></div>
+        
+        <div class="cta-footer">
+          <p>Or message me directly for custom builds:</p>
+          <div class="cta-buttons">
+            <a href="https://t.me/expatbuildrdev" class="cta-pill telegram" target="_blank">Telegram Hub</a>
+            <a href="/contact" class="cta-pill contact">Contact Me</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</Layout>
+
+<script is:inline src="/beehiiv-v2.js"></script>
+<script is:inline>
+  // Capture Intent / Page View Intent
+  window.addEventListener('load', () => {
+    if (window.trackLead) {
+      window.trackLead({ label: 'Credits Page View', value: 0 });
+      console.log('🚀 Intent Captured: Credits Page View');
+    }
+  });
+
+  const form = document.getElementById('beehiiv-form');
+  const emailInput = document.getElementById('beehiiv-email');
+  const submitBtn = document.getElementById('beehiiv-submit');
+  const messageDiv = document.getElementById('beehiiv-message');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = emailInput.value.trim();
+
+    if (!window.isValidEmail(email)) {
+      messageDiv.textContent = 'Please enter a valid email address.';
+      messageDiv.className = 'signup-message error';
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Joining...';
+
+    const success = await window.subscribeToBeehiiv({
+      email,
+      tags: ['clip-youtube', 'creator-credits'],
+      utm_medium: 'credits_page',
+      utm_campaign: 'elite_cash_clips'
+    });
+
+    if (success === true) {
+      messageDiv.textContent = 'Success! Check your inbox to confirm.';
+      messageDiv.className = 'signup-message success';
+      form.style.display = 'none';
+      
+      // Track signup intent
+      if (window.trackLead) {
+        window.trackLead({ label: 'Credits Beehiiv Signup', value: 10 });
+      }
+    } else if (success === 'already_subscribed') {
+      messageDiv.textContent = 'You are already on the list! Welcome back.';
+      messageDiv.className = 'signup-message success';
+      form.style.display = 'none';
+    } else {
+      messageDiv.textContent = 'Something went wrong. Please try again later.';
+      messageDiv.className = 'signup-message error';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Unlock Access →';
+    }
+  });
+</script>
+
+<style>
+  .credits-container {
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── HEADER ── */
+  .credits-header {
+    text-align: center;
+    padding: 2rem 0 3rem;
+  }
+
+  .credits-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-accent-cyan);
+    margin-bottom: 20px;
+  }
+
+  .credits-header h1 {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  .credits-header p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* ── STATS ── */
+  .credits-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 3rem;
+  }
+
+  .stat-card {
+    border-radius: 16px;
+    padding: 1.25rem;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: 1.75rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+  }
+
+  .icon-cyan { color: var(--color-accent-cyan); }
+  .icon-purple { color: var(--color-accent-purple); }
+
+  .section-header-text h2 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--text-primary);
+  }
+
+  .section-header-text p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* ── CREATOR GRID ── */
+  .creator-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 2.5rem;
+  }
+
+  .creator-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 1rem;
+    border-radius: 16px;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .creator-card:hover {
+    border-color: var(--color-accent-blue);
+    transform: translateX(6px);
+    box-shadow: 0 0 30px -10px var(--color-accent-blue);
+  }
+
+  .creator-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+    border: 1px solid var(--glass-border);
+    background: var(--bg-secondary);
+  }
+
+  .creator-info {
+    flex: 1;
+  }
+
+  .creator-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .creator-meta {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .creator-tag {
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    border: 1px solid var(--glass-border);
+  }
+
+  .tag-finance { color: var(--color-accent-cyan); background: rgba(34, 211, 238, 0.1); }
+  .tag-ai { color: var(--color-accent-purple); background: rgba(139, 92, 246, 0.1); }
+
+  .creator-arrow {
+    color: var(--text-subtle);
+    font-size: 1.25rem;
+    transition: transform 0.2s;
+  }
+
+  .creator-card:hover .creator-arrow {
+    transform: translateX(4px);
+    color: var(--color-accent-blue);
+  }
+
+  /* ── SIGNUP CARD ── */
+  .signup-card {
+    padding: 3rem 2rem;
+    border-radius: 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .signup-card.highlight {
+    border: 1px solid var(--color-accent-blue);
+    box-shadow: 0 0 40px -10px var(--color-accent-blue);
+  }
+
+  .signup-badge {
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    color: var(--color-accent-blue);
+    margin-bottom: 1rem;
+  }
+
+  .signup-card h2 {
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .signup-desc {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin: 1rem auto 2rem;
+    line-height: 1.6;
+    max-width: 480px;
+  }
+
+  .signup-form {
+    display: flex;
+    gap: 12px;
+    max-width: 440px;
+    margin: 0 auto 2rem;
+  }
+
+  .signup-input {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border-radius: 999px;
+    border: 1px solid var(--glass-border);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.2s;
+  }
+
+  .signup-input:focus {
+    border-color: var(--color-accent-blue);
+    background: var(--bg-secondary);
+  }
+
+  .signup-message {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .signup-message.success { color: #10b981; }
+  .signup-message.error { color: #ef4444; }
+
+  /* ── CTA FOOTER ── */
+  .cta-footer {
+    border-top: 1px solid var(--border-color);
+    padding-top: 2rem;
+  }
+
+  .cta-footer p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .cta-pill {
+    padding: 10px 24px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 1px solid var(--glass-border);
+  }
+
+  .cta-pill.telegram {
+    background: rgba(34, 211, 238, 0.1);
+    color: var(--color-accent-cyan);
+  }
+
+  .cta-pill.telegram:hover {
+    background: var(--color-accent-cyan);
+    color: #000;
+  }
+
+  .cta-pill.contact {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+  }
+
+  .cta-pill.contact:hover {
+    background: var(--text-primary);
+    color: var(--bg-primary);
+  }
+
+  /* ── DISCLOSURE ── */
+  .disclosure-card {
+    border-radius: 20px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .disclosure-title {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent-cyan);
+    margin-bottom: 0.75rem;
+  }
+
+  .disclosure-card p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .disclosure-card p:last-child { margin-bottom: 0; }
+
+  .credits-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border-color), transparent);
+    margin: 3rem 0;
+  }
+
+  @media (max-width: 640px) {
+    .credits-stats {
+      grid-template-columns: 1fr;
+    }
+    
+    .signup-form {
+      flex-direction: column;
+    }
+    
+    .signup-input, .btn-primary {
+      width: 100%;
+    }
+    
+    .cta-buttons {
+      flex-direction: column;
+    }
+  }
+</style>

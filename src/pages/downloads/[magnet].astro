@@ -1,0 +1,320 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Pixels from '../../components/Pixels.astro';
+import DownloadCard from '../../components/DownloadCard.astro';
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return [
+    { params: { magnet: 'remote-jobs-pack' } },
+    { params: { magnet: 'arbitrage-calculator' } },
+    { params: { magnet: 'prompt-vault' } },
+    { params: { magnet: 'geo-arbitrage-starter-kit' } },
+  ];
+}
+
+const { magnet } = Astro.params;
+const ref = Astro.url.searchParams.get('ref') || 'web';
+const isSubscriber = ref === 'newsletter';
+
+const magnets = {
+  'remote-jobs-pack': {
+    icon: '💼',
+    tag: 'Free Resource — Job Hunting',
+    title: 'REMOTE JOBS<br/><span>STARTER PACK</span>',
+    desc: '20 remote-friendly job boards ranked and rated — including 6 most people have never heard of. Bookmark this. Use it every week.',
+    file: '/downloads/remote-jobs-pack.pdf',
+    type: 'PDF Guide',
+    inside: [
+      'Top 20 remote job boards ranked by quality',
+      '6 hidden platforms most job seekers miss',
+      'Which boards are best for each role type',
+      'Weekly routine to check all 20 in under 10 minutes'
+    ]
+  },
+  'arbitrage-calculator': {
+    icon: '📊',
+    tag: 'Free Resource — Finance',
+    title: 'GEO-ARBITRAGE<br/><span>CALCULATOR</span>',
+    desc: 'Your real savings rate in 5 countries vs. where you live now. The numbers are usually shocking.',
+    file: '/downloads/arbitrage-calculator.xlsx',
+    type: 'Excel Sheet',
+    inside: [
+      'Input your current income and expenses',
+      'Compare savings rate across 5 countries',
+      'Philippines, Colombia, Mexico, Thailand, Portugal',
+      'See your real retirement timeline shift'
+    ]
+  },
+  'prompt-vault': {
+    icon: '🤖',
+    tag: 'Free Resource — AI Tools',
+    title: 'THE PROMPT<br/><span>VAULT</span>',
+    desc: '5 working Claude and AI prompts for job hunting, freelancing, and automation — each with an upgrade tip and example output.',
+    file: '/downloads/prompt-vault.pdf',
+    type: 'PDF Guide',
+    inside: [
+      'ATS-beating cover letter prompt',
+      'LinkedIn bio rewrite for remote work',
+      'Freelance service package builder',
+      'Client case study writer',
+      'Cold outreach personalizer'
+    ]
+  },
+  'geo-arbitrage-starter-kit': {
+    icon: '🌏',
+    tag: 'Free Resource — Geo-Arbitrage',
+    title: 'GEO-ARBITRAGE<br/><span>STARTER KIT</span>',
+    desc: 'Everything you need to understand geographic arbitrage and start living on a fraction of your current cost — with the same or better quality of life.',
+    file: '/downloads/GeoArbitrage-StarterKit-ExpatBuildr.pdf',
+    type: 'PDF Guide',
+    inside: [
+      'What geo-arbitrage actually is (and isn\'t)',
+      'Top countries ranked by cost vs. quality of life',
+      'How to keep earning USD while spending in pesos',
+      'The real numbers — what $3k/mo buys in each city',
+      'Your first steps to making the move'
+    ]
+  }
+};
+
+const m = magnets[magnet] || magnets['remote-jobs-pack'];
+const otherMagnets = Object.entries(magnets).filter(([key]) => key !== magnet);
+
+const pageTitle = `Your Download: ${m.tag.split('—')[1].trim()} | Galaxy Arbitrage`;
+---
+
+<Layout title={pageTitle} minimal={true} noindex={true} ogImage="/og-resource.png">
+  <Pixels slot="head" page="download-page" magnet={magnet} source={ref} />
+
+  <div class="download-root">
+    <!-- Grid & Orbs -->
+    <div class="grid-bg"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <main class="content-wrap">
+      <!-- Subscriber Banner (Conditional) -->
+      {isSubscriber && (
+        <div class="subscriber-banner reveal-on-scroll">
+          <span class="sub-dot"></span>
+          Galaxy Arbitrage Subscriber — Direct Access Unlocked
+        </div>
+      )}
+
+      <div class="download-card glass-card reveal-on-scroll">
+        <div class="brand">GALAXY<span>BUILT</span>.dev</div>
+
+        <div class="magnet-icon">{m.icon}</div>
+        <span class="magnet-tag">{m.tag}</span>
+
+        <h1 class="magnet-title" set:html={m.title} />
+        <p class="magnet-desc">{m.desc}</p>
+
+        <!-- What's Inside -->
+        <div class="inside-box">
+          <div class="inside-label">What's inside</div>
+          <div class="inside-list">
+            {m.inside.map(item => (
+              <div class="inside-item">{item}</div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Download Button -->
+        <a href={m.file} download class="download-btn" id="download-trigger">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span id="btn-text">Download Free — {m.type}</span>
+        </a>
+        <p class="download-note">✓ Instant download &nbsp;·&nbsp; ✓ No signup required &nbsp;·&nbsp; ✓ Yours to keep</p>
+
+        <!-- Cross-sell Grid -->
+        <div class="cross-sell-divider">
+          <span>While you're here — grab these too</span>
+        </div>
+
+        <div class="more-grid">
+          {otherMagnets.map(([key, data]) => (
+            <DownloadCard 
+              magnet={key} 
+              title={data.title.replace('<br/>', ' ').replace('<span>', '').replace('</span>', '')} 
+              icon={data.icon} 
+              type={data.type}
+            />
+          ))}
+          <a href="/newsletter" class="more-card group newsletter-card">
+            <span class="more-card-icon group-hover:scale-110 transition-transform">🌏</span>
+            <div class="more-card-text">
+              <strong>Full Newsletter</strong>
+              <span>Weekly Intel</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Newsletter CTA (Conditional for Cold Traffic) -->
+        {!isSubscriber && (
+          <div class="newsletter-cta">
+            <p>
+              <strong>Want all 4 free resources delivered to your inbox?</strong><br/>
+              Join Galaxy Arbitrage and get the full welcome bundle instantly — plus 6 sections of remote income intel every week.
+            </p>
+            <a href="/newsletter" class="cta-link">
+              Join Free — Get All 4 Resources →
+            </a>
+          </div>
+        )}
+      </div>
+
+      <footer class="page-footer">
+        Galaxy Arbitrage by ExpatBuildr · Philippines 🇵🇭 · <a href="/newsletter" class="text-accent-gold">Join the Newsletter</a>
+      </footer>
+    </main>
+  </div>
+</Layout>
+
+<style>
+  :root {
+    --bg-primary: #060810;
+    --accent-gold: #f5c842;
+    --accent-orange: #ff6b35;
+    --accent-cyan: #00e5ff;
+    --accent-emerald: #00e9a3;
+    --text-primary: #f0f4ff;
+    --text-secondary: #8892b0;
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.07);
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'Syne', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  .download-root {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  .grid-bg {
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .orb { position: absolute; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0; opacity: 0.6; }
+  .orb-1 { width: 500px; height: 500px; background: rgba(0,233,163,0.07); top: -100px; right: -100px; }
+  .orb-2 { width: 400px; height: 400px; background: rgba(245,200,66,0.05); bottom: -100px; left: -100px; }
+
+  .content-wrap { position: relative; z-index: 1; width: 100%; max-width: 580px; }
+
+  .subscriber-banner {
+    display: flex; align-items: center; gap: 10px; padding: 10px 20px; border-radius: 100px;
+    background: rgba(0,233,163,0.06); border: 1px solid rgba(0,233,163,0.2);
+    font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; color: var(--accent-emerald);
+    text-transform: uppercase; margin-bottom: 24px;
+  }
+  .sub-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-emerald); animation: blink 2s infinite; }
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.2;} }
+
+  .download-card {
+    background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 32px;
+    padding: 52px 44px; backdrop-filter: blur(16px);
+  }
+
+  .brand { font-family: var(--font-display); font-size: 0.95rem; letter-spacing: 0.15em; color: var(--text-secondary); margin-bottom: 28px; text-align: center; }
+  .brand span { color: var(--accent-gold); }
+
+  .magnet-icon { width: 80px; height: 80px; border-radius: 24px; border: 1px solid var(--glass-border); background: var(--glass-bg); display: flex; align-items: center; justify-content: center; font-size: 2.4rem; margin: 0 auto 24px; }
+  .magnet-tag { display: block; text-align: center; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 12px; }
+
+  .magnet-title { font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 3.2rem); line-height: 0.95; letter-spacing: 0.03em; text-align: center; margin-bottom: 16px; }
+  .magnet-title :global(span) { background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+  .magnet-desc { text-align: center; font-size: 0.92rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 36px; max-width: 420px; margin-left: auto; margin-right: auto; }
+
+  .inside-box { background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 16px; padding: 20px 24px; margin-bottom: 32px; }
+  .inside-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 14px; }
+  .inside-list { display: flex; flex-direction: column; gap: 8px; }
+  .inside-item { display: flex; align-items: center; gap: 10px; font-size: 0.87rem; color: var(--text-primary); border-bottom: 1px solid rgba(255,255,255,0.04); padding-bottom: 8px; }
+  .inside-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .inside-item::before { content: '→'; color: var(--accent-gold); font-family: var(--font-mono); font-size: 0.8rem; }
+
+  .download-btn {
+    display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%;
+    padding: 20px 32px; border-radius: 100px; background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
+    color: #000; font-family: var(--font-body); font-weight: 800; font-size: 1rem; text-transform: uppercase;
+    text-decoration: none; transition: all 0.3s ease; box-shadow: 0 0 50px rgba(245,200,66,0.25);
+    animation: glow-pulse 2.5s infinite; position: relative; overflow: hidden; margin-bottom: 12px;
+  }
+  .download-btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 0 70px rgba(245,200,66,0.4); }
+  @keyframes glow-pulse { 0%,100% { box-shadow: 0 0 40px rgba(245,200,66,0.2); } 50% { box-shadow: 0 0 70px rgba(245,200,66,0.4); } }
+
+  .download-note { text-align: center; font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-secondary); }
+
+  .cross-sell-divider { display: flex; align-items: center; gap: 12px; margin: 36px 0 28px; }
+  .cross-sell-divider::before, .cross-sell-divider::after { content: ''; flex: 1; height: 1px; background: var(--glass-border); }
+  .cross-sell-divider span { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-secondary); white-space: nowrap; }
+
+  .more-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  
+  .newsletter-card { border-color: rgba(0, 229, 255, 0.2); }
+  .newsletter-card:hover { border-color: var(--accent-cyan); }
+
+  .newsletter-cta { margin-top: 32px; padding: 24px; border-radius: 20px; background: rgba(245,200,66,0.04); border: 1px solid rgba(245,200,66,0.12); text-align: center; }
+  .newsletter-cta p { font-size: 0.87rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px; }
+  .cta-link { display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; border-radius: 100px; background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange)); color: #000; font-family: var(--font-body); font-weight: 800; font-size: 0.8rem; text-transform: uppercase; text-decoration: none; transition: all 0.3s; }
+  .cta-link:hover { transform: scale(1.04); }
+
+  .page-footer { margin-top: 28px; font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-secondary); text-align: center; }
+
+  @media (max-width: 500px) { .download-card { padding: 36px 24px; } .more-grid { grid-template-columns: 1fr; } }
+
+  .reveal-on-scroll { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+  .reveal-on-scroll.active { opacity: 1; transform: translateY(0); }
+</style>
+
+<script is:inline>
+  const trigger = document.getElementById('download-trigger');
+  const btnText = document.getElementById('btn-text');
+
+  trigger?.addEventListener('click', () => {
+    btnText.textContent = '✓ Download Starting...';
+    trigger.classList.add('downloading');
+    
+    // Fire pixel
+    const params = new URLSearchParams(window.location.search);
+    const magnetKey = window.location.pathname.split('/').pop() || 'remote-jobs-pack';
+    const ref = params.get('ref') || 'web';
+    
+    if (window.firePixelEvent) {
+      window.firePixelEvent('DownloadStarted', { 
+        magnet: magnetKey, 
+        source: ref === 'newsletter' ? 'newsletter' : 'web' 
+      });
+    }
+
+    setTimeout(() => {
+      btnText.textContent = '✓ Downloaded — Check Folder';
+    }, 3000);
+  });
+
+  // Reveal logic
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+</script>

@@ -1,0 +1,160 @@
+---
+export const prerender = true;
+import Layout from '../../layouts/Layout.astro';
+import { ArrowRight, Zap, Briefcase, Globe, BookOpen, DollarSign, TrendingUp } from 'lucide-astro';
+---
+
+<Layout
+  title="Remote Income Resources: Jobs, Tools & Guides | ExpatBuildr"
+  description="Everything in the Remote Income pillar in one place — job boards, salary negotiation tools, career guides, and the weekly newsletter for remote workers building location-independent income."
+  canonicalUrl="https://expatbuildr.com/blog/remote-income-links"
+  ogImage="/images/remote work.jpg"
+>
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Hero -->
+    <div class="text-center mb-20">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs uppercase tracking-[0.2em] font-mono mb-8">
+        <Zap size={12} /> Remote Income
+      </div>
+      <h1 class="text-5xl md:text-7xl font-black font-display tracking-tighter text-slate-900 dark:text-white mb-6 uppercase leading-none">
+        EVERYTHING<br /><span class="text-red-400">REMOTE INCOME.</span>
+      </h1>
+      <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-inter leading-relaxed mb-8">
+        Every tool, resource, guide, and opportunity in the Remote Income pillar — in one place. Find your next remote role, negotiate better pay, and build income that stays location-independent.
+      </p>
+    </div>
+
+    <!-- Featured Resource: Job Board -->
+    <div class="mb-12">
+      <div class="glass-card rounded-2xl p-8 border border-red-500/30 bg-red-500/5">
+        <div class="flex flex-col md:flex-row md:items-center gap-6">
+          <div class="shrink-0 w-16 h-16 rounded-2xl bg-red-500/10 flex items-center justify-center">
+            <Briefcase class="text-red-400" size={28} />
+          </div>
+          <div class="flex-1">
+            <div class="text-xs font-mono uppercase tracking-wider text-red-400 font-semibold mb-2">Featured Resource</div>
+            <h2 class="text-2xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white mb-2">Remote Job Board</h2>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">500+ curated USD-paying fully remote roles updated weekly. Filtered for jobs that will never RTO — sorted by role type, salary range, and timezone requirements.</p>
+            <a href="/geo-arbitrage/arbjobs" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-red-500 text-white font-bold text-sm hover:bg-red-400 transition-all">
+              Browse Remote Jobs <ArrowRight size={16} />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Digital Products -->
+    <div class="mb-16">
+      <div class="flex items-center gap-3 mb-8">
+        <DollarSign class="text-red-400" size={20} />
+        <h2 class="text-2xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white">Tools & Calculators</h2>
+        <div class="h-px flex-1 bg-slate-200 dark:bg-white/10"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="glass-card rounded-2xl p-6 border border-slate-200 dark:border-white/10 hover:border-red-500/40 transition-all">
+          <div class="text-xs font-mono uppercase tracking-wider text-red-400 font-semibold mb-3">Calculator · $22</div>
+          <h3 class="text-lg font-black text-slate-900 dark:text-white mb-2">Geo-Arbitrage Income Calculator</h3>
+          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">See your real purchasing power when earning USD from the Philippines, Thailand, Vietnam, or anywhere in SEA. Monthly savings projection and break-even timeline included.</p>
+          <ul class="space-y-1 mb-5">
+            <li class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2"><Zap size={10} class="text-red-400 shrink-0" /> USD vs local currency by city</li>
+            <li class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2"><Zap size={10} class="text-red-400 shrink-0" /> Monthly savings projection</li>
+            <li class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2"><Zap size={10} class="text-red-400 shrink-0" /> Break-even timeline vs old salary</li>
+          </ul>
+          <a href="/shop" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-500/10 text-red-400 font-bold text-sm hover:bg-red-500/20 transition-all">
+            Get the Calculator <ArrowRight size={14} />
+          </a>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 border border-slate-200 dark:border-white/10 hover:border-red-500/40 transition-all">
+          <div class="text-xs font-mono uppercase tracking-wider text-red-400 font-semibold mb-3">Newsletter · Free</div>
+          <h3 class="text-lg font-black text-slate-900 dark:text-white mb-2">Galaxy Arbitrage Newsletter</h3>
+          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Weekly intel on remote job opportunities, salary data, geo-arbitrage math, and income strategies for location-independent professionals.</p>
+          <ul class="space-y-1 mb-5">
+            <li class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2"><Zap size={10} class="text-red-400 shrink-0" /> Weekly remote job picks</li>
+            <li class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2"><Zap size={10} class="text-red-400 shrink-0" /> Salary and cost of living data</li>
+            <li class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2"><Zap size={10} class="text-red-400 shrink-0" /> Income strategy breakdowns</li>
+          </ul>
+          <a href="/newsletter" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-500/10 text-red-400 font-bold text-sm hover:bg-red-500/20 transition-all">
+            Join Free <ArrowRight size={14} />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Services -->
+    <div class="mb-16">
+      <div class="flex items-center gap-3 mb-8">
+        <TrendingUp class="text-red-400" size={20} />
+        <h2 class="text-2xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white">Done-For-You Services</h2>
+        <div class="h-px flex-1 bg-slate-200 dark:bg-white/10"></div>
+      </div>
+
+      <div class="glass-card rounded-2xl p-8 border border-slate-200 dark:border-white/10 hover:border-red-500/40 transition-all">
+        <div class="flex flex-col md:flex-row md:items-center gap-6">
+          <div class="flex-1">
+            <div class="text-xs font-mono uppercase tracking-wider text-red-400 font-semibold mb-2">Automation Service</div>
+            <h3 class="text-xl font-black text-slate-900 dark:text-white mb-2">Remote Job Search Automation</h3>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">Stop applying manually. We build automated systems that identify relevant remote roles, track applications, and surface hidden opportunities before they hit the main job boards.</p>
+            <a href="/automation-systems/automate" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-500/10 text-red-400 font-bold text-sm hover:bg-red-500/20 transition-all">
+              See How It Works <ArrowRight size={14} />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Library -->
+    <div class="mb-16">
+      <div class="flex items-center gap-3 mb-8">
+        <BookOpen class="text-red-400" size={20} />
+        <h2 class="text-2xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white">Content Library</h2>
+        <div class="h-px flex-1 bg-slate-200 dark:bg-white/10"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-white/10 hover:border-red-500/40 transition-all">
+          <div class="text-xs font-mono text-red-400 uppercase tracking-wider mb-1">Cluster 1 · Finding Remote Work</div>
+          <ul class="space-y-2">
+            <li><a href="/blog/remote-income/how-to-find-fully-remote-jobs-that-never-rto" class="text-sm text-slate-700 dark:text-slate-300 hover:text-red-400 transition-colors">How to Find Fully Remote Jobs That Never RTO</a></li>
+            <li><a href="/blog/remote-income/best-remote-job-boards-actually-worth-using-2026" class="text-sm text-slate-700 dark:text-slate-300 hover:text-red-400 transition-colors">Best Remote Job Boards Actually Worth Using in 2026</a></li>
+            <li><a href="/blog/remote-income/how-to-negotiate-remote-arrangement-current-job" class="text-sm text-slate-700 dark:text-slate-300 hover:text-red-400 transition-colors">How to Negotiate a Remote Arrangement at Your Current Job</a></li>
+            <li><a href="/blog/remote-income/remote-first-resume-that-gets-callbacks" class="text-sm text-slate-700 dark:text-slate-300 hover:text-red-400 transition-colors">Building a Remote-First Resume That Gets Callbacks</a></li>
+            <li><a href="/blog/remote-income/how-to-pass-async-hiring-processes" class="text-sm text-slate-700 dark:text-slate-300 hover:text-red-400 transition-colors">How to Pass Async Hiring Processes</a></li>
+          </ul>
+        </div>
+
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-white/10 hover:border-red-500/40 transition-all">
+          <div class="text-xs font-mono text-red-400 uppercase tracking-wider mb-1">Cluster 2 · Career & Income Growth</div>
+          <ul class="space-y-2">
+            <li><a href="/blog/remote-income/how-to-get-promoted-while-working-fully-remote" class="text-sm text-slate-700 dark:text-slate-300 hover:text-red-400 transition-colors">How to Get Promoted While Working Fully Remote</a></li>
+            <li><a href="/blog/remote-income/how-to-ask-for-a-raise-when-you-work-remotely" class="text-sm text-slate-700 dark:text-slate-300 hover:text-red-400 transition-colors">How to Ask for a Raise When You Work Remotely</a></li>
+            <li><a href="/blog/remote-income/how-to-negotiate-higher-salary-remote-job-offer" class="text-sm text-slate-700 dark:text-slate-300 hover:text-red-400 transition-colors">How to Negotiate a Higher Salary for a Remote Job Offer</a></li>
+            <li><a href="/blog/remote-income/how-to-build-personal-brand-that-gets-you-recruited-remotely" class="text-sm text-slate-700 dark:text-slate-300 hover:text-red-400 transition-colors">How to Build a Personal Brand That Gets You Recruited Remotely</a></li>
+            <li><a href="/blog/remote-income/freelance-vs-remote-job-which-pays-more" class="text-sm text-slate-700 dark:text-slate-300 hover:text-red-400 transition-colors">Freelance vs Remote Job: Which One Actually Pays More</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="mt-6 text-center">
+        <a href="/blog/remote-income" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 font-semibold text-sm hover:border-red-500/40 transition-all">
+          View All Remote Income Guides <ArrowRight size={16} />
+        </a>
+      </div>
+    </div>
+
+    <!-- Newsletter CTA -->
+    <div class="rounded-2xl border border-red-500/20 bg-red-500/5 p-10 text-center mb-12">
+      <h2 class="text-2xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white mb-3">Get the Weekly Remote Income Intel</h2>
+      <p class="text-slate-600 dark:text-slate-400 mb-6 max-w-lg mx-auto">Job opportunities, salary data, and income strategies for remote workers — every week, free.</p>
+      <a href="/newsletter" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-red-500 text-white font-bold hover:bg-red-400 transition-all">
+        Join Free <ArrowRight size={16} />
+      </a>
+    </div>
+
+  </div>
+</Layout>

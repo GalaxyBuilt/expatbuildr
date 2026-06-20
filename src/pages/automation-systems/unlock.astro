@@ -1,0 +1,244 @@
+---
+export const prerender = true;
+// Automation Systems - Unlock Page
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audit Request Confirmed | ExpatBuildr</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #04040a;
+    --bg-card:  #09090f;
+    --border:   rgba(255,255,255,0.07);
+    --border-hi:rgba(255,255,255,0.13);
+    --text:     #eeeaff;
+    --muted:    #7c7a9a;
+    --dim:      #3d3b55;
+
+    --purple:   #9945FF;
+    --teal:     #14F195;
+    
+    --serif: 'DM Serif Display', Georgia, serif;
+    --mono:  'IBM Plex Mono', monospace;
+    --sans:  'DM Sans', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* AMBIENT LIGHTS */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -20%; left: -10%;
+    width: 60vw; height: 60vw;
+    background: radial-gradient(ellipse, rgba(153,69,255,0.08) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .success-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border-hi);
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    animation: fadeUp 0.6s ease both;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: 32px;
+    line-height: 1.1;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  p.sub {
+    color: var(--muted);
+    font-size: 16px;
+    margin-bottom: 32px;
+  }
+
+  /* SOCIAL BUTTONS */
+  .follow-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 24px;
+    text-align: left;
+    width: 100%;
+  }
+  .follow-info { width: 100%; }
+  .follow-info p {
+    font-size: 15px;
+    color: var(--text);
+    margin: 0;
+  }
+  .follow-info .optional {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  
+  .btn-follow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 10px;
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 14px 24px;
+    background: #000;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-follow:hover { background: #111; border-color: rgba(255,255,255,0.3); }
+  .x-icon { font-size: 16px; font-weight: 900; }
+  
+  .skip-follow {
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: underline;
+    cursor: pointer;
+    background: none;
+    border: none;
+    margin-top: 12px;
+  }
+  .skip-follow:hover { color: var(--text); }
+
+  #access-step {
+    display: none;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    animation: fadeUp 0.5s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+  <div class="success-container">
+    <div id="follow-step">
+      <h1>Audit Request Confirmed.</h1>
+      <p class="sub">Complete these two quick steps to prioritize your workflow audit.</p>
+      
+      <div class="follow-wrap">
+        <div class="follow-info">
+          <p><strong>Step 1: Follow @expatbuildr on X</strong></p>
+          <div class="optional">Daily AI automation workflows.</div>
+        </div>
+        <a href="https://x.com/expatbuildr" target="_blank" rel="noopener" class="btn-follow" id="x-follow-btn">
+          <span class="x-icon">𝕏</span> Follow @expatbuildr
+        </a>
+      </div>
+
+      <div class="follow-wrap" style="border-top: 1px solid var(--border); padding-top: 24px;">
+        <div class="follow-info">
+          <p><strong>Step 2: Subscribe on YouTube</strong></p>
+          <div class="optional">Watch me build these systems live.</div>
+        </div>
+        <a href="https://youtube.com/@GalaxyArb?sub_confirmation=1" target="_blank" rel="noopener" class="btn-follow" id="yt-follow-btn" style="background:#ff0000; border-color:transparent;">
+          ▶ Subscribe on YouTube
+        </a>
+      </div>
+      
+      <div id="access-step">
+        <p style="font-family: var(--mono); font-size: 13px; color: var(--teal); font-weight: bold; margin-bottom: 12px;">✓ PRIORITY STATUS CONFIRMED</p>
+        <p style="font-size: 15px; color: var(--text);">We'll email your personalized audit shortly. You can safely close this page.</p>
+        <a href="/" style="display:inline-block; margin-top:16px; color:var(--purple); font-size:14px; text-decoration:none;">&larr; Return Home</a>
+      </div>
+
+      <button id="skip-follow-btn" class="skip-follow">Skip this step</button>
+    </div>
+  </div>
+
+  <script>
+    const followXBtn = document.getElementById('x-follow-btn');
+    const followYtBtn = document.getElementById('yt-follow-btn');
+    const skipBtn = document.getElementById('skip-follow-btn');
+    const accessStep = document.getElementById('access-step');
+
+    let xClicked = false;
+    let ytClicked = false;
+
+    function checkUnlock() {
+      if (xClicked && ytClicked) {
+        setTimeout(() => {
+          accessStep.style.display = 'block';
+          skipBtn.style.display = 'none';
+        }, 500);
+      }
+    }
+
+    if (followXBtn) {
+      followXBtn.addEventListener('click', () => {
+        if(followXBtn.dataset.clicked) return;
+        followXBtn.dataset.clicked = "true";
+        xClicked = true;
+        followXBtn.innerHTML = '✓ Done';
+        followXBtn.style.background = '#14F195';
+        followXBtn.style.color = '#000';
+        followXBtn.style.borderColor = 'transparent';
+        checkUnlock();
+      });
+    }
+
+    if (followYtBtn) {
+      followYtBtn.addEventListener('click', () => {
+        if(followYtBtn.dataset.clicked) return;
+        followYtBtn.dataset.clicked = "true";
+        ytClicked = true;
+        followYtBtn.innerHTML = '✓ Done';
+        followYtBtn.style.background = '#14F195';
+        followYtBtn.style.color = '#000';
+        checkUnlock();
+      });
+    }
+
+    if (skipBtn) {
+      skipBtn.addEventListener('click', () => {
+        accessStep.style.display = 'block';
+        skipBtn.style.display = 'none';
+      });
+    }
+  </script>
+
+</body>
+</html>

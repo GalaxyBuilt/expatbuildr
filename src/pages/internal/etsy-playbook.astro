@@ -1,0 +1,216 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Etsy Digital Product Playbook | Internal Protocol" minimal={true}>
+  <Fragment slot="head">
+    <meta name="robots" content="noindex, nofollow" />
+  </Fragment>
+  <div class="pt-10 min-h-screen bg-[#07080d] text-white px-6 pb-20">
+    <div class="max-w-3xl mx-auto glass-card p-10 rounded-[2.5rem] border border-white/10 shadow-2xl">
+        <style is:inline>
+        :root {
+            --color-text-primary: #ffffff;
+            --color-text-secondary: #a1a1aa;
+            --color-background-primary: rgba(255, 255, 255, 0.03);
+            --color-background-secondary: rgba(255, 255, 255, 0.05);
+            --color-border-tertiary: rgba(255, 255, 255, 0.1);
+            --color-background-success: rgba(16, 185, 129, 0.1);
+            --color-text-success: #10b981;
+            --color-background-info: rgba(59, 130, 246, 0.1);
+            --color-text-info: #3b82f6;
+            --border-radius-lg: 1.5rem;
+            --border-radius-md: 1rem;
+        }
+        .pb { padding: 0 0 2rem; }
+        .section-head { font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: .07em; color: var(--color-text-secondary); margin: 2rem 0 .75rem; }
+        .card { background: var(--color-background-primary); border: 1px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.5rem; margin-bottom: 1rem; transition: all 0.3s ease; }
+        .card:hover { border-color: rgba(16, 185, 129, 0.3); background: rgba(16, 185, 129, 0.02); }
+        .card-title { font-size: 16px; font-weight: 700; margin: 0 0 .3rem; color: var(--color-text-primary); }
+        .card-sub { font-size: 13px; color: var(--color-text-secondary); margin: 0 0 1rem; line-height: 1.5; }
+        .tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 6px; margin-right: 6px; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .tag-green { background: var(--color-background-success); color: var(--color-text-success); }
+        .tag-blue { background: var(--color-background-info); color: var(--color-text-info); }
+        .tag-amber { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+        .tag-purple { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
+        .metric-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 2rem; mt: 1rem; }
+        .metric { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 1.25rem; border: 1px solid var(--color-border-tertiary); }
+        .metric-label { font-size: 11px; color: var(--color-text-secondary); margin: 0 0 .4rem; text-transform: uppercase; letter-spacing: 0.1em; }
+        .metric-value { font-size: 24px; font-weight: 800; color: #10b981; margin: 0; }
+        .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+        .week-row { display: grid; grid-template-columns: 100px 1fr; gap: 16px; align-items: start; margin-bottom: 1rem; padding: 1rem; background: rgba(255,255,255,0.02); rounded: 12px; }
+        .week-label { font-size: 12px; font-weight: 700; padding: 6px; border-radius: 8px; text-align: center; background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); }
+        .week-tasks { font-size: 14px; color: var(--color-text-primary); line-height: 1.6; }
+        .divider { border: none; border-top: 1px solid var(--color-border-tertiary); margin: 2rem 0; }
+        .warning { background: rgba(245, 158, 11, 0.05); border-left: 4px solid #f59e0b; border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; padding: 1.25rem; font-size: 14px; color: #f59e0b; margin-bottom: 1.5rem; line-height: 1.6; }
+        .pro-tip { background: var(--color-background-info); border-left: 4px solid var(--color-border-info); border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; padding: 1.25rem; font-size: 14px; color: var(--color-text-info); margin-bottom: 1.5rem; line-height: 1.6; }
+        .verdict { background: rgba(16, 185, 129, 0.05); border-left: 4px solid #10b981; border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; padding: 1.25rem; font-size: 14px; color: #10b981; margin-bottom: 1.5rem; line-height: 1.6; }
+        h2 { font-size: 28px; font-weight: 900; margin: 0 0 0.5rem; color: var(--color-text-primary); tracking: -0.05em; text-transform: uppercase; }
+        h3 { font-size: 18px; font-weight: 700; margin: 2rem 0 1rem; color: var(--color-text-primary); }
+        p { font-size: 15px; line-height: 1.8; color: var(--color-text-secondary); margin: 0 0 1rem; }
+        ul { font-size: 14px; line-height: 1.8; color: var(--color-text-secondary); margin: 0 0 1rem; padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+        .valign { vertical-align: middle; }
+        .playbook-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .nav-btn { font-size: 11px; font-weight: 700; padding: 8px 16px; border-radius: 30px; border: 1px solid var(--color-border-tertiary); background: rgba(255,255,255,0.03); color: var(--color-text-secondary); cursor: pointer; text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.2s ease; }
+        .nav-btn.active, .nav-btn:hover { background: #10b981; color: #000; border-color: #10b981; }
+        .section { display: none; }
+        .section.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        </style>
+
+        <header class="mb-10">
+          <div class="text-[10px] font-mono text-emerald-500 uppercase tracking-[0.3em] mb-4">Internal Resource Protocol</div>
+          <h2 class="mb-2">Etsy Digital Product Playbook</h2>
+          <p class="text-zinc-500 font-medium">Strategic monetization layer for Remote Income, Lead Gen, and Geo-Arbitrage.</p>
+        </header>
+
+        <div class="playbook-nav">
+          <button class="nav-btn active" data-target="verdict">Verdict first</button>
+          <button class="nav-btn" data-target="products">The 8 products</button>
+          <button class="nav-btn" data-target="revenue">Revenue model</button>
+          <button class="nav-btn" data-target="cta">Blog CTAs</button>
+          <button class="nav-btn" data-target="youtube">YouTube strategy</button>
+          <button class="nav-btn" data-target="30days">30-day plan</button>
+        </div>
+
+        <div id="verdict" class="section active">
+          <div class="verdict">
+            <strong>SHORT VERDICT: DO IT — BUT WITH DISCIPLINE.</strong> This is NOT a distraction if you treat Etsy as a monetization layer on top of traffic you're already building. It becomes a distraction if you let product creation consume time that should go to content. The rule: Claude builds the products, you spend your time on SEO + YouTube, and Etsy earns passively.
+          </div>
+          <div class="metric-row">
+            <div class="metric"><div class="metric-label">Realistic Month 3</div><div class="metric-value">$400–900</div></div>
+            <div class="metric"><div class="metric-label">Month 6 ceiling</div><div class="metric-value">$2k–5k</div></div>
+            <div class="metric"><div class="metric-label">Sweet-spot price</div><div class="metric-value">$10–29</div></div>
+          </div>
+          <p>This model works <em>especially well</em> for you because your three pillars (remote income, lead gen, geo-arbitrage) are B2B-adjacent niches. Buyers in these niches skew toward freelancers, agency owners, and entrepreneurs — people who will pay $20 without blinking for something that saves them 3 hours.</p>
+          <div class="warning">
+            <strong>THE HONEST RISK:</strong> Etsy is not a great standalone business. The model only works if YOUR organic traffic drives early sales, which builds Etsy algorithm ranking, which then generates platform-native traffic on top.
+          </div>
+          <div class="pro-tip">
+            <strong>THE UPSIDE:</strong> Every Etsy buyer is a warm lead for your higher-ticket offers — GalaxyLeads, affiliate products, consulting. Include a thank-you PDF with every purchase.
+          </div>
+        </div>
+
+        <div id="products" class="section">
+          <p class="mb-8">All products buildable with Claude in 1–4 hours each. Listed by pillar.</p>
+
+          <div class="section-head">Pillar 1 — Lead Generation</div>
+          <div class="card">
+            <div class="flex justify-between items-start mb-2">
+              <div class="card-title">Cold Outreach CRM Tracker</div>
+              <span class="tag tag-green">$17–22</span>
+            </div>
+            <div class="card-sub">Google Sheets template — tracks prospects, follow-up dates, status, reply rate, and a conversion calculator.</div>
+            <div class="pill-row"><span class="tag tag-blue">Lead gen</span><span class="tag tag-amber">⭐ Highest volume</span></div>
+            <ul>
+              <li>300+ columns of pre-built pipeline logic</li>
+              <li>Auto-color coding, follow-up reminders</li>
+              <li>Claude builds this in ~90 min</li>
+            </ul>
+          </div>
+          
+          <div class="card">
+            <div class="flex justify-between items-start mb-2">
+              <div class="card-title">Local Lead Gen Swipe Kit</div>
+              <span class="tag tag-green">$19–27</span>
+            </div>
+            <div class="card-sub">PDF + editable Google Doc. 50 email templates, objection handlers, and niche-targeting worksheets.</div>
+            <div class="pill-row"><span class="tag tag-blue">Lead gen</span><span class="tag tag-purple">High perceived value</span></div>
+          </div>
+
+          <div class="section-head">Pillar 2 — Remote Income</div>
+          <div class="card">
+            <div class="flex justify-between items-start mb-2">
+              <div class="card-title">Freelance Income Dashboard</div>
+              <span class="tag tag-green">$17–25</span>
+            </div>
+            <div class="card-sub">Google Sheets. Tracks monthly income by client, invoicing status, hourly rate calculator.</div>
+            <div class="pill-row"><span class="tag tag-amber">⭐ Evergreen seller</span><span class="tag tag-blue">Remote income</span></div>
+          </div>
+
+          <div class="section-head">Pillar 3 — Geo-Arbitrage</div>
+          <div class="card">
+            <div class="flex justify-between items-start mb-2">
+              <div class="card-title">Geo-Arb Comparison Calculator</div>
+              <span class="tag tag-green">$19–29</span>
+            </div>
+            <div class="card-sub">Input USD income; compares cost of living in 30+ countries, tax estimates, and net lifestyle score.</div>
+            <div class="pill-row"><span class="tag tag-purple">Unique — Low Competition</span><span class="tag tag-blue">Geo-arb</span></div>
+          </div>
+        </div>
+
+        <div id="revenue" class="section">
+          <h3>Earnings Trajectory</h3>
+          <div class="metric-row">
+            <div class="metric"><div class="metric-label">Month 1</div><div class="metric-value">$0–80</div></div>
+            <div class="metric"><div class="metric-label">Month 3</div><div class="metric-value">$200–600</div></div>
+            <div class="metric"><div class="metric-label">Month 6</div><div class="metric-value">$800–3k</div></div>
+          </div>
+          <div class="card">
+            <p><strong>Fee Structure:</strong> Etsy takes 6.5% transaction fee + $0.20 listing fee. On a $20 sale, you net roughly $17.80. Bundle listings (e.g., $35 complete kit) are the real ceiling move.</p>
+          </div>
+        </div>
+
+        <div id="cta" class="section">
+          <h3>Blog CTA Placements</h3>
+          <div class="pro-tip"><strong>RULE:</strong> Never force it. Only link a product when it's the natural next step for the reader.</div>
+          <div class="card">
+            <div class="card-title">Mid-post "Tool Mention"</div>
+            <p><em>"I use a custom spreadsheet to track every prospect... grab the exact template here →"</em></p>
+          </div>
+          <div class="card">
+            <div class="card-title">Post-Conclusion CTA Box</div>
+            <p>Label: 🗂 Free Template → [Product Name] — Track your [X] without building from scratch. Available on Etsy for $18.</p>
+          </div>
+        </div>
+
+        <div id="youtube" class="section">
+          <h3>YouTube Strategy</h3>
+          <div class="card">
+            <div class="card-title">V1: "How I track cold outreach"</div>
+            <span class="tag tag-amber">Tutorial</span>
+            <p>Screen-record walkthrough of the CRM tracker. Target keyword: "cold outreach tracker tutorial".</p>
+          </div>
+          <div class="card">
+            <div class="card-title">V2: "Real cost of living in 30 countries"</div>
+            <span class="tag tag-purple">Geo-arb hook</span>
+            <p>Use geo-arb calculator as visual. Best video for YouTube search AND social clips.</p>
+          </div>
+        </div>
+
+        <div id="30days" class="section">
+          <h3>30-Day Launch Sprint</h3>
+          <div class="week-row">
+            <div class="week-label">DAY 1–7</div>
+            <div class="week-tasks">Build CRM Tracker + Geo-Arb Calculator with Claude. Screenshot tabs and publish listings.</div>
+          </div>
+          <div class="week-row">
+            <div class="week-label">DAY 8–14</div>
+            <div class="week-tasks">Record YouTube tutorial walkthroughs for both flagship products. Link in top comment.</div>
+          </div>
+          <div class="week-row">
+            <div class="week-label">DAY 15–30</div>
+            <div class="week-tasks">Launch 2 more products. Embed CTAs in top-performing blog posts. First bundle listing live.</div>
+          </div>
+        </div>
+
+        <script is:inline>
+          const btns = document.querySelectorAll('.nav-btn');
+          const sections = document.querySelectorAll('.section');
+          
+          btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+              const target = btn.getAttribute('data-target');
+              
+              sections.forEach(s => s.classList.remove('active'));
+              btns.forEach(b => b.classList.remove('active'));
+              
+              document.getElementById(target).classList.add('active');
+              btn.classList.add('active');
+            });
+          });
+        </script>
+    </div>
+  </div>
+</Layout>

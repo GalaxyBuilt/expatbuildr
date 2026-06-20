@@ -1,0 +1,797 @@
+---
+// Astro Component
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Free: The Cold Traffic Prompt Kit · ExpatBuildr</title>
+<meta name="description" content="Get the exact prompt that generates a full lead generation post strategy for X, LinkedIn, Reddit, TikTok, Instagram, and YouTube — plus instant access to the strategy dashboard." />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://expatbuildr.com/free" />
+<meta property="og:title" content="Free: The Cold Traffic Prompt Kit · ExpatBuildr" />
+<meta property="og:description" content="Get the exact prompt that generates a full lead generation post strategy for X, LinkedIn, Reddit, TikTok, Instagram, and YouTube — plus instant access to the strategy dashboard." />
+<meta property="og:image" content="https://expatbuildr.com/images/og-cold-traffic-prompt.png" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="https://expatbuildr.com/free" />
+<meta property="twitter:title" content="Free: The Cold Traffic Prompt Kit · ExpatBuildr" />
+<meta property="twitter:description" content="Get the exact prompt that generates a full lead generation post strategy for X, LinkedIn, Reddit, TikTok, Instagram, and YouTube — plus instant access to the strategy dashboard." />
+<meta property="twitter:image" content="https://expatbuildr.com/images/og-cold-traffic-prompt.png" />
+
+<script is:inline>
+  const theme = (() => {
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+      return localStorage.getItem('theme');
+    }
+    return 'dark'; // default for this funnel
+  })();
+  if (theme === 'light') {
+    document.documentElement.classList.add('light');
+  } else {
+    document.documentElement.classList.add('dark');
+  }
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500;600&family=DM+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #050505;
+    --bg-2:     #0a0a0a;
+    --bg-3:     #111;
+    --border:   rgba(255,255,255,.07);
+    --border-hi:rgba(255,255,255,.14);
+    --text:     #f0ede8;
+    --text-muted:#9a9490;
+    --text-dim: #5a5652;
+    --accent-1: #a8e6a3;
+    --accent-2: #c084fc;
+    --accent-3: #f472b6;
+    --amber:    #e8a020;
+    --amber-dim:rgba(232,160,32,.2);
+    --amber-glow:rgba(232,160,32,.06);
+    --locked:   rgba(255,255,255,.03);
+    --serif:    'DM Serif Display', Georgia, serif;
+    --mono:     'DM Mono', monospace;
+    --sans:     'DM Sans', sans-serif;
+  }
+
+  html.light {
+    --bg:       #f8fafc;
+    --bg-2:     #f1f5f9;
+    --bg-3:     #ffffff;
+    --border:   rgba(15,23,42,.08);
+    --border-hi:rgba(15,23,42,.12);
+    --text:     #0f172a;
+    --text-muted:#475569;
+    --text-dim: #64748b;
+    --locked:   rgba(15,23,42,.03);
+    --accent-1: #15803d;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY  /* noise */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: .5;
+  }
+  html.light body::before { opacity: 0.15; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    border-bottom: 1px solid var(--border);
+    background: rgba(5,5,5,.92);
+    backdrop-filter: blur(14px);
+  }
+  html.light nav { background: rgba(252,252,252,.92); }
+  .nav-inner {
+    max-width: 1060px; margin: 0 auto;
+    padding: .9rem clamp(1.25rem,5vw,2.5rem);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { display: flex; align-items: center; gap: .65rem; text-decoration: none; }
+  .logo-mark {
+    width: 28px; height: 28px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .logo-text {
+    font-family: var(--sans); font-weight: 600; font-size: 1rem;
+    letter-spacing: -.02em; color: var(--text); text-transform: uppercase;
+  }
+  .logo-text span { color: var(--accent-1); font-weight: 300; }
+  .nav-badge {
+    font-family: var(--mono); font-size: .6rem; letter-spacing: .12em;
+    text-transform: uppercase; color: #fff;
+    border: 1px solid var(--accent-2);
+    background: rgba(192,132,252,.1);
+    padding: .3em .7em;
+  }
+  #themeToggleBtn {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    transition: all .2s;
+    border: 1px solid transparent;
+  }
+  #themeToggleBtn:hover { background: rgba(255,255,255,.05); transform: scale(1.1); }
+  html.light #themeToggleBtn:hover { background: rgba(15,23,42,.05); }
+
+  #themeToggleBtn .sun-icon { display: inline; color: #fbbf24; }
+  #themeToggleBtn .moon-icon { display: none; color: #6366f1; }
+  html.light #themeToggleBtn .sun-icon { display: none; }
+  html.light #themeToggleBtn .moon-icon { display: inline; }
+  html.light .nav-badge, 
+  html.light .dash-card-tag { 
+    color: var(--accent-1); 
+    font-weight: 600; 
+    border-color: rgba(21,128,61,.2); 
+  }
+  html.light .submit-btn { 
+    color: #0f172a; 
+  }
+
+  /* ── HERO ── */
+  #hero {
+    padding: clamp(4rem,10vw,7rem) 0 clamp(2.5rem,6vw,4rem);
+    position: relative; z-index: 5;
+  }
+
+  /* radial glow behind hero */
+  #hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; left: 50%; transform: translateX(-50%);
+    width: 700px; height: 500px;
+    background: radial-gradient(ellipse at center, rgba(168,230,163,.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 clamp(1.25rem,5vw,2.5rem); position: relative; z-index: 5; }
+
+  .free-tag {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-family: var(--mono); font-size: .65rem; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--accent-1); margin-bottom: 1.5rem;
+  }
+  .free-tag::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2), var(--accent-3));
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.6rem,6.5vw,4.75rem);
+    line-height: 1.05; letter-spacing: -.025em;
+    margin-bottom: 1.25rem; max-width: 22ch;
+  }
+  h1 em { font-style: italic; color: var(--accent-1); }
+
+  .hero-sub {
+    font-size: 1.05rem; color: var(--text-muted);
+    line-height: 1.8; max-width: 52ch;
+    margin-bottom: 1.25rem; font-weight: 300;
+  }
+
+  .what-you-get {
+    display: flex; flex-wrap: wrap; gap: .5rem 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .what-item {
+    display: flex; align-items: center; gap: .4rem;
+    font-family: var(--mono); font-size: .65rem; letter-spacing: .06em;
+    color: var(--text-muted);
+  }
+  .what-item::before { content: '✓'; color: var(--accent-1); }
+
+  /* ── CAPTURE BOX ── */
+  .capture-box {
+    background: var(--bg-2);
+    border: 1px solid var(--border-hi);
+    padding: clamp(1.75rem,4vw,2.5rem);
+    max-width: 540px;
+    position: relative;
+    overflow: hidden;
+  }
+  .capture-box::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,var(--accent-1),var(--accent-2),var(--accent-3));
+  }
+
+  .capture-label {
+    font-family: var(--mono); font-size: .6rem; letter-spacing: .15em;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: 1.25rem;
+  }
+
+  .capture-headline {
+    font-family: var(--serif); font-size: 1.35rem; line-height: 1.2;
+    margin-bottom: .5rem;
+  }
+  .capture-sub {
+    font-size: .82rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.65;
+  }
+
+  .field-wrap { display: flex; flex-direction: column; gap: .75rem; }
+
+  .email-input {
+    width: 100%;
+    padding: 1rem;
+    background: var(--bg-3);
+    border: 1px solid var(--border-hi);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: .82rem;
+    outline: none;
+    transition: border-color .15s;
+    min-height: 44px;
+  }
+  .email-input:focus { border-color: var(--accent-2); }
+  .email-input::placeholder { color: var(--text-dim); }
+
+  .submit-btn {
+    width: 100%;
+    padding: 1rem 1.4em;
+    background: linear-gradient(135deg,var(--accent-1),var(--accent-2),var(--accent-3));
+    color: #fff;
+    min-height: 44px;
+    font-family: var(--mono);
+    font-size: .78rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: all .15s;
+    display: flex; align-items: center; justify-content: center; gap: .5rem;
+  }
+  .submit-btn:hover:not(:disabled) { filter: brightness(1.1); transform: translateY(-1px); }
+  .submit-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+  .capture-privacy {
+    font-family: var(--mono); font-size: .6rem; color: var(--text-dim);
+    margin-top: .75rem; letter-spacing: .04em;
+    text-align: center;
+  }
+
+  .msg { display: none; font-family: var(--mono); font-size: .68rem; margin-top: .5rem; }
+  .msg.error { color: #ef4444; }
+  .msg.success { color: var(--accent-1); }
+
+  /* ── WHAT YOU GET ── */
+  #what {
+    padding: clamp(3rem,7vw,5rem) 0;
+    border-top: 1px solid var(--border);
+    position: relative; z-index: 5;
+  }
+
+  .section-tag {
+    font-family: var(--mono); font-size: .62rem; letter-spacing: .15em;
+    text-transform: uppercase; color: var(--text-dim);
+    display: flex; align-items: center; gap: .75rem;
+    margin-bottom: 1rem;
+  }
+  .section-tag::after { content: ''; display: block; height: 1px; width: 3rem; background: var(--border-hi); }
+
+  h2 {
+    font-family: var(--serif);
+    font-size: clamp(1.7rem,3.5vw,2.75rem);
+    line-height: 1.1; margin-bottom: .75rem;
+  }
+  h2 em { font-style: italic; color: var(--accent-1); }
+
+  .deliverable-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 2.5rem;
+  }
+
+  .deliv-item {
+    background: var(--bg-2);
+    padding: 1.75rem;
+    position: relative;
+    transition: background .2s;
+  }
+  .deliv-item:hover { background: var(--bg-3); }
+
+  .deliv-icon {
+    font-size: 1.35rem; margin-bottom: .75rem; display: block;
+  }
+  .deliv-platform {
+    font-family: var(--mono); font-size: .6rem; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: .4rem;
+  }
+  .deliv-item h3 {
+    font-family: var(--mono); font-size: .88rem; font-weight: 600;
+    color: var(--text); margin-bottom: .4rem;
+  }
+  .deliv-item p {
+    font-size: .8rem; color: var(--text-muted); line-height: 1.6;
+  }
+
+  /* DASHBOARD PREVIEW */
+  .dashboard-preview {
+    margin-top: 3rem;
+    border: 1px solid var(--border-hi);
+    background: var(--bg-2);
+    padding: clamp(1.5rem,4vw,2.5rem);
+    position: relative; overflow: hidden;
+  }
+  .dashboard-preview::before {
+    content: 'DASHBOARD PREVIEW';
+    position: absolute; top: 1rem; right: 1rem;
+    font-family: var(--mono); font-size: .55rem; letter-spacing: .15em;
+    color: var(--text-dim);
+  }
+  .dash-label {
+    font-family: var(--mono); font-size: .62rem; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--accent-1); margin-bottom: 1rem;
+  }
+  .dash-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: .75rem;
+  }
+  .dash-card {
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    padding: 1rem 1.1rem;
+  }
+  .dash-card-platform {
+    font-family: var(--mono); font-size: .58rem; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: .35rem;
+  }
+  .dash-card-title {
+    font-family: var(--mono); font-size: .75rem; color: var(--text);
+    font-weight: 500; margin-bottom: .3rem; line-height: 1.4;
+  }
+  .dash-card-tag {
+    display: inline-block;
+    font-family: var(--mono); font-size: .55rem; letter-spacing: .1em;
+    text-transform: uppercase; padding: .15em .5em;
+    background: rgba(192,132,252,.1); color: #fff;
+    border: 1px solid var(--accent-2);
+  }
+
+  /* ── WHY FREE ── */
+  #why {
+    padding: clamp(3rem,7vw,5rem) 0;
+    border-top: 1px solid var(--border);
+    position: relative; z-index: 5;
+  }
+  .why-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    margin-top: 2rem;
+  }
+  .why-text p {
+    font-size: .92rem; color: var(--text-muted);
+    line-height: 1.8; margin-bottom: 1rem;
+  }
+  .why-text strong { color: var(--text); font-weight: 600; }
+  .why-stat-col { display: flex; flex-direction: column; gap: 1rem; }
+  .stat-row {
+    border: 1px solid var(--border);
+    background: var(--bg-2);
+    padding: 1.25rem 1.5rem;
+    display: flex; align-items: center; gap: 1.25rem;
+  }
+  .stat-num {
+    font-family: var(--serif); font-size: 2.2rem;
+    color: var(--accent-1); line-height: 1; flex-shrink: 0;
+  }
+  .stat-desc { font-size: .8rem; color: var(--text-muted); line-height: 1.5; }
+  .stat-desc strong { color: var(--text); display: block; margin-bottom: .15rem; font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; }
+
+  /* ── BOTTOM CTA ── */
+  #bottom-cta {
+    padding: clamp(3.5rem,8vw,6rem) 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    position: relative; z-index: 5;
+  }
+  #bottom-cta::before {
+    content: '';
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse at top, rgba(168,230,163,.05) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  #bottom-cta h2 { max-width: none; margin-bottom: .75rem; }
+  #bottom-cta p { color: var(--text-muted); max-width: 48ch; margin: 0 auto 2rem; font-size: .92rem; }
+
+  .cta-capture {
+    max-width: 440px; margin: 0 auto;
+    display: flex; flex-direction: column; gap: .75rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 0;
+    position: relative; z-index: 5;
+  }
+  .footer-inner {
+    max-width: 1060px; margin: 0 auto;
+    padding: 0 clamp(1.25rem,5vw,2.5rem);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-brand { font-family: var(--mono); font-size: .62rem; color: var(--text-dim); letter-spacing: .06em; }
+  .footer-brand span { color: var(--accent-1); }
+  .footer-links { list-style: none; display: flex; gap: 1.5rem; }
+  .footer-links a { font-family: var(--mono); font-size: .6rem; color: var(--text-dim); text-decoration: none; letter-spacing: .08em; text-transform: uppercase; transition: color .15s; }
+  .footer-links a:hover { color: var(--accent-3); }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0; transform: translateY(18px);
+    transition: opacity .55s ease, transform .55s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  .fade-1 { animation: fadeUp .6s ease .05s forwards; opacity: 0; }
+  .fade-2 { animation: fadeUp .6s ease .15s forwards; opacity: 0; }
+  .fade-3 { animation: fadeUp .6s ease .25s forwards; opacity: 0; }
+  .fade-4 { animation: fadeUp .6s ease .35s forwards; opacity: 0; }
+  .fade-5 { animation: fadeUp .6s ease .45s forwards; opacity: 0; }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } from { opacity: 0; transform: translateY(14px); } }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:700px) {
+    .why-layout { grid-template-columns: 1fr; gap: 1.75rem; }
+    .deliverable-grid { grid-template-columns: 1fr; }
+  }
+  @media(max-width:500px) {
+    h1 { font-size: 2.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="https://expatbuildr.com" class="nav-logo">
+      <div class="logo-mark"><img src="/images/logo.jpg" alt="ExpatBuildr" style="width:100%;height:100%;object-fit:cover;" /></div>
+      <div class="logo-text">Galaxy<span>Built</span></div>
+    </a>
+    <div style="display:flex; align-items:center; gap: 1rem;">
+      <div class="nav-badge">FREE RESOURCE</div>
+      <button id="themeToggleBtn" aria-label="Toggle Theme" style="background:none;border:none;color:var(--text);cursor:pointer;font-size:1.1rem;display:flex;align-items:center;padding:0;outline:none;">
+        <span class="sun-icon">☀</span>
+        <span class="moon-icon">☾</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="wrap">
+    <div class="free-tag fade-1">100% Free · No Credit Card · Instant Access</div>
+
+    <h1 class="fade-2">
+      The prompt that builds your<br />
+      <em>entire content strategy</em><br />
+      in 60 seconds.
+    </h1>
+
+    <p class="hero-sub fade-3">
+      Copy one prompt. Paste it into any AI. Get a full lead generation post strategy for <strong style="color:var(--text)">X, LinkedIn, Reddit, TikTok, Instagram, and YouTube</strong> — tailored to your product, your audience, and your goal.
+    </p>
+
+    <div class="what-you-get fade-3">
+      <div class="what-item">The Cold Traffic Prompt (copy-paste ready)</div>
+      <div class="what-item">6-platform post strategy</div>
+      <div class="what-item">Strategy dashboard access</div>
+      <div class="what-item">Weekly founder briefings</div>
+    </div>
+
+    <!-- CAPTURE BOX -->
+    <div class="capture-box fade-4">
+      <div class="capture-label">// Get Instant Access</div>
+      <div class="capture-headline">Drop your email.<br />Get the prompt immediately.</div>
+      <div class="capture-sub">You'll get the prompt + dashboard access right away. Then weekly notes on building funnels that convert cold traffic without wasting ad spend.</div>
+
+      <div class="field-wrap">
+        <input class="email-input" type="email" id="hero-email" placeholder="your@email.com" autocomplete="email" />
+        <button class="submit-btn" id="hero-btn">
+          <span id="hero-btn-text">Send Me the Free Prompt →</span>
+        </button>
+        <div class="msg error" id="hero-error">Please enter a valid email address.</div>
+        <div class="msg success" id="hero-success">✓ You're in! Opening your dashboard...</div>
+      </div>
+      <div class="capture-privacy">No spam. Unsubscribe anytime. Your email stays yours.</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section id="what">
+  <div class="wrap">
+    <div class="section-tag">What's Inside</div>
+    <h2>One prompt.<br /><em>Six platforms.</em><br />Zero guesswork.</h2>
+    <p style="color:var(--text-muted);font-size:.92rem;max-width:52ch;margin-top:.5rem">The prompt generates a full strategy for each platform — post angles, hooks, formats, and a posting cadence based on your niche.</p>
+
+    <div class="deliverable-grid">
+      <div class="deliv-item fade-up">
+        <span class="deliv-icon">𝕏</span>
+        <div class="deliv-platform">Twitter / X</div>
+        <h3>Thread Hooks + Angles</h3>
+        <p>Viral thread structures, reply strategies, and positioned posts that pull cold followers into your funnel.</p>
+      </div>
+      <div class="deliv-item fade-up">
+        <span class="deliv-icon">in</span>
+        <div class="deliv-platform">LinkedIn</div>
+        <h3>Authority Posts + CTAs</h3>
+        <p>Founder-voice posts that build credibility, drive profile visits, and convert connections to buyers.</p>
+      </div>
+      <div class="deliv-item fade-up">
+        <span class="deliv-icon">⬛</span>
+        <div class="deliv-platform">Reddit</div>
+        <h3>Community-Native Strategy</h3>
+        <p>How to post in subreddits without getting banned — and funnel readers to your offer without being salesy.</p>
+      </div>
+      <div class="deliv-item fade-up">
+        <span class="deliv-icon">♪</span>
+        <div class="deliv-platform">TikTok</div>
+        <h3>Short-Form Hook Scripts</h3>
+        <p>Low-CPM acquisition scripts designed for Tier-2/3 geo-arbitrage. Cheap traffic, high-intent leads.</p>
+      </div>
+      <div class="deliv-item fade-up">
+        <span class="deliv-icon">◻</span>
+        <div class="deliv-platform">Instagram</div>
+        <h3>Reel Concepts + Carousels</h3>
+        <p>Visual-first formats that stop the scroll and send warm leads to your link-in-bio or landing page.</p>
+      </div>
+      <div class="deliv-item fade-up">
+        <span class="deliv-icon">▶</span>
+        <div class="deliv-platform">YouTube</div>
+        <h3>Outlier Video Angles</h3>
+        <p>Long-tail search angles that pull organic views for months — with CTAs that convert viewers to leads.</p>
+      </div>
+    </div>
+
+    <!-- DASHBOARD PREVIEW -->
+    <div class="dashboard-preview fade-up">
+      <div class="dash-label">// Strategy Dashboard — Members Only</div>
+      <p style="font-size:.82rem;color:var(--text-muted);max-width:55ch;margin-bottom:1.5rem">Once you sign up, you get access to the strategy dashboard — a live reference of post frameworks, hook templates, and campaign playbooks organized by platform.</p>
+      <div class="dash-grid">
+        <div class="dash-card">
+          <div class="dash-card-platform">X / Twitter</div>
+          <div class="dash-card-title">Cold Audience Thread Framework</div>
+          <div class="dash-card-tag">Hook → Problem → CTA</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-platform">LinkedIn</div>
+          <div class="dash-card-title">Founder Authority Post Template</div>
+          <div class="dash-card-tag">Story → Insight → Offer</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-platform">Reddit</div>
+          <div class="dash-card-title">Value-First Subreddit Playbook</div>
+          <div class="dash-card-tag">Give → Position → Funnel</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-platform">TikTok</div>
+          <div class="dash-card-title">Geo-Arbitrage Ad Script</div>
+          <div class="dash-card-tag">Hook → Pain → Solution</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-platform">Instagram</div>
+          <div class="dash-card-title">Carousel Lead Gen Format</div>
+          <div class="dash-card-tag">Slide 1–7 Formula</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-platform">YouTube</div>
+          <div class="dash-card-title">Outlier Title Finder</div>
+          <div class="dash-card-tag">Low Comp · High Intent</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY FREE -->
+<section id="why">
+  <div class="wrap">
+    <div class="section-tag">Why Free?</div>
+    <div class="why-layout">
+      <div class="why-text">
+        <h2>I build landing pages<br /><em>for a living.</em></h2>
+        <p style="margin-top:.75rem">I'm giving this away because <strong>the #1 problem I see with founders</strong> isn't their product — it's that they have no system for getting people to their offer. No consistent content, no email list, no cold traffic strategy.</p>
+        <p>This prompt fixes that in an afternoon. And when you're ready to turn that traffic into leads with a high-converting landing page, pixel tracking, and an email sequence — you know where to find me.</p>
+        <p><strong>No catch.</strong> Grab the prompt, use it, build something.</p>
+      </div>
+      <div class="why-stat-col">
+        <div class="stat-row fade-up">
+          <div class="stat-num">40+</div>
+          <div class="stat-desc">
+            <strong>Systems Delivered</strong>
+            Landing pages, email sequences, and pixels built for founders worldwide.
+          </div>
+        </div>
+        <div class="stat-row fade-up">
+          <div class="stat-num">6</div>
+          <div class="stat-desc">
+            <strong>Platforms Covered</strong>
+            One prompt generates strategies for every major organic + paid channel.
+          </div>
+        </div>
+        <div class="stat-row fade-up">
+          <div class="stat-num">3–7</div>
+          <div class="stat-desc">
+            <strong>Day Build Timeline</strong>
+            When you're ready to convert that traffic — landing page delivered fast.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<section id="bottom-cta">
+  <div class="wrap">
+    <div class="section-tag" style="justify-content:center">Get It Free</div>
+    <h2>Your content strategy<br />starts <em>right now.</em></h2>
+    <p>Enter your email. Get the prompt. Build your audience. Zero friction, zero cost.</p>
+
+    <div class="cta-capture">
+      <input class="email-input" type="email" id="bottom-email" placeholder="your@email.com" autocomplete="email" />
+      <button class="submit-btn" id="bottom-btn">
+        <span id="bottom-btn-text">Send Me the Free Prompt →</span>
+      </button>
+      <div class="msg error" id="bottom-error">Please enter a valid email address.</div>
+      <div class="msg success" id="bottom-success">✓ You're in! Opening your dashboard...</div>
+      <div class="capture-privacy">No spam · Unsubscribe anytime · Instant access</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">Galaxy<span>Built</span> · Built in the Philippines 🇵🇭</div>
+    <ul class="footer-links">
+      <li><a href="https://expatbuildr.com/privacy">Privacy</a></li>
+      <li><a href="https://expatbuildr.com/terms">Terms</a></li>
+      <li><a href="https://x.com/expatbuildr" target="_blank" rel="noopener">X / Twitter</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+// ── EMAIL VALIDATION ──
+function isValidEmail(e) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+}
+
+// ── BEEHIIV SUBSCRIBE ──
+async function subscribeToBeehiiv(email) {
+  try {
+    const res = await fetch(`/api/subscribe`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email,
+        utm_source: 'free_prompt_page',
+        utm_medium: 'organic',
+        utm_campaign: 'cold_traffic_prompt',
+        tags: ['free_lead_magnet', 'founder'],
+        custom_fields: { source: 'free_lead_magnet' }
+      })
+    });
+    return res.ok;
+  } catch(err) {
+    console.error('Beehiiv error:', err);
+    return false;
+  }
+}
+
+// ── HANDLE SUBMIT ──
+async function handleSubmit(emailId, btnId, btnTextId, errorId, successId) {
+  const emailEl   = document.getElementById(emailId);
+  const btnEl     = document.getElementById(btnId);
+  const btnTextEl = document.getElementById(btnTextId);
+  const errorEl   = document.getElementById(errorId);
+  const successEl = document.getElementById(successId);
+
+  const email = emailEl.value.trim();
+
+  if (!isValidEmail(email)) {
+    errorEl.style.display = 'block';
+    successEl.style.display = 'none';
+    emailEl.focus();
+    return;
+  }
+
+  errorEl.style.display = 'none';
+  btnEl.disabled = true;
+  btnTextEl.textContent = 'Joining...';
+
+  const ok = await subscribeToBeehiiv(email);
+
+  if (ok) {
+    successEl.style.display = 'block';
+    emailEl.value = '';
+
+    // Small delay so user sees the success message, then redirect
+    setTimeout(() => {
+      // Open offer page in new tab
+      window.location.href = '/founders/unlock';
+      btnTextEl.textContent = '✓ Check Your Inbox';
+    }, 1200);
+  } else {
+    errorEl.textContent = 'Something went wrong — try again.';
+    errorEl.style.display = 'block';
+    btnEl.disabled = false;
+    btnTextEl.textContent = 'Send Me the Free Prompt →';
+  }
+}
+
+// ── BIND BUTTONS ──
+document.getElementById('hero-btn').addEventListener('click', () =>
+  handleSubmit('hero-email','hero-btn','hero-btn-text','hero-error','hero-success'));
+
+document.getElementById('bottom-btn').addEventListener('click', () =>
+  handleSubmit('bottom-email','bottom-btn','bottom-btn-text','bottom-error','bottom-success'));
+
+// Enter key on inputs
+['hero-email','bottom-email'].forEach(id => {
+  document.getElementById(id).addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById(id.replace('email','btn')).click();
+  });
+});
+
+// ── SCROLL ANIMATIONS ──
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(el => {
+    if (el.isIntersecting) {
+      el.target.classList.add('visible');
+      obs.unobserve(el.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+// ── THEME TOGGLE ──
+document.getElementById('themeToggleBtn')?.addEventListener('click', () => {
+  const isLight = document.documentElement.classList.toggle('light');
+  document.documentElement.classList.toggle('dark', !isLight);
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+});
+</script>
+</body>
+</html>

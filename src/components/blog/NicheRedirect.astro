@@ -1,0 +1,51 @@
+---
+import { ExternalLink, ShieldCheck } from 'lucide-astro';
+
+interface Props {
+  pillar: string;
+}
+
+const { pillar } = Astro.props;
+
+const nicheMap = {
+  'SEO Laundering (EverRank Strategy & Authority Loops)': {
+    name: 'EverRank',
+    url: 'https://everrank.co',
+    color: 'from-accent-cyan/20 to-accent-blue/10',
+    border: 'border-accent-cyan/30',
+    text: 'text-accent-cyan'
+  },
+  'Grant Wisdom (Federal & State Funding Automation)': {
+    name: 'GrantWisdom',
+    url: 'https://grantwisdom.ai',
+    color: 'from-yellow-500/20 to-orange-500/10',
+    border: 'border-yellow-500/30',
+    text: 'text-yellow-500'
+  }
+};
+
+const niche = nicheMap[pillar as keyof typeof nicheMap];
+---
+
+{niche && (
+  <div class={`mb-12 p-4 rounded-2xl bg-linear-to-r ${niche.color} border ${niche.border} flex items-center justify-between gap-4 group`}>
+    <div class="flex items-center gap-3">
+      <div class={`${niche.text} p-2 rounded-lg bg-white/5`}>
+        <ShieldCheck size={20} />
+      </div>
+      <p class="text-xs md:text-sm font-medium text-white/90 font-inter">
+        This architecture is part of the <span class={`font-bold ${niche.text}`}>{niche.name}</span> Ecosystem.
+      </p>
+    </div>
+    
+    <a 
+      href={niche.url} 
+      target="_blank" 
+      rel="noopener noreferrer"
+      class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white hover:text-accent-blue transition-colors px-4 py-2 rounded-xl bg-white/5 border border-white/10 group-hover:border-accent-blue/50"
+    >
+      Deep Dive <ExternalLink size={14} />
+    </a>
+  </div>
+)}
+

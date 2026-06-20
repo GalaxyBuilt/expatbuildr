@@ -1,49 +1,76 @@
 ---
-import Analytics from '../components/Analytics.astro';
+import { ShoppingCart, ArrowRight, Twitter, Linkedin, Mail, Cpu, LineChart, Code2, Rocket, Sun, Moon, Menu, X, ChevronDown, ArrowUp, Music, Youtube, Instagram, Rss, FileJson, Layers, Hammer, Briefcase, Send, Target, TrendingUp, MonitorPlay } from 'lucide-astro';
 import '../styles/global.css';
+import Analytics from '../components/Analytics.astro';
+import DevPanel from '../components/dev/DevPanel.jsx';
 
 interface Props {
 	title: string;
 	description?: string;
 	ogImage?: string;
 	noindex?: boolean;
-	canonicalUrl?: string;
 	minimal?: boolean;
+	canonicalUrl?: string;
 	noAnimations?: boolean;
 }
 
-const {
-	title,
-	description = "American founder building from Cebu, Philippines. Publishing the arbitrage playbook weekly.",
+const { 
+	title, 
+	description = "Institutional-grade SaaS platforms, autonomous AI workflows, and proprietary trading systems. Built by ExpatBuildr.", 
 	ogImage = "/expatbuildr_og_banner.png",
 	noindex = false,
-	canonicalUrl,
 	minimal = false,
+	canonicalUrl,
+	noAnimations = false
 } = Astro.props;
 
+// Ensure absolute URL for OG image
 const ogImageUrl = ogImage.startsWith('http')
-	? ogImage
-	: new URL(ogImage, Astro.site || 'https://expatbuildr.com').toString();
+    ? ogImage
+    : new URL(ogImage, Astro.site || 'https://expatbuildr.com').toString();
 
+// Schema.org structured data — computed in frontmatter so set:html can JSON.stringify them
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://expatbuildr.com';
+const logoUrl = `${siteUrl}/images/logo.jpg`;
 
 const personSchema = {
-	'@context': 'https://schema.org',
-	'@type': 'Person',
-	name: 'Tony Long',
-	url: siteUrl,
-	jobTitle: 'Founder, ExpatBuildr',
-	description: 'American founder building from Cebu, Philippines. Geographic arbitrage, remote income, and AI leverage for expats.',
-	sameAs: [
-		'https://x.com/expatbuildr',
-		'https://www.youtube.com/@expatbuildr',
-		'https://www.instagram.com/expatbuildr',
-		'https://www.linkedin.com/in/expatbuildr',
-		'https://tiktok.com/@expatbuildr',
-	],
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Expat Buildr',
+  url: siteUrl,
+  image: logoUrl,
+  jobTitle: 'Developer & Systems Architect',
+  description: 'Lead generation systems, geographic arbitrage protocols, and remote income frameworks.',
+  sameAs: [
+    'https://x.com/expatbuildr',
+    'https://www.youtube.com/@GalaxyArb',
+    'https://www.instagram.com/expatbuildr',
+    'https://www.linkedin.com/in/expatbuildr/',
+    'https://tiktok.com/@expatbuildr'
+  ]
 };
 
-const titleTag = title.includes('ExpatBuildr') ? title : `${title} | ExpatBuildr`;
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Expat Buildr',
+  alternateName: 'Galaxy Arbitrage',
+  url: siteUrl,
+  logo: logoUrl,
+  sameAs: personSchema.sameAs
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Expat Buildr',
+  url: siteUrl,
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: `${siteUrl}/blog?q={search_term_string}`,
+    'query-input': 'required name=search_term_string'
+  }
+};
 ---
 
 <!doctype html>
@@ -51,7 +78,7 @@ const titleTag = title.includes('ExpatBuildr') ? title : `${title} | ExpatBuildr
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-
+		
 		<Analytics />
 
 		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -60,71 +87,603 @@ const titleTag = title.includes('ExpatBuildr') ? title : `${title} | ExpatBuildr
 		<link rel="manifest" href="/site.webmanifest" />
 
 		<meta name="generator" content={Astro.generator} />
-		<title>{titleTag}</title>
+		<title>{(title.includes('Expat Buildr') || title.includes('ExpatBuildr')) ? title : `${title} | Expat Buildr`}</title>
 		<meta name="description" content={description} />
 		{noindex && <meta name="robots" content="noindex, nofollow, noarchive" />}
 		<link rel="canonical" href={(() => { const u = canonicalUrl || new URL(Astro.url.pathname, Astro.site).toString(); return u.endsWith('/') && u !== (Astro.site?.toString() ?? '') ? u.slice(0, -1) : u; })()} />
+		
+		<!-- Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-
-		<meta property="og:site_name" content="ExpatBuildr" />
-		<meta property="og:title" content={titleTag} />
+		<!-- OG Meta Tags -->
+		<meta property="og:site_name" content="Expat Buildr" />
+		<meta property="og:title" content={title.includes('Expat Buildr') ? title : `${title} | Expat Buildr`} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={ogImageUrl} />
+		<meta property="og:image:url" content={ogImageUrl} />
+		<meta property="og:image:secure_url" content={ogImageUrl} />
+		<meta property="og:image:type" content={ogImageUrl.endsWith('.png') ? 'image/png' : 'image/jpeg'} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content="Expat Buildr - Institutional-Grade AI & SaaS Infrastructure" />
 		<meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
 		<meta property="og:type" content="website" />
 		<meta property="og:locale" content="en_US" />
-
+		
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:site" content="@expatbuildr" />
 		<meta name="twitter:creator" content="@expatbuildr" />
-		<meta name="twitter:title" content={titleTag} />
+		<meta name="twitter:title" content={title.includes('Expat Buildr') ? title : `${title} | Expat Buildr`} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImageUrl} />
 
+		<!-- JSON-LD Structured Data -->
 		<script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+		<script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+		<script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+
+		<script is:inline>
+			const theme = (() => {
+				if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+					return localStorage.getItem('theme');
+				}
+				// New visitors default to light mode
+				return 'light';
+			})();
+
+			if (theme === 'light') {
+				document.documentElement.classList.remove('dark');
+			} else {
+				document.documentElement.classList.add('dark');
+			}
+			window.localStorage.setItem('theme', theme);
+		</script>
 		<slot name="head" />
 	</head>
-	<body>
-		{!minimal && (
-			<div class="topbar">
-				<span>⚡</span> Building from Cebu · Earning in USD · Sharing the math
+	<body class="selection:bg-accent-blue/30 selection:text-white transition-colors duration-500">
+		{!noAnimations && (
+			<div id="cursor" class="custom-cursor hidden md:block">
+				<div class="galaxy-core"></div>
+				<div class="galaxy-arm galaxy-arm-1"></div>
+				<div class="galaxy-arm galaxy-arm-2"></div>
+				<div class="galaxy-arm galaxy-arm-3"></div>
+				<div class="galaxy-arm galaxy-arm-4"></div>
+				<div class="galaxy-arm galaxy-arm-5"></div>
+				<div class="galaxy-arm galaxy-arm-6"></div>
 			</div>
 		)}
-
-		{!minimal && (
-			<nav>
-				<a href="/" class="nav-logo">ExpatBuildr</a>
-				<ul class="nav-links">
-					<li><a href="/about">Story</a></li>
-					<li><a href="/#work">Work</a></li>
-					<li><a href="/newsletter">Newsletter</a></li>
-				</ul>
-			</nav>
-		)}
-
-		<main>
-			<slot />
-		</main>
-
-		{!minimal && (
-			<div class="socials-section">
-				<span class="socials-label">Find me @ExpatBuildr</span>
-				<div class="socials-links">
-					<a href="https://instagram.com/expatbuildr" target="_blank" rel="noopener">Instagram</a>
-					<a href="https://twitter.com/expatbuildr" target="_blank" rel="noopener">X / Twitter</a>
-					<a href="https://tiktok.com/@expatbuildr" target="_blank" rel="noopener">TikTok</a>
-					<a href="https://linkedin.com/in/expatbuildr" target="_blank" rel="noopener">LinkedIn</a>
-					<a href="https://youtube.com/@expatbuildr" target="_blank" rel="noopener">YouTube</a>
+		
+		{!minimal && !noAnimations && (
+			<div class="hidden md:flex fixed top-0 w-full z-[60] bg-white/90 dark:bg-galaxy-950/80 backdrop-blur-md border-b border-accent-purple/20 py-1.5 overflow-hidden shadow-[0_0_15px_rgba(217,70,239,0.1)]">
+				<div class="flex whitespace-nowrap animate-marquee">
+					<div class="flex items-center gap-8 px-4 text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-slate-900 dark:text-accent-cyan/60 uppercase">
+						<span>[SYSTEM: <span class="text-emerald-600 dark:text-emerald-500">ONLINE</span>]</span>
+						<span>[TOPICAL AUTHORITY: <span class="text-slate-900 dark:text-white">SCALING</span>]</span>
+						<span>[GENESIS TRADING: <span class="text-slate-900 dark:text-white">ACTIVE</span>]</span>
+						<span>[AI NEURAL SYNC: <span class="text-accent-blue">STRIKE READY</span>]</span>
+						<span>[GALAXY BUILT PROTOCOL: <span class="text-slate-900 dark:text-white">ESTABLISHED</span>]</span>
+						<span>[INFRASTRUCTURE: <span class="text-slate-900 dark:text-white">INSTITUTIONAL GRADE</span>]</span>
+					</div>
+					<div class="flex items-center gap-8 px-4 text-[9px] font-mono tracking-[0.2em] text-slate-900 dark:text-accent-cyan/60 uppercase">
+						<span>[SYSTEM: <span class="text-emerald-600 dark:text-emerald-500">ONLINE</span>]</span>
+						<span>[TOPICAL AUTHORITY: <span class="text-slate-900 dark:text-white">SCALING</span>]</span>
+						<span>[GENESIS TRADING: <span class="text-slate-900 dark:text-white">ACTIVE</span>]</span>
+						<span>[AI NEURAL SYNC: <span class="text-accent-blue">STRIKE READY</span>]</span>
+						<span>[GALAXY BUILT PROTOCOL: <span class="text-slate-900 dark:text-white">ESTABLISHED</span>]</span>
+						<span>[INFRASTRUCTURE: <span class="text-slate-900 dark:text-white">INSTITUTIONAL GRADE</span>]</span>
+					</div>
 				</div>
 			</div>
 		)}
 
+		{!minimal && !noAnimations && <div class="mesh-bg"></div>}
+		{!minimal && !noAnimations && <div class="noise-overlay"></div>}
+		{!minimal && !noAnimations && (
+			<div class="starfield">
+				<div class="stars-1"></div>
+				<div class="stars-2"></div>
+			</div>
+		)}
+		
 		{!minimal && (
-			<footer>
-				<div>© 2026 Tony Long · ExpatBuildr · Cebu, Philippines · <a href="https://galaxyarbitrage.com">galaxyarbitrage.com</a></div>
+			<nav class="fixed top-9 w-full z-[70] px-4 md:px-6 py-4 flex justify-center">
+				<div class="max-w-7xl w-full flex items-center justify-between px-4 md:px-6 py-3 glass-card rounded-2xl relative shadow-2xl transition-all duration-300">
+					<!-- Brand -->
+					<a href="/" class="flex items-center gap-2 md:gap-3 group floating">
+						<img src="/images/logo.jpg" alt="Expat Buildr Logo" class="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl object-cover ring-2 ring-white/10 group-hover:ring-accent-blue/50 transition-all" />
+						<span class="text-lg md:text-2xl font-black font-display tracking-tight">GALAXY<span class="text-gradient">BUILT</span></span>
+					</a>
+					
+					<!-- Desktop Navigation -->
+					<div class="hidden md:flex items-center gap-8 font-medium text-sm text-slate-700 dark:text-slate-400">
+						<!-- Services Dropdown -->
+						<div class="relative group/dropdown">
+							<button class="flex items-center gap-1.5 hover:text-accent-blue transition-colors cursor-pointer py-2 text-slate-900 dark:text-white font-bold">
+								Services <ChevronDown size={14} />
+							</button>
+							<div class="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 opacity-0 translate-y-2 pointer-events-none group-hover/dropdown:opacity-100 group-hover/dropdown:translate-y-0 group-hover/dropdown:pointer-events-auto transition-all duration-300">
+								<div class="glass-card rounded-2xl p-2 border border-slate-200 dark:border-white/10 shadow-2xl backdrop-blur-2xl bg-white/95 dark:bg-slate-900/95 overflow-hidden">
+									<!-- Landing Pages -->
+									<a href="/founders/offer" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 hover:text-accent-cyan transition-all group">
+										<div class="p-2 rounded-lg bg-accent-cyan/10 text-accent-cyan group-hover:scale-110 transition-transform">
+											<MonitorPlay size={18} />
+										</div>
+										<div>
+											<div class="text-xs font-bold">Landing Pages</div>
+											<div class="text-[10px] text-slate-500">High Converting Funnels</div>
+										</div>
+									</a>
+									<!-- Lead Gen -->
+									<a href="/lead-gen/edge" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 hover:text-accent-blue transition-all group">
+										<div class="p-2 rounded-lg bg-accent-cyan/10 text-accent-cyan group-hover:scale-110 transition-transform">
+											<Target size={18} />
+										</div>
+										<div>
+											<div class="text-xs font-bold">Lead Gen Systems</div>
+											<div class="text-[10px] text-slate-500">Autonomous Prospecting</div>
+										</div>
+									</a>
+									<!-- Founders -->
+									<a href="/founders/strategy" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 hover:text-accent-purple transition-all group">
+										<div class="p-2 rounded-lg bg-accent-purple/10 text-accent-purple group-hover:scale-110 transition-transform">
+											<Rocket size={18} />
+										</div>
+										<div>
+											<div class="text-xs font-bold">Founders Launch</div>
+											<div class="text-[10px] text-slate-500">Launch Infrastructure</div>
+										</div>
+									</a>
+									<a href="/geo-arbitrage/arbjobs" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 hover:text-emerald-500 transition-all group">
+										<div class="p-2 rounded-lg bg-emerald-500/10 text-emerald-500 group-hover:scale-110 transition-transform">
+											<Briefcase size={18} />
+										</div>
+										<div>
+											<div class="text-xs font-bold">Geo-Arbitrage</div>
+											<div class="text-[10px] text-slate-500">Global Roles & Jobs</div>
+										</div>
+									</a>
+									<!-- Remote Income -->
+									<a href="/remote-income/sniper" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 hover:text-amber-500 transition-all group">
+										<div class="p-2 rounded-lg bg-amber-500/10 text-amber-500 group-hover:scale-110 transition-transform">
+											<TrendingUp size={18} />
+										</div>
+										<div>
+											<div class="text-xs font-bold">Remote Income</div>
+											<div class="text-[10px] text-slate-500">Wealth Generation</div>
+										</div>
+									</a>
+									<!-- Automation -->
+									<a href="/automation-systems/automation" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 hover:text-accent-blue transition-all group">
+										<div class="p-2 rounded-lg bg-accent-blue/10 text-accent-blue group-hover:scale-110 transition-transform">
+											<Cpu size={18} />
+										</div>
+										<div>
+											<div class="text-xs font-bold">Automation Systems</div>
+											<div class="text-[10px] text-slate-500">Autonomous Workflows</div>
+										</div>
+									</a>
+								</div>
+							</div>
+						</div>
+
+						<!-- Teleport Dropdown -->
+						<div class="relative group/dropdown">
+							<button class="flex items-center gap-1.5 hover:text-accent-blue transition-colors cursor-pointer py-2">
+								Explore <ChevronDown size={14} />
+							</button>
+							<div class="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 opacity-0 translate-y-2 pointer-events-none group-hover/dropdown:opacity-100 group-hover/dropdown:translate-y-0 group-hover/dropdown:pointer-events-auto transition-all duration-300">
+								<div class="glass-card rounded-2xl p-2 border border-slate-200 dark:border-white/10 shadow-2xl backdrop-blur-2xl bg-white/95 dark:bg-slate-900/95 overflow-hidden">
+									<a href="/portfolio" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 hover:text-accent-cyan transition-all group font-bold">
+										<Layers size={16} /> Portfolio
+									</a>
+									<div class="my-1 border-t border-slate-200 dark:border-white/10"></div>
+									<a href="/founders/strategy" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 hover:text-accent-blue transition-all group">
+										<Rocket size={16} /> Founders Launch
+									</a>
+									<a href="/portfolio#saas" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 hover:text-accent-blue transition-all group">
+										<Rocket size={16} /> SaaS Platforms
+									</a>
+									<a href="/portfolio#trading" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 hover:text-accent-blue transition-all group">
+										<LineChart size={16} /> Trading Systems
+									</a>
+									<a href="/portfolio#software" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 hover:text-accent-blue transition-all group">
+										<Code2 size={16} /> Software & Tools
+									</a>
+									<a href="/portfolio#music" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 hover:text-accent-purple transition-all group">
+										<Music size={16} /> Music Licensing
+									</a>
+								</div>
+							</div>
+						</div>
+
+						<a href="/newsletter" class="text-gradient transition-opacity hover:opacity-80 flex items-center gap-1.5 py-2 font-bold">
+							Join Arbitrage
+						</a>
+						<a href="/blog" class="hover:text-accent-blue transition-colors flex items-center gap-1.5 py-2 text-slate-900 dark:text-white font-bold">
+							Blog
+						</a>
+						<a href="/shop" class="hover:text-accent-purple transition-colors flex items-center gap-1.5 py-2 text-slate-900 dark:text-white font-bold">
+							Shop
+						</a>
+
+						<button id="themeToggle" class="p-2 rounded-xl bg-slate-900/5 dark:bg-white/5 hover:bg-slate-900/10 dark:hover:bg-white/10 text-slate-700 dark:text-slate-400 hover:text-accent-blue transition-all cursor-pointer">
+							<Moon class="block dark:hidden" size={20} />
+							<Sun class="hidden dark:block" size={20} />
+						</button>
+
+						<a href="https://x.com/expatbuildr" target="_blank" rel="noopener noreferrer" class="hover:text-black dark:hover:text-white transition-colors">
+							<Twitter size={18} />
+						</a>
+
+						<a href="https://www.youtube.com/@GalaxyArb" target="_blank" rel="noopener noreferrer" class="hover:text-black dark:hover:text-white transition-colors">
+							<Youtube size={18} />
+						</a>
+
+						<a href="https://www.instagram.com/expatbuildr" target="_blank" rel="noopener noreferrer" class="hover:text-black dark:hover:text-white transition-colors">
+							<Instagram size={18} />
+						</a>
+
+						<a href="https://tiktok.com/@expatbuildr" target="_blank" rel="noopener noreferrer" class="hover:text-black dark:hover:text-white transition-colors">
+							<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.19 8.19 0 0 0 4.79 1.52V6.76a4.85 4.85 0 0 1-1.02-.07z"/></svg>
+						</a>
+
+						<a href="https://t.me/galaxyleads" target="_blank" rel="noopener noreferrer" class="hover:text-black dark:hover:text-white transition-colors">
+							<Send size={18} />
+						</a>
+
+						<a href="/contact" class="btn-primary text-[10px] md:text-xs tracking-widest uppercase px-4 md:px-6">
+							Contact me
+						</a>
+					</div>
+
+					<!-- Mobile Controls -->
+					<div class="flex md:hidden items-center gap-2">
+						<button id="themeToggleMobile" class="p-2 rounded-xl bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-slate-500 dark:text-slate-400 hover:text-accent-blue transition-all cursor-pointer">
+							<Moon class="block dark:hidden" size={20} />
+							<Sun class="hidden dark:block" size={20} />
+						</button>
+						<button id="mobileMenuToggle" class="p-2 rounded-xl bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-slate-500 dark:text-slate-400 hover:text-accent-blue transition-all cursor-pointer">
+							<Menu id="menuIcon" size={24} />
+							<X id="closeIcon" class="hidden" size={24} />
+						</button>
+					</div>
+				</div>
+
+				<!-- Mobile Navigation Overlay -->
+				<div id="mobileMenuOverlay" class="fixed inset-0 z-40 bg-white/95 dark:bg-galaxy-950/95 backdrop-blur-2xl opacity-0 pointer-events-none translate-y-4 transition-all duration-300 md:hidden overflow-y-auto" style="top: 110px;">
+					<div class="max-w-7xl mx-auto px-6 py-12 space-y-8">
+						<div class="grid grid-cols-1 gap-4">
+							<a href="/lead-gen/edge" class="mobile-nav-link text-accent-cyan"><Target size={20} /> Lead Gen</a>
+							<a href="/founders/strategy" class="mobile-nav-link text-accent-purple"><Rocket size={20} /> Founders</a>
+							<a href="/geo-arbitrage/arbjobs" class="mobile-nav-link text-emerald-600 dark:text-emerald-500"><Briefcase size={20} /> Jobs</a>
+							<a href="/remote-income/sniper" class="mobile-nav-link text-amber-500"><TrendingUp size={20} /> Remote Income</a>
+							<a href="/automation-systems/automation" class="mobile-nav-link text-accent-blue"><Cpu size={20} /> Automation</a>
+							<a href="/newsletter" class="mobile-nav-link font-bold" style="color: #f5c842;"><Mail size={20} /> Join Arbitrage</a>
+							<a href="/blog" class="mobile-nav-link text-accent-cyan"><Cpu size={20} /> Blog</a>
+							<a href="/shop" class="mobile-nav-link text-pink-500 dark:text-pink-400"><ShoppingCart size={20} /> Shop</a>
+							<a href="/contact" class="mobile-nav-link text-slate-700 dark:text-slate-400"><Mail size={20} /> Contact</a>
+						</div>
+
+						<!-- Add to Home Screen -->
+						<div id="a2hsSection" class="hidden">
+							<button id="a2hsBtn" class="w-full flex items-center justify-center gap-3 px-6 py-4 rounded-2xl bg-accent-blue/10 border border-accent-blue/30 text-accent-blue font-semibold text-base hover:bg-accent-blue/20 transition-all">
+								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v10m0 0l-3-3m3 3l3-3"/><rect x="2" y="14" width="20" height="8" rx="2"/></svg>
+								Add to Home Screen
+							</button>
+						</div>
+						<!-- iOS fallback instructions -->
+						<div id="iosA2hsHint" class="hidden rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 px-5 py-4 text-sm text-slate-600 dark:text-slate-400 text-center leading-relaxed">
+							Tap the <strong class="text-slate-900 dark:text-white">Share</strong> button in Safari, then <strong class="text-slate-900 dark:text-white">Add to Home Screen</strong> to install ExpatBuildr.
+						</div>
+
+						<div class="pt-8 border-t border-slate-200 dark:border-white/5 flex flex-wrap gap-4">
+							<a href="https://x.com/expatbuildr" class="p-4 rounded-2xl glass-card text-slate-900 dark:text-white flex-grow flex items-center justify-center gap-3">
+								<Twitter size={20} /> Twitter
+							</a>
+							<a href="https://www.youtube.com/@GalaxyArb" class="p-4 rounded-2xl glass-card text-slate-900 dark:text-white flex-grow flex items-center justify-center gap-3">
+								<Youtube size={20} /> YouTube
+							</a>
+							<a href="https://www.instagram.com/expatbuildr" class="p-4 rounded-2xl glass-card text-slate-900 dark:text-white flex-grow flex items-center justify-center gap-3">
+								<Instagram size={20} /> Instagram
+							</a>
+							<a href="https://tiktok.com/@expatbuildr" target="_blank" rel="noopener noreferrer" class="p-4 rounded-2xl glass-card text-slate-900 dark:text-white flex-grow flex items-center justify-center gap-3">
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.19 8.19 0 0 0 4.79 1.52V6.76a4.85 4.85 0 0 1-1.02-.07z"/></svg> TikTok
+							</a>
+							<a href="https://t.me/galaxyleads" class="p-4 rounded-2xl glass-card text-slate-900 dark:text-white flex-grow flex items-center justify-center gap-3">
+								<Send size={20} /> Telegram
+							</a>
+						</div>
+					</div>
+				</div>
+			</nav>
+		)}
+
+		{!minimal && <DevPanel client:load />}
+
+		<!-- Back to Top Button -->
+		{!minimal && (
+			<button id="backToTop" class="fixed bottom-8 right-8 z-[60] p-4 rounded-2xl glass-card text-accent-blue opacity-0 translate-y-10 scale-90 pointer-events-none hover:scale-110 hover:-translate-y-1 transition-all duration-300 shadow-2xl border-accent-blue/20 floating">
+				<ArrowUp size={24} />
+			</button>
+		)}
+
+		<script>
+			// Theme Toggle
+			const handleToggleClick = () => {
+				const element = document.documentElement;
+				element.classList.toggle("dark");
+
+				const isDark = element.classList.contains("dark");
+				localStorage.setItem("theme", isDark ? "dark" : "light");
+
+				// Preserve scrollbar space during theme switch to prevent layout shift
+				document.documentElement.style.overflowY = 'scroll';
+				document.body.style.overflowY = 'scroll';
+
+				// Android Chrome/Firefox overlay scrollbar workaround - comprehensive reflow
+				if (/Android/i.test(navigator.userAgent)) {
+					const scrollPos = window.scrollY;
+					const body = document.body;
+
+					// Force multiple reflows with requestAnimationFrame for better timing
+					requestAnimationFrame(() => {
+						// Trigger reflow by accessing offsetHeight
+						void document.documentElement.offsetHeight;
+
+						// Force overflow recalculation
+						document.documentElement.style.overflow = 'hidden';
+						void body.offsetHeight;
+
+						// Reset and restore scroll position
+						document.documentElement.style.overflow = '';
+
+						requestAnimationFrame(() => {
+							window.scrollTo(0, scrollPos);
+						});
+					});
+				}
+			};
+
+			document.getElementById("themeToggle")?.addEventListener("click", handleToggleClick);
+			document.getElementById("themeToggleMobile")?.addEventListener("click", handleToggleClick);
+
+			// Fix Android address bar layout shift on scroll
+			let lastViewportHeight = window.innerHeight;
+			const preserveAndroidLayout = () => {
+				if (/Android/i.test(navigator.userAgent)) {
+					// Ensure consistent layout on Android
+					document.documentElement.style.overflowY = 'scroll';
+					document.body.style.overflowY = 'scroll';
+					document.documentElement.style.width = '100%';
+					document.body.style.width = '100%';
+				}
+			};
+
+			window.addEventListener('resize', () => {
+				const currentHeight = window.innerHeight;
+				if (Math.abs(lastViewportHeight - currentHeight) > 50) {
+					// Address bar appeared/disappeared, ensure scrollbar space is preserved
+					preserveAndroidLayout();
+					lastViewportHeight = currentHeight;
+				}
+			}, { passive: true });
+
+			// Also check on visibility change (when returning to tab)
+			document.addEventListener('visibilitychange', () => {
+				if (!document.hidden) {
+					preserveAndroidLayout();
+				}
+			}, { passive: true });
+
+			// Interactive Mesh Background
+			document.addEventListener('mousemove', (e) => {
+				const meshBg = document.querySelector('.mesh-bg');
+				if (!meshBg) return;
+				
+				const x = (e.clientX / window.innerWidth) * 100;
+				const y = (e.clientY / window.innerHeight) * 100;
+				
+				document.documentElement.style.setProperty('--x', `${x}%`);
+				document.documentElement.style.setProperty('--y', `${y}%`);
+				document.documentElement.style.setProperty('--nx', `${100 - x}%`);
+				document.documentElement.style.setProperty('--ny', `${y}%`);
+			}, { passive: true });
+
+			// Reveal on Scroll
+			const observerOptions = {
+				threshold: 0.1,
+				rootMargin: '0px 0px -50px 0px'
+			};
+
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('active');
+						
+						// Dynamic Accent Shift Logic
+						if (entry.target.tagName === 'SECTION') {
+							const id = entry.target.id;
+							const root = document.documentElement;
+							
+							if (id === 'trading') {
+								root.style.setProperty('--color-accent-blue', '#8b5cf6'); // Purple
+								root.style.setProperty('--color-accent-cyan', '#10b981'); // Green
+							} else if (id === 'music') {
+								root.style.setProperty('--color-accent-blue', '#f43f5e'); // Rose
+								root.style.setProperty('--color-accent-cyan', '#e879f9'); // Pink
+							} else {
+								// Reset to default
+								root.style.setProperty('--color-accent-blue', '#3b82f6'); 
+								root.style.setProperty('--color-accent-cyan', '#22d3ee');
+							}
+						}
+					}
+				});
+			}, observerOptions);
+
+			document.querySelectorAll('.reveal-on-scroll, section[id]').forEach(el => observer.observe(el));
+
+			// Custom Cursor Logic
+			const cursor = document.getElementById('cursor');
+			document.addEventListener('mousemove', (e) => {
+				if (cursor) {
+					cursor.style.left = e.clientX + 'px';
+					cursor.style.top = e.clientY + 'px';
+				}
+			});
+
+			document.querySelectorAll('a, button, [data-modal-target]').forEach(el => {
+				el.addEventListener('mouseenter', () => cursor?.classList.add('hover'));
+				el.addEventListener('mouseleave', () => cursor?.classList.remove('hover'));
+			});
+
+			// Mobile Menu Logic
+			const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+			const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+			const menuIcon = document.getElementById('menuIcon');
+			const closeIcon = document.getElementById('closeIcon');
+			const navBar = document.querySelector('[class*="fixed top-0 w-full"]');
+
+			// Set dynamic menu position based on nav height
+			const updateMenuPosition = () => {
+				if (navBar && mobileMenuOverlay) {
+					const navHeight = navBar.offsetHeight;
+					mobileMenuOverlay.style.top = navHeight + 'px';
+				}
+			};
+
+			updateMenuPosition();
+			window.addEventListener('resize', updateMenuPosition);
+
+			let isMenuOpen = false;
+
+			const toggleMenu = () => {
+				isMenuOpen = !isMenuOpen;
+				if (isMenuOpen) {
+					mobileMenuOverlay.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+					menuIcon.classList.add('hidden');
+					closeIcon.classList.remove('hidden');
+					document.body.style.overflow = 'hidden';
+					document.documentElement.style.overflowY = 'scroll';
+				} else {
+					mobileMenuOverlay.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+					menuIcon.classList.remove('hidden');
+					closeIcon.classList.add('hidden');
+					document.body.style.overflow = '';
+					document.documentElement.style.overflowY = '';
+				}
+			};
+			
+			mobileMenuToggle?.addEventListener('click', toggleMenu);
+			
+			// Close mobile menu on link click
+			document.querySelectorAll('.mobile-nav-link').forEach(link => {
+				link.addEventListener('click', () => {
+					if (isMenuOpen) toggleMenu();
+				});
+			});
+
+			// Add to Home Screen Logic
+			const a2hsSection = document.getElementById('a2hsSection');
+			const a2hsBtn = document.getElementById('a2hsBtn');
+			const iosHint = document.getElementById('iosA2hsHint');
+			let deferredInstallPrompt = null;
+
+			const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+			const isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matches || ('standalone' in navigator && (navigator as any).standalone);
+
+			if (!isInStandaloneMode) {
+				if (isIOS) {
+					iosHint?.classList.remove('hidden');
+				}
+				window.addEventListener('beforeinstallprompt', (e: Event) => {
+					e.preventDefault();
+					deferredInstallPrompt = e as any;
+					a2hsSection?.classList.remove('hidden');
+				});
+				a2hsBtn?.addEventListener('click', async () => {
+					if (!deferredInstallPrompt) return;
+					deferredInstallPrompt.prompt();
+					const { outcome } = await deferredInstallPrompt.userChoice;
+					if (outcome === 'accepted') {
+						a2hsSection?.classList.add('hidden');
+					}
+					deferredInstallPrompt = null;
+				});
+			}
+
+			// Back to Top Logic
+			const backToTop = document.getElementById('backToTop');
+			window.addEventListener('scroll', () => {
+				if (window.scrollY > 500) {
+					backToTop.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10', 'scale-90');
+				} else {
+					backToTop.classList.add('opacity-0', 'pointer-events-none', 'translate-y-10', 'scale-90');
+				}
+			});
+			
+			backToTop?.addEventListener('click', () => {
+				window.scrollTo({ top: 0, behavior: 'smooth' });
+			});
+		</script>
+
+		<main class={minimal ? "relative" : "relative z-10 pt-40 pb-20 px-4 sm:px-6"}>
+			<slot />
+		</main>
+
+		{!minimal && (
+			<footer class="border-t border-slate-900/5 dark:border-white/5 bg-white/80 dark:bg-galaxy-950/50 backdrop-blur-sm">
+				<!-- Newsletter strip -->
+				<div class="border-b border-slate-900/5 dark:border-white/5 py-8 px-4 sm:px-6">
+					<div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+						<div>
+							<p class="text-[10px] font-mono uppercase tracking-[0.25em] text-yellow-500 mb-1">Free Weekly Intel</p>
+							<p class="font-display font-black text-slate-900 dark:text-white text-lg uppercase tracking-tight">Join the Galaxy Arbitrage Newsletter</p>
+							<p class="text-slate-500 text-sm mt-1">Geo-arb plays, remote income systems, and AI tools — free every week.</p>
+						</div>
+						<a
+							href="/newsletter"
+							class="shrink-0 inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-display font-black text-black text-sm uppercase tracking-wider transition-all hover:scale-105 active:scale-95"
+							style="background: linear-gradient(135deg, #f5c842, #ff6b35);"
+						>
+							Join Free →
+						</a>
+					</div>
+				</div>
+				<div class="py-12 px-6">
+				<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+					<div class="flex items-center gap-3 opacity-80 dark:opacity-50">
+						<img src="/images/logo.jpg" alt="Expat Buildr Logo" class="w-10 h-10 rounded-lg grayscale" />
+						<span class="font-display font-bold tracking-tighter text-slate-900 dark:text-white">EXPAT BUILDR · GALAXY ARBITRAGE © 2026</span>
+					</div>
+					<div class="flex flex-wrap justify-center gap-6 text-sm text-slate-600 dark:text-slate-500">
+						<a href="/about" class="hover:text-slate-900 dark:hover:text-white transition-colors">About</a>
+						<a href="/contact" class="hover:text-slate-900 dark:hover:text-white transition-colors">Contact</a>
+						<a href="https://x.com/expatbuildr" class="hover:text-slate-900 dark:hover:text-white transition-colors">X / Twitter</a>
+						<a href="https://www.youtube.com/@GalaxyArb" class="hover:text-slate-900 dark:hover:text-white transition-colors">YouTube</a>
+						<a href="https://www.instagram.com/expatbuildr" class="hover:text-slate-900 dark:hover:text-white transition-colors">Instagram</a>
+						<a href="https://tiktok.com/@expatbuildr" target="_blank" rel="noopener noreferrer" class="hover:text-slate-900 dark:hover:text-white transition-colors">TikTok</a>
+						<a href="https://www.linkedin.com/in/expatbuildr/" class="hover:text-slate-900 dark:hover:text-white transition-colors">LinkedIn</a>
+						<a href="https://t.me/galaxyleads" class="hover:text-slate-900 dark:hover:text-white transition-colors">Telegram</a>
+						<a href="https://medium.com/@expatbuildr" target="_blank" rel="noopener noreferrer" class="hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-1.5">
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
+							Medium
+						</a>
+						<a href="/blog" class="hover:text-slate-900 dark:hover:text-white transition-colors font-bold">Blog</a>
+						<a href="/shop" class="hover:text-slate-900 dark:hover:text-white transition-colors font-bold text-accent-purple">Shop</a>
+						<div class="flex items-center gap-3 border-l border-white/10 pl-6">
+							<a href="/rss.xml" class="text-slate-500 hover:text-accent-blue transition-colors" title="RSS Feed">
+								<Rss size={18} />
+							</a>
+							<a href="/feed.json" class="text-slate-500 hover:text-accent-cyan transition-colors" title="JSON Feed">
+								<FileJson size={18} />
+							</a>
+						</div>
+					</div>
+				</div>
+				</div>
 			</footer>
 		)}
 	</body>

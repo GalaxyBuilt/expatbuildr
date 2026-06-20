@@ -1,0 +1,66 @@
+---
+import { ArrowRight } from 'lucide-astro';
+
+interface PostData {
+  title: string;
+  description: string;
+  pubDate: Date;
+  pillarId?: string;
+  tags: string[];
+}
+
+interface Post {
+  id: string;
+  data: PostData;
+}
+
+interface Props {
+  currentPost: Post;
+  allPosts: Post[];
+}
+
+const { currentPost, allPosts } = Astro.props;
+
+// Score posts by shared tags + same pillar
+const scored = allPosts
+  .filter(p => p.id !== currentPost.id)
+  .map(p => {
+    let score = 0;
+    if (p.data.pillarId === currentPost.data.pillarId) score += 2;
+    const sharedTags = p.data.tags.filter(t => currentPost.data.tags.includes(t));
+    score += sharedTags.length;
+    return { post: p, score };
+  })
+  .sort((a, b) => b.score - a.score || b.post.data.pubDate.getTime() - a.post.data.pubDate.getTime())
+  .slice(0, 3)
+  .map(s => s.post);
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(date);
+---
+
+{scored.length > 0 && (
+  <div class="max-w-4xl mx-auto mt-12">
+    <div class="flex items-center gap-4 mb-6">
+      <h3 class="text-xl font-black font-display text-institutional-primary uppercase tracking-tight shrink-0">Keep Reading</h3>
+      <div class="h-px flex-1 bg-slate-200 dark:bg-white/10"></div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      {scored.map(post => (
+        <a
+          href={`/blog/${post.id.replace(/\.mdx?$/, '')}`}
+          class="group glass-card p-6 rounded-2xl border border-slate-200 dark:border-white/5 hover:border-accent-blue/40 transition-all flex flex-col"
+        >
+          <span class="text-[9px] font-mono text-accent-blue uppercase tracking-widest mb-3">{formatDate(post.data.pubDate)}</span>
+          <h4 class="text-sm font-black font-display text-institutional-primary group-hover:text-accent-blue transition-colors uppercase tracking-tight leading-tight mb-2 flex-1">
+            {post.data.title}
+          </h4>
+          <div class="flex items-center gap-1 text-[10px] font-mono text-institutional-muted mt-3 uppercase tracking-wider">
+            Read <ArrowRight size={12} class="group-hover:translate-x-1 transition-transform" />
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+)}

@@ -1,0 +1,337 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// AI Business Master Prompt Vault - Thank You Page
+---
+
+<Layout 
+  title="You're In — AI Business Master Prompt Vault" 
+  noindex={true}
+  minimal={true}
+>
+  <Fragment slot="head">
+    <script is:inline>
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1480646753745240');
+      fbq('track', 'PageView');
+      fbq('track', 'Lead', { content_name: 'Vault Legacy Signup' });
+      fbq('track', 'CompleteRegistration', { content_name: 'Vault Legacy Signup', status: true });
+    </script>
+  </Fragment>
+  <style is:inline>
+    :root {
+      --funnel-bg: #080b10;
+      --funnel-surface: #0e1319;
+      --funnel-surface-2: #141a22;
+      --funnel-accent: #00e5a0;
+      --funnel-accent-dim: rgba(0, 229, 160, 0.1);
+      --funnel-text: #e8edf2;
+      --funnel-text-muted: #6b7f91;
+    }
+
+    .thank-you-wrapper {
+      background: var(--funnel-bg);
+      color: var(--funnel-text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .thank-you-wrapper::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,160,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,160,0.018) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .topbar {
+      border-bottom: 1px solid #1e2730;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 10;
+      background: rgba(8, 11, 16, 0.5);
+      backdrop-filter: blur(10px);
+    }
+
+    .brand {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 17px;
+      color: var(--funnel-accent);
+      text-decoration: none;
+    }
+
+    main.funnel-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 56px 24px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-glow {
+      width: 400px;
+      height: 200px;
+      background: radial-gradient(ellipse at 50% 0%, rgba(0,229,160,0.12) 0%, transparent 70%);
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    .confirmed-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--funnel-accent-dim);
+      border: 1px solid rgba(0,229,160,0.25);
+      border-radius: 100px;
+      padding: 8px 20px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--funnel-accent);
+      margin-bottom: 28px;
+    }
+
+    .confirmed-badge .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--funnel-accent);
+      box-shadow: 0 0 10px var(--funnel-accent);
+    }
+
+    .steps {
+      width: 100%;
+      max-width: 580px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .step-card {
+      background: var(--funnel-surface);
+      border: 1px solid #1e2730;
+      border-radius: 14px;
+      padding: 24px 28px;
+      position: relative;
+    }
+
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .step-num.active-num { background: var(--funnel-accent); color: #040a07; }
+
+    .btn-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #00c87a;
+      color: #ffffff;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 14px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .btn-follow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      padding: 12px 24px;
+      background: #000;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-follow:hover { background: #111; border-color: rgba(255,255,255,0.4); }
+    .x-icon { font-size: 1rem; font-weight: 900; }
+  </style>
+
+  <div class="thank-you-wrapper">
+    <nav class="topbar">
+      <a href="/" class="brand">Galaxy<span>Built</span></a>
+      <a href="/" style="font-family: 'DM Mono', monospace; font-size: 12px; color: var(--funnel-text-muted); text-decoration: none;">← Back to Home</a>
+    </nav>
+
+    <main class="funnel-main">
+      <div class="hero-glow"></div>
+
+      <div class="page-header" style="text-align: center; max-width: 600px; margin-bottom: 56px;">
+        <div class="confirmed-badge">
+          <span class="dot"></span>
+          You're in the system
+        </div>
+        <h1 style="font-family: Syne, sans-serif; font-weight: 800; font-size: 44px; letter-spacing: -1.2px; line-height: 1.1; margin-bottom: 16px;">
+          Thank You! <span style="color: var(--funnel-accent);">You're Locked In.</span>
+        </h1>
+        <p style="font-size: 17px; color: var(--funnel-text-muted);">Your vault download is ready below. Complete the remaining steps to get full access to the ExpatBuildr systems.</p>
+      </div>
+
+      <div class="steps">
+        <!-- STEP 1 — DONE -->
+        <div class="step-card" style="border-color: rgba(0,229,160,0.25);">
+          <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
+            <div class="step-num" style="background: var(--funnel-accent-dim); border: 1px solid rgba(0,229,160,0.3); color: var(--funnel-accent);">✓</div>
+            <div>
+              <strong style="display: block; font-size: 16px;">Step 1: Email Received</strong>
+              <span style="font-family: 'DM Mono', monospace; font-size: 11px; color: var(--funnel-text-muted);">COMPLETE</span>
+            </div>
+          </div>
+          <div style="padding-left: 50px; color: var(--funnel-accent); font-size: 14px;">
+            You're on the list. Watch your inbox for weekly systems.
+          </div>
+        </div>
+
+        <!-- STEP 2 — X FOLLOW -->
+        <div class="step-card">
+          <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
+            <div class="step-num active-num">2</div>
+            <div>
+              <strong style="display: block; font-size: 16px;">Step 2: Follow @expatbuildr on X</strong>
+              <span style="font-family: 'DM Mono', monospace; font-size: 11px; color: var(--funnel-text-muted);">DAILY AI SYSTEMS</span>
+            </div>
+          </div>
+          <div style="padding-left: 50px;">
+            <p style="font-size: 14px; color: var(--funnel-text-muted); margin-bottom: 14px;">I drop the most advanced workflows as daily threads. Don't miss out.</p>
+            <a href="https://x.com/ExpatBuildr" target="_blank" rel="noopener" class="btn-follow" id="follow-x-btn">
+              <span class="x-icon">𝕏</span> Follow @expatbuildr to continue
+            </a>
+          </div>
+        </div>
+
+        <!-- STEP 3 — YOUTUBE -->
+        <div class="step-card">
+          <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
+            <div class="step-num active-num">3</div>
+            <div>
+              <strong style="display: block; font-size: 16px;">Step 3: Subscribe to @GalaxyArb on YouTube</strong>
+              <span style="font-family: 'DM Mono', monospace; font-size: 11px; color: var(--funnel-text-muted);">AI ARCHITECTURE DEMOS</span>
+            </div>
+          </div>
+          <div style="padding-left: 50px;">
+            <p style="font-size: 14px; color: var(--funnel-text-muted); margin-bottom: 14px;">Watch me build these agents live. The visual playbook for AI operators.</p>
+            <a href="https://youtube.com/@GalaxyArb?sub_confirmation=1" target="_blank" rel="noopener" id="follow-yt-btn" style="display: inline-flex; align-items: center; gap: 8px; background: #FF0000; color: #fff; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 14px;">
+              Subscribe to GalaxyArb →
+            </a>
+          </div>
+        </div>
+
+        <!-- STEP 4 — ACCESS -->
+        <div class="step-card" id="access-step" style="display: none; opacity: 0; transform: translateY(10px); transition: all 0.5s ease;">
+          <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
+            <div class="step-num active-num">4</div>
+            <div>
+              <strong style="display: block; font-size: 16px;">Step 4: Unlock Your 45 Prompts</strong>
+              <span style="font-family: 'DM Mono', monospace; font-size: 11px; color: var(--funnel-text-muted);">INSTANT ACCESS</span>
+            </div>
+          </div>
+          <div style="padding-left: 50px;">
+            <p class="unlock-msg" style="font-size: 14px; color: var(--funnel-accent); margin-bottom: 14px; font-weight: bold;">✓ HANDSHAKE CONFIRMED</p>
+            <p style="font-size: 14px; color: var(--funnel-text-muted); margin-bottom: 14px;">Click below to access your AI Business Master Prompt Vault.</p>
+            <a href="/downloads/prompt-vault.pdf" download="ExpatBuildr-AI-Business-Master-Prompt-Vault.pdf" class="btn-download" id="download-btn">
+              Download 45 AI Business Master Prompts
+            </a>
+            <p style="font-family: 'DM Mono', monospace; font-size: 11px; color: #3d5060; margin-top: 10px;">PDF · ~40 pages · Instant</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer style="border-top: 1px solid #1e2730; padding: 20px 24px; text-align: center;">
+      <p style="font-family: 'DM Mono', monospace; font-size: 12px; color: #3d5060;">© 2025 <a href="/" style="color: var(--funnel-accent); text-decoration: none;">ExpatBuildr</a></p>
+    </footer>
+  </div>
+
+  <script is:inline>
+    // Lead event tracking (GA4 + Meta)
+    window.addEventListener('load', () => {
+      if (typeof gtag === 'function') {
+        gtag('event', 'generate_lead', { currency: 'USD', value: 0 });
+      }
+      if (typeof fbq === 'function') {
+        fbq('track', 'Lead');
+      }
+    });
+
+    const followXBtn = document.getElementById('follow-x-btn');
+    const followYtBtn = document.getElementById('follow-yt-btn');
+    const accessStep = document.getElementById('access-step');
+    
+    let xClicked = false;
+    let ytClicked = false;
+
+    function checkUnlock() {
+      if (xClicked && ytClicked && accessStep) {
+        setTimeout(() => {
+          accessStep.style.display = 'block';
+          setTimeout(() => {
+            accessStep.style.opacity = '1';
+            accessStep.style.transform = 'translateY(0)';
+          }, 50);
+        }, 500);
+      }
+    }
+
+    if (followXBtn) {
+      followXBtn.addEventListener('click', () => {
+        xClicked = true;
+        followXBtn.innerHTML = '✓ Done';
+        followXBtn.style.background = '#1a5c38';
+        followXBtn.style.borderColor = 'transparent';
+        checkUnlock();
+      });
+    }
+
+    if (followYtBtn) {
+      followYtBtn.addEventListener('click', () => {
+        ytClicked = true;
+        followYtBtn.innerHTML = '✓ Done';
+        followYtBtn.style.background = '#1a5c38';
+        checkUnlock();
+      });
+    }
+
+    document.getElementById('download-btn')?.addEventListener('click', () => {
+      if (typeof gtag === 'function') {
+        gtag('event', 'file_download', { file_name: 'prompt-vault.pdf' });
+      }
+      if (typeof fbq === 'function') {
+        fbq('trackCustom', 'DownloadVault');
+      }
+    });
+  </script>
+</Layout>

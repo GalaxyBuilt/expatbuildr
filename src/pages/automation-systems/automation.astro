@@ -1,0 +1,1371 @@
+---
+export const prerender = true;
+import '../../styles/funnel.css';
+import { Sun, Moon } from 'lucide-astro';
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+	title="ExpatBuildr Systems � Custom Automation Builds"
+	description="I design and build custom automation systems, AI workflows, and business process tools. Done-for-you. Deployed and running."
+	ogImage="/images/og-systems.png"
+	minimal={true}
+>
+  <div class="systems-page">
+    <!-- -- NAV ------------------------------------------------------------ -->
+    <nav class="systems-nav">
+      <div class="wrap">
+        <div class="nav-inner">
+          <a href="/" class="nav-logo">
+            <img src="/images/logo.jpg" alt="Expat Buildr Logo" class="brand-icon" />
+            <div class="logo-text">
+              GALAXY<span class="built-span">BUILT</span> <span class="systems-span">/automation</span>
+            </div>
+          </a>
+          <ul class="nav-links">
+            <li><a href="#usecases">Use Cases</a></li>
+            <li><a href="#howitworks">How It Works</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li>
+              <button id="systemsThemeToggle" class="theme-toggle" aria-label="Toggle Theme">
+                <Sun class="sun-icon" size={18} />
+                <Moon class="moon-icon" size={18} />
+              </button>
+            </li>
+            <li><a href="#cta" class="btn btn-primary" style="padding:0.5em 1.2em; color: #000 !important;">Request a Build</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- -- HERO ----------------------------------------------------------- -->
+    <section id="hero">
+      <div class="wrap">
+        <div class="hero-kicker fade-1">Custom Automation Builds � Done For You</div>
+
+        <h1 class="fade-2">
+          I build systems.<br />
+          <em>You run</em><br />
+          the results.
+        </h1>
+
+        <p class="hero-sub fade-3">
+          Custom automation systems, AI workflows, and business process tools.
+          Scoped, built, and handed over � ready to generate leverage from day one.
+        </p>
+
+        <div class="hero-actions fade-4">
+          <a href="#cta" class="btn btn-primary">Request a System Build ?</a>
+          <a href="#usecases" class="btn btn-outline">See What I Build</a>
+        </div>
+
+        <div class="hero-proof fade-5">
+          <div class="proof-item">
+            <div class="proof-num">40<span>+</span></div>
+            <div class="proof-desc">Systems delivered</div>
+          </div>
+          <div class="proof-item">
+            <div class="proof-num">12<span>k+</span></div>
+            <div class="proof-desc">Hours automated</div>
+          </div>
+          <div class="proof-item">
+            <div class="proof-num">3<span>�7</span></div>
+            <div class="proof-desc">Day build timeline</div>
+          </div>
+          <div class="proof-item">
+            <div class="proof-num">100<span>%</span></div>
+            <div class="proof-desc">Done for you</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- -- PROBLEM -------------------------------------------------------- -->
+    <section id="problem">
+      <div class="wrap">
+        <div class="section-tag">01 � The Problem</div>
+        <h2>You're doing work<br /><em>a system should do.</em></h2>
+
+        <div class="problem-grid">
+          <div class="problem-item" data-n="01">
+            <h3>Manual Everything</h3>
+            <p>Copy-pasting between tools, building spreadsheets by hand, running the same report every Monday. None of this is where your time belongs.</p>
+          </div>
+          <div class="problem-item" data-n="02">
+            <h3>Inconsistent Output</h3>
+            <p>Your income or lead flow rises and falls with your attention. When you step away, the machine stops. That's a bottleneck � not a business.</p>
+          </div>
+          <div class="problem-item" data-n="03">
+            <h3>Renting Infrastructure</h3>
+            <p>You're dependent on third-party platforms you don't control. When they change pricing, break an API, or shut down � your workflow breaks with them.</p>
+          </div>
+          <div class="problem-item" data-n="04">
+            <h3>No Leverage</h3>
+            <p>You're trading time for output at a 1:1 ratio. A system works while you sleep, scales without extra effort, and compounds over time.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- -- SOLUTION ------------------------------------------------------- -->
+    <section id="solution">
+      <div class="wrap">
+        <div class="solution-inner">
+          <div>
+            <div class="section-tag">02 � The Solution</div>
+            <h2>A custom system.<br /><em>Built for your</em><br />exact workflow.</h2>
+            <p>I design and build automation systems that replace repetitive work, connect your tools, and run on infrastructure you own.</p>
+            <p>Not templates. Not off-the-shelf software with a monthly fee. A purpose-built system � scoped to your exact problem and delivered ready to run.</p>
+            <p style="margin-top:1.5rem;">
+              <a href="#cta" class="btn btn-primary">Request a Build ?</a>
+            </p>
+          </div>
+
+          <div class="terminal">
+            <div class="terminal-bar">
+              <div class="terminal-dot"></div>
+              <div class="terminal-dot"></div>
+              <div class="terminal-dot"></div>
+            </div>
+            <div class="terminal-body">
+              <div><span class="dim">$</span> <span class="cmd" style="color:var(--accent-1)">expatbuildr init --system lead-gen</span></div>
+              <div class="dim">? Scoping workflow requirements...</div>
+              <div class="dim">? Designing data pipeline...</div>
+              <div class="dim">? Configuring AI extraction layer...</div>
+              <div class="dim">? Wiring notification hooks...</div>
+              <div class="dim">? Writing test suite...</div>
+              <div> </div>
+              <div><span class="ok">?</span> System built. 847 leads/day, automated.</div>
+              <div><span class="ok">?</span> Zero manual work required.</div>
+              <div><span class="ok">?</span> You own every line of code.</div>
+              <div> </div>
+              <div class="dim">Ready. Deploy when you are. <span class="cmd">_</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- -- USE CASES ------------------------------------------------------- -->
+    <section id="usecases" class="systems-section">
+      <div class="wrap">
+        <div class="section-tag">03 � What I Build</div>
+        <h2>Systems for people<br />who need leverage.</h2>
+
+        <div class="cases-grid">
+          <div class="case-card">
+            <span class="case-icon mono">[01]</span>
+            <h3>Lead Generation Automation</h3>
+            <p>End-to-end systems that find, qualify, and deliver leads to your CRM without manual work. Scraping, enrichment, filtering, and outreach � automated.</p>
+          </div>
+          <div class="case-card">
+            <span class="case-icon mono">[02]</span>
+            <h3>Web Scraping & Data Collection</h3>
+            <p>Structured data pipelines that monitor sources, extract clean records, and push to your database or dashboard on a schedule.</p>
+          </div>
+          <div class="case-card">
+            <span class="case-icon mono">[03]</span>
+            <h3>AI Workflow Systems</h3>
+            <p>LLM-powered pipelines for classification, summarization, content generation, or decision routing � integrated into your existing stack.</p>
+          </div>
+          <div class="case-card">
+            <span class="case-icon mono">[04]</span>
+            <h3>Business Process Automation</h3>
+            <p>Replace manual SOP steps with event-driven workflows. Trigger actions across Notion, Airtable, Slack, email, and APIs based on logic you define.</p>
+          </div>
+          <div class="case-card">
+            <span class="case-icon mono">[05]</span>
+            <h3>Internal Dashboards & Tools</h3>
+            <p>Custom reporting dashboards, admin panels, and internal tools that surface the data your team actually needs � no vendor lock-in.</p>
+          </div>
+          <div class="case-card">
+            <span class="case-icon mono">[06]</span>
+            <h3>Data Pipelines & Bots</h3>
+            <p>Scheduled bots that pull, transform, and push data between systems. Monitor competitors, track markets, or automate reporting at scale.</p>
+          </div>
+        </div>
+
+        <!-- Case Study -->
+        <div class="case-study">
+          <h3>Job Intelligence System � Custom Build</h3>
+          <p>
+            A client needed a way to monitor and extract structured job data across multiple US remote job boards daily. I built a modular scraping system with an AI classification layer, a SQLite + Prisma backend, a Bull queue for rate-limited crawling, and an Electron desktop app as the operator interface. The system runs unattended, deduplications records automatically, and exports a clean weekly dataset.
+          </p>
+          <p style="margin-top:1rem;">
+            This is one example of the type of intelligence and data collection systems I build as custom client work � not a product, but a purpose-built tool scoped to a specific client need.
+          </p>
+          <div class="case-metrics">
+            <div class="case-metric">
+              <div class="val">2,100+</div>
+              <div class="desc">Jobs collected / week</div>
+            </div>
+            <div class="case-metric">
+              <div class="val">0</div>
+              <div class="desc">Manual hours required</div>
+            </div>
+            <div class="case-metric">
+              <div class="val">7 days</div>
+              <div class="desc">Build-to-deploy timeline</div>
+            </div>
+            <div class="case-metric">
+              <div class="val">Full</div>
+              <div class="desc">Client code ownership</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- -- HOW IT WORKS ---------------------------------------------------- -->
+    <section id="howitworks" class="systems-section">
+      <div class="wrap">
+        <div class="section-tag">04 � Process</div>
+        <h2>Three steps.<br />One system, running.</h2>
+        <p>No long discovery calls. No endless back-and-forth. You describe the problem � I build the solution.</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-n">STEP 01</div>
+            <h3>You describe<br /><em>the problem.</em></h3>
+            <p>Tell me what process is taking up your time, what data you need, or what workflow is broken. The more specific, the better � but rough is fine to start.</p>
+          </div>
+          <div class="step">
+            <div class="step-n">STEP 02</div>
+            <h3>I design<br /><em>the system.</em></h3>
+            <p>I scope the architecture, select the right tools, and give you a clear breakdown of what gets built, how long it takes, and what you'll own.</p>
+          </div>
+          <div class="step">
+            <div class="step-n">STEP 03</div>
+            <h3>You deploy<br /><em>and run it.</em></h3>
+            <p>I deliver the system with documentation and a handover call. You own the code, the infra, and the output � no dependency on me to keep it running.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- -- PRICING --------------------------------------------------------- -->
+    <section id="pricing" class="systems-section">
+      <div class="wrap">
+        <div class="section-tag">05 � Investment</div>
+        <h2>Priced by outcome,<br />not by hour.</h2>
+        <p>Every system is scoped before payment. You know exactly what you're getting before anything is built. No surprise invoices.</p>          <!-- Starter -->
+          <div class="plan">
+            <div class="plan-tag">Starter System</div>
+            <h3>Single-Step<br />Automation</h3>
+            <p class="plan-tagline">One focused workflow automated. Ideal for entrepreneurs who have one expensive manual task eating their time.</p>
+            <div class="plan-price"><sup>$</sup>500</div>
+            <div class="plan-from">Starting from</div>
+            <ul class="plan-features">
+              <li>One focused automation workflow</li>
+              <li>Single data source or API integration</li>
+              <li>Scheduled or trigger-based execution</li>
+              <li>Basic error handling + logging</li>
+              <li>Code ownership + documentation</li>
+              <li>Built on Claude AI, Make.com, and your existing stack</li>
+              <li>35 day delivery</li>
+            </ul>
+            <a href="https://buy.stripe.com/00wbJ05ODg6eaBA7L22oE01" class="btn btn-primary" style="text-align:center;justify-content:center;">Buy Starter System ?</a>
+          </div>
+
+          <!-- Advanced -->
+          <div class="plan featured">
+            <div class="plan-tag">Advanced System</div>
+            <h3>Multi-Step<br />Pipeline</h3>
+            <p class="plan-tagline">End-to-end workflow automation with multiple integrations, data processing, and an operator interface.</p>
+            <div class="plan-price"><sup>$</sup>1,800</div>
+            <div class="plan-from">Starting from</div>
+            <ul class="plan-features">
+              <li>Full multi-step automation pipeline</li>
+              <li>Multiple API / data source integrations</li>
+              <li>AI layer (classification, extraction, generation)</li>
+              <li>Database storage + query interface</li>
+              <li>Dashboard or admin panel</li>
+              <li>Full test suite + error recovery</li>
+              <li>Built on Claude AI, Make.com, and your existing stack</li>
+              <li>714 day delivery</li>
+            </ul>
+            <a href="https://buy.stripe.com/eVq6oGcd11bk5hg6GY2oE02" class="btn btn-primary" style="text-align:center;justify-content:center;">Buy Advanced System ?</a>
+          </div>
+
+          <!-- Custom -->
+          <div class="plan">
+            <div class="plan-tag">Custom System</div>
+            <h3>Fully Tailored<br />Architecture</h3>
+            <p class="plan-tagline">Enterprise-grade custom builds for complex business problems. Scoped individually  contact to discuss.</p>
+            <div class="plan-price" style="font-size:1.8rem;">$3,500–$15k</div>
+            <div class="plan-from">Scoped per project</div>
+            <ul class="plan-features">
+              <li>Full requirements discovery call</li>
+              <li>Custom architecture design</li>
+              <li>Unlimited integrations + data sources</li>
+              <li>Production-grade infrastructure</li>
+              <li>Team handover + onboarding</li>
+              <li>Optional retainer for ongoing support</li>
+              <li>Timeline defined during scoping</li>
+            </ul>
+            <a href="#cta" class="btn btn-outline" style="text-align:center;justify-content:center;">Request a Scope Call ?</a>
+          </div>
+        </div>
+        
+        <div class="cta-note" style="margin-top: 2rem; color: var(--text-muted); font-size: 0.85rem; text-align: center;">
+          <p><strong>Note:</strong> Custom automation scoped individually — request a scope call.</p>
+          <p>Prices reflect US market positioning.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- -- CTA ------------------------------------------------------------ -->
+    <section id="cta" class="systems-section">
+      <div class="wrap">
+        <div class="cta-inner">
+          <div class="section-tag" style="justify-content:center;">06 � Get Started</div>
+          <h2>What should<br /><em>be automated</em><br />for you?</h2>
+          <p>Describe your workflow, your bottleneck, or your goal. I'll come back with a scope and a quote � usually within 24 hours.</p>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form" style="max-width:680px;margin:0 auto;">
+          <h3>// Request a System Build</h3>
+
+          <form
+            action="https://formspree.io/f/YOURFORMID"
+            method="POST"
+            id="build-form"
+          >
+            <div class="form-row">
+              <div class="form-field form-full">
+                <label for="email">Work Email</label>
+                <input type="email" id="email" name="email" placeholder="you@email.com" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label for="type">System Type</label>
+                <select id="type" name="system_type">
+                  <option value="">� Select �</option>
+                  <option>Lead Generation Automation</option>
+                  <option>Web Scraping / Data Collection</option>
+                  <option>AI Workflow System</option>
+                  <option>Business Process Automation</option>
+                  <option>Dashboard / Internal Tool</option>
+                  <option>Data Pipeline / Bot</option>
+                  <option>Not sure � help me scope it</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="budget">Budget Range</label>
+                <select id="budget" name="budget">
+                  <option value="">� Select �</option>
+                  <option>$500 � $1,000</option>
+                  <option>$1,000 � $2,500</option>
+                  <option>$2,500 � $5,000</option>
+                  <option>$5,000+</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field form-full">
+                <label for="description">Describe what needs to be automated</label>
+                <textarea id="description" name="description" placeholder="Describe the manual process, what tools you currently use, and what outcome you want. The more detail, the better the scope I can give you." required></textarea>
+              </div>
+            </div>
+
+            <div class="form-submit">
+              <button type="submit" class="btn btn-primary">Send Request ?</button>
+              <span class="form-note">Response within 24 hours � No spam � No commitment</span>
+            </div>
+          </form>
+
+          <div id="form-success" style="display:none;padding:2rem;text-align:center;">
+            <p style="font-family:var(--mono);color:var(--accent-1);font-size:0.85rem;letter-spacing:0.08em;">? REQUEST RECEIVED</p>
+            <p style="color:var(--text-muted);font-size:0.875rem;margin-top:0.5rem;">I'll review your request and reply within 24 hours with a scope and quote.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- -- FOOTER ---------------------------------------------------------- -->
+    <footer class="systems-footer">
+      <div class="wrap">
+        <div class="footer-inner">
+          <div class="footer-brand">
+            Galaxy<span>Built</span> � Custom Automation Systems � Built in the Philippines ????
+          </div>
+          <ul class="footer-links">
+            <li><a href="/privacy">Privacy</a></li>
+            <li><a href="/terms">Terms</a></li>
+            <li><a href="https://x.com/expatbuildr" target="_blank" rel="noopener">X / Twitter</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script is:inline>
+    // Theme logic for Systems page (minimal layout)
+    const systemsThemeToggle = document.getElementById('systemsThemeToggle');
+    
+    const updateTheme = () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    };
+
+    systemsThemeToggle?.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      updateTheme();
+      
+      // Dispatch event for other listeners (if any)
+      window.dispatchEvent(new Event('theme-changed'));
+    });
+  </script>
+</Layout>
+
+<style is:global>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+  .systems-page {
+    --bg:        rgba(5, 5, 5, 0.85);
+    --bg-2:      rgba(10, 10, 12, 0.7);
+    --bg-3:      rgba(17, 17, 17, 0.6);
+    --border:    rgba(255,255,255,0.06);
+    --border-hi: rgba(255,255,255,0.12);
+    --text:      #f8fafc;
+    --text-muted:#94a3b8;
+    --text-dim:  #64748b;
+    --accent-1:  #a855f7;  /* Purple-600ish */
+    --accent-2:  #22d3ee;  /* Cyan/Teal */
+    --accent-glow: rgba(168, 85, 247, 0.1);
+
+    --serif:  'DM Serif Display', Georgia, serif;
+    --mono:   'IBM Plex Mono', 'Courier New', monospace;
+    --sans:   'DM Sans', system-ui, sans-serif;
+
+    --max:    1100px;
+    --gap:    clamp(4rem, 10vw, 8rem);
+
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+    background: var(--bg); /* THEME AWARE BASE */
+  }
+
+  :root:not(.dark) .systems-page {
+    --bg:        #fafafa;
+    --bg-2:      #ffffff;
+    --bg-3:      #f1f5f9;
+    --border:    rgba(0,0,0,0.06);
+    --border-hi: rgba(0,0,0,0.1);
+    --text:      #0f172a;
+    --text-muted:#475569;
+    --text-dim:  #94a3b8;
+  }
+
+  .systems-page::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, var(--border) 39px, var(--border) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, var(--border) 39px, var(--border) 40px);
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 1; /* GRID ABOVE GALAXY BUT BELOW CONTENT */
+  }
+
+  /* NEW SINGLE SPIRAL GALAXY BACKGROUND (DARK MODE ONLY) */
+  :root.dark .systems-page::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url('/automation_galaxy_bg.png') !important;
+    background-size: cover;
+    background-position: center center;
+    opacity: 0.12; /* Very subtle deep-space visibility */
+    pointer-events: none;
+    z-index: 0;    /* ON TOP OF SOLID BLACK BASE, BELOW EVERYTHING ELSE */
+  }
+
+  .systems-page .wrap   { max-width: var(--max); margin: 0 auto; padding: 0 clamp(1.25rem, 5vw, 2.5rem); position: relative; z-index: 5; }
+  .systems-page .mono   { font-family: var(--mono); }
+  .systems-page .amber  { color: var(--accent-1); }
+
+  .systems-page .label {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-1);
+    border: 1px solid var(--accent-1);
+    background: var(--accent-glow);
+    padding: 0.3em 0.75em;
+    margin-bottom: 1.5rem;
+  }
+
+  .systems-page .section-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .systems-page .section-tag::after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 3rem;
+    background: var(--border-hi);
+  }
+
+  .systems-page h1, .systems-page h2, .systems-page h3 { font-family: var(--serif); font-weight: 400; line-height: 1.1; }
+
+  .systems-page .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    padding: 0.9em 1.8em;
+  }
+
+  .systems-page .btn-primary {
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    color: #000 !important;
+  }
+  .systems-page .btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+  .systems-page .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border-hi);
+  }
+  .systems-page .btn-outline:hover { border-color: var(--accent-1); color: var(--accent-1); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .systems-page .fade-1 { animation: fadeUp 0.6s ease both; }
+  .systems-page .fade-2 { animation: fadeUp 0.6s 0.1s ease both; }
+  .systems-page .fade-3 { animation: fadeUp 0.6s 0.2s ease both; }
+  .systems-page .fade-4 { animation: fadeUp 0.6s 0.3s ease both; }
+  .systems-page .fade-5 { animation: fadeUp 0.6s 0.4s ease both; }
+
+  .systems-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    backdrop-filter: blur(12px);
+    transition: background 0.3s ease;
+  }
+  :root.dark .systems-nav {
+    background: rgba(5,5,5,0.9);
+  }
+  :root:not(.dark) .systems-nav {
+    background: rgba(250,250,250,0.9);
+  }
+  .systems-nav .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+  }
+  .systems-nav .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
+  .systems-nav .nav-logo:hover { transform: scale(1.02); }
+
+  .systems-nav .brand-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 1rem;
+    object-cover: cover;
+    border: 1px solid var(--border-hi);
+  }
+
+  .systems-nav .logo-text {
+    font-family: var(--sans);
+    font-weight: 900;
+    font-size: 1.65rem;
+    letter-spacing: -0.04em;
+    color: var(--text);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+  .systems-nav .built-span { color: var(--accent-1); font-weight: 400; }
+  .systems-nav .systems-span { 
+    font-family: var(--mono);
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    margin-left: 0.35rem;
+    font-weight: 400;
+    vertical-align: middle;
+    letter-spacing: 0.05em;
+  }
+  
+  .systems-nav .theme-toggle {
+    background: transparent;
+    border: 1px solid var(--border-hi);
+    color: var(--text-muted);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .systems-nav .theme-toggle:hover {
+    color: var(--accent-1);
+    border-color: var(--accent-1);
+    background: var(--accent-glow);
+  }
+  
+  .systems-nav .sun-icon { display: none; }
+  .systems-nav .moon-icon { display: block; }
+  
+  :root:not(.dark) .systems-nav .sun-icon { display: none; }
+  :root:not(.dark) .systems-nav .moon-icon { display: block; }
+  
+  :root.dark .systems-nav .sun-icon { display: block; }
+  :root.dark .systems-nav .moon-icon { display: none; }
+  .systems-nav .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+  }
+  .systems-nav .nav-links a {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .systems-nav .nav-links a:hover { color: var(--accent-1); }
+
+  #hero {
+    position: relative;
+    padding: clamp(5rem, 14vw, 10rem) 0 clamp(4rem, 10vw, 7rem);
+    overflow: hidden;
+  }
+
+  #hero::after {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: -15%;
+    width: 55vw;
+    height: 55vw;
+    max-width: 700px;
+    max-height: 700px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-kicker {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent-1);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1.75rem;
+  }
+  .hero-kicker::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent-1);
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  #hero h1 {
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    max-width: 14ch;
+    letter-spacing: -0.02em;
+  }
+  #hero h1 em {
+    font-style: italic;
+    color: var(--accent-1);
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: var(--text-muted);
+    max-width: 50ch;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 4rem;
+  }
+
+  .hero-proof {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem 3rem;
+    border-top: 1px solid var(--border);
+    padding-top: 2.5rem;
+  }
+  .proof-num {
+    font-family: var(--serif);
+    font-size: 2rem;
+    color: var(--text);
+    line-height: 1;
+  }
+  .proof-num span { color: var(--accent-1); }
+  .proof-desc {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 0.35rem;
+  }
+
+  #problem {
+    padding: var(--gap) 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 3rem;
+  }
+
+  .problem-item {
+    background: var(--bg-2);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .problem-item::before {
+    content: attr(data-n);
+    position: absolute;
+    top: 1.25rem;
+    right: 1.5rem;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+  .problem-item h3 {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+  }
+  .problem-item p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  #problem h2 {
+    font-size: clamp(2rem, 5vw, 3.75rem);
+    max-width: 18ch;
+    line-height: 1.05;
+  }
+  #problem h2 em { font-style: italic; color: var(--text-muted); }
+
+  #solution {
+    padding: var(--gap) 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .solution-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  #solution h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 1.5rem;
+  }
+  #solution h2 em { font-style: italic; color: var(--accent-1); }
+
+  #solution p {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    line-height: 1.75;
+  }
+
+  .terminal {
+    background: var(--bg-3);
+    border: 1px solid var(--border-hi);
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    overflow: hidden;
+  }
+  .terminal-bar {
+    background: var(--border);
+    padding: 0.65rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  .terminal-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+  .terminal-dot:nth-child(1) { background: #e05858; }
+  .terminal-dot:nth-child(2) { background: #e0a020; }
+  .terminal-dot:nth-child(3) { background: #40a858; }
+  .terminal-body {
+    padding: 1.5rem;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+  .terminal-body .cmd { color: var(--accent-2); }
+  .terminal-body .ok  { color: #40a858; }
+  .terminal-body .dim { color: var(--text-dim); }
+
+  #usecases {
+    padding: var(--gap) 0;
+    border-top: 1px solid var(--border);
+  }
+
+  #usecases h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 0.75rem;
+  }
+
+  .cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 3rem;
+  }
+
+  .case-card {
+    background: var(--bg-2);
+    padding: 2rem;
+    transition: background 0.2s;
+    position: relative;
+  }
+  .case-card:hover { background: var(--bg-3); }
+
+  .case-icon {
+    font-family: var(--mono);
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .case-card h3 {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+  }
+  .case-card p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  .case-study {
+    margin-top: 3rem;
+    border: 1px solid var(--border-hi);
+    background: var(--bg-3);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .case-study::before {
+    content: 'CASE STUDY';
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--accent-1);
+    border: 1px solid var(--accent-glow);
+    padding: 0.2em 0.6em;
+    background: var(--accent-glow);
+  }
+  .case-study h3 {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .case-study p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.75;
+    max-width: 65ch;
+  }
+  .case-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .case-metric .val {
+    font-family: var(--serif);
+    font-size: 1.75rem;
+    color: var(--accent-1);
+  }
+  .case-metric .desc {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 0.2rem;
+  }
+
+  #howitworks {
+    padding: var(--gap) 0;
+    border-top: 1px solid var(--border);
+  }
+
+  #howitworks h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 0.5rem;
+  }
+  #howitworks > .wrap > p {
+    color: var(--text-muted);
+    margin-bottom: 3.5rem;
+    max-width: 50ch;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .step {
+    background: var(--bg-2);
+    padding: 2.5rem 2rem;
+    position: relative;
+  }
+
+  .step-n {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    margin-bottom: 1.5rem;
+  }
+  .step h3 {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .step h3 em { font-style: italic; color: var(--accent-1); }
+  .step p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .step:not(:last-child)::after {
+    content: '?';
+    position: absolute;
+    right: -0.75rem;
+    top: 2.5rem;
+    font-family: var(--mono);
+    color: var(--accent-1);
+    font-size: 1rem;
+    z-index: 2;
+  }
+
+  #pricing {
+    padding: var(--gap) 0;
+    border-top: 1px solid var(--border);
+  }
+
+  #pricing h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 0.5rem;
+  }
+  #pricing > .wrap > p {
+    color: var(--text-muted);
+    margin-bottom: 3.5rem;
+    max-width: 55ch;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .plan {
+    background: var(--bg-2);
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    transition: background 0.2s;
+  }
+  .plan:hover { background: var(--bg-3); }
+  .plan.featured {
+    background: var(--bg-3);
+    border-left: 2px solid var(--accent-1);
+    border-right: 2px solid var(--accent-1);
+    position: relative;
+  }
+  .plan.featured::before {
+    content: 'MOST POPULAR';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    background: var(--accent-1);
+    color: #0e0e0e;
+    padding: 0.2em 0.8em;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .plan-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.75rem;
+  }
+  .plan h3 {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+  }
+  .plan-tagline {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.6;
+  }
+
+  .plan-price {
+    font-family: var(--serif);
+    font-size: 2.5rem;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+  .plan-price sup {
+    font-size: 1rem;
+    vertical-align: super;
+    color: var(--text-muted);
+  }
+  .plan-from {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+  }
+
+  .plan-features {
+    list-style: none;
+    flex: 1;
+    margin-bottom: 2rem;
+  }
+  .plan-features li {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    line-height: 1.5;
+  }
+  .plan-features li::before {
+    content: '?';
+    color: var(--accent-1);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+  }
+
+  #cta {
+    padding: var(--gap) 0;
+    border-top: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  #cta::before {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80vw;
+    height: 40vw;
+    max-width: 900px;
+    background: radial-gradient(ellipse, rgba(232,160,32,0.05) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .cta-inner {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  #cta h2 {
+    font-size: clamp(2.25rem, 6vw, 4rem);
+    margin-bottom: 1rem;
+  }
+  #cta h2 em { font-style: italic; color: var(--accent-1); }
+  #cta p {
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .contact-form {
+    background: var(--bg-3);
+    border: 1px solid var(--border-hi);
+    padding: 2.5rem;
+    text-align: left;
+    margin-top: 1.5rem;
+  }
+  .contact-form h3 {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .form-field label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    background: var(--bg);
+    border: 1px solid var(--border-hi);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    padding: 1rem;
+    outline: none;
+    transition: border-color 0.15s;
+    width: 100%;
+    -webkit-appearance: none;
+    min-height: 44px;
+  }
+  .form-field input:focus,
+  .form-field select:focus,
+  .form-field textarea:focus {
+    border-color: var(--accent-1);
+  }
+  .form-field textarea { min-height: 120px; resize: vertical; }
+
+  .form-submit {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .form-note {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  .systems-footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 0;
+  }
+  .systems-footer .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .systems-footer .footer-brand {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    letter-spacing: 0.06em;
+  }
+  .systems-footer .footer-brand span { color: var(--accent-1); }
+  .systems-footer .footer-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .systems-footer .footer-links a {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .systems-footer .footer-links a:hover { color: var(--accent-1); }
+
+  @media (max-width: 768px) {
+    .problem-grid   { grid-template-columns: 1fr; }
+    .solution-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .steps          { grid-template-columns: 1fr; }
+    .pricing-grid   { grid-template-columns: 1fr; }
+    .cases-grid     { grid-template-columns: 1fr; }
+    .step::after    { display: none; }
+    .form-row       { grid-template-columns: 1fr; }
+    .plan.featured  { border-left: 1px solid var(--border); border-right: 1px solid var(--border); border-top: 2px solid var(--accent-1); }
+  }
+</style>
+
+  <script is:inline src="/beehiiv-v2.js"></script>
+  <script is:inline>
+  // Form AJAX submit
+  const form = document.getElementById('build-form');
+  const success = document.getElementById('form-success');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('[type=submit]');
+      const originalText = btn.innerHTML;
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      const formData = new FormData(form);
+      const email = formData.get('email');
+
+      // Use the shared utility
+      await subscribeToBeehiiv({
+        email,
+        tags: ["automation_buyer", "done_for_you", "high_ticket"],
+        utm_medium: "automation_page",
+        utm_campaign: "automation_service"
+      });
+      
+      // Always show success to advance user
+      form.style.display = 'none';
+      success.style.display = 'block';
+    });
+  }
+
+  // Scroll-triggered fade-in for below-fold sections
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.case-card, .step, .plan, .problem-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+
+  // Theme Toggle Logic
+  const themeBtn = document.getElementById('systemsThemeToggle');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+      const element = document.documentElement;
+      element.classList.toggle("dark");
+      const isDark = element.classList.contains("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+  }
+</script>

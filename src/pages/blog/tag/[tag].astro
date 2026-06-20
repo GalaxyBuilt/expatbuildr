@@ -1,0 +1,129 @@
+---
+export const prerender = true;
+import Layout from '../../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { ChevronRight, ArrowRight, Tag } from 'lucide-astro';
+
+const INDEXED_TAGS = new Set([
+  'career-advancement-remote',
+  'philippines-vs-thailand-vs-vietnam',
+  'southeast-asia-cost-of-living-2026',
+  'topic-authority',
+  'remote-hiring-process',
+  'work-from-home-negotiation',
+  'outbound',
+  'data-monetization',
+  'indie-hacking',
+  'lead-list-building',
+  'outreach',
+]);
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+  });
+
+  const allTags = [...new Set(posts.flatMap(p => p.data.tags))];
+
+  return allTags.map(tag => ({
+    params: { tag: tag.toLowerCase().replace(/\s+/g, '-') },
+    props: { tag, posts: posts.filter(p => p.data.tags.includes(tag)) }
+  }));
+}
+
+const { tag, posts } = Astro.props;
+const tagSlug = tag.toLowerCase().replace(/\s+/g, '-');
+const isIndexed = INDEXED_TAGS.has(tagSlug);
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(date);
+
+// Get all tags across these posts for related tag cloud
+const relatedTags = [...new Set(posts.flatMap(p => p.data.tags))].filter(t => t !== tag);
+---
+
+<Layout
+  title={`#${tag} — ExpatBuildr Blog`}
+  description={`All ExpatBuildr articles tagged #${tag}. ${posts.length} post${posts.length !== 1 ? 's' : ''} on ${tag}.`}
+  noindex={!isIndexed}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Breadcrumbs -->
+    <nav class="mb-12 flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.2em] text-institutional-secondary">
+      <a href="/blog" class="hover:text-accent-blue transition-colors">Blog</a>
+      <ChevronRight size={10} />
+      <a href="/blog/tags" class="hover:text-accent-blue transition-colors">Tags</a>
+      <ChevronRight size={10} />
+      <span class="text-accent-blue">#{tag}</span>
+    </nav>
+
+    <!-- Header -->
+    <header class="mb-16">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-blue/10 border border-accent-blue/20 text-accent-blue text-[10px] uppercase tracking-[0.2em] font-mono mb-6">
+        <Tag size={12} /> Tag
+      </div>
+      <h1 class="text-5xl md:text-8xl font-black font-display tracking-tighter text-slate-900 dark:text-white uppercase leading-none mb-4">
+        #{tag}
+      </h1>
+      <p class="text-institutional-secondary font-inter">
+        {posts.length} article{posts.length !== 1 ? 's' : ''} tagged with <strong>#{tag}</strong>
+      </p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-12">
+      <!-- Posts Grid -->
+      <div class="lg:col-span-3">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {posts.map(post => (
+            <a
+              href={`/blog/${post.id.replace(/\.mdx?$/, '')}`}
+              class="group glass-card p-8 rounded-[2rem] border border-slate-200 dark:border-white/5 hover:border-accent-blue/50 transition-all flex flex-col"
+            >
+              <span class="text-[9px] font-mono text-accent-blue uppercase tracking-widest mb-4">{formatDate(post.data.pubDate)}</span>
+              <h2 class="text-xl font-black font-display text-institutional-primary group-hover:text-accent-blue transition-colors uppercase tracking-tight leading-tight mb-3 flex-1">
+                {post.data.title}
+              </h2>
+              <p class="text-institutional-secondary text-sm line-clamp-2 mb-6 font-inter leading-relaxed">
+                {post.data.description}
+              </p>
+              <div class="flex flex-wrap gap-2 mb-4">
+                {post.data.tags.slice(0, 4).map(t => (
+                  <a
+                    href={`/blog/tag/${t.toLowerCase().replace(/\s+/g, '-')}`}
+                    class={`px-2 py-0.5 rounded-full text-[9px] font-mono uppercase tracking-widest transition-colors ${t === tag ? 'bg-accent-blue/20 text-accent-blue border border-accent-blue/30' : 'bg-slate-100 dark:bg-white/5 text-institutional-muted border border-slate-200 dark:border-white/10 hover:text-accent-blue'}`}
+                    onclick="event.stopPropagation()"
+                  >
+                    #{t}
+                  </a>
+                ))}
+              </div>
+              <div class="flex items-center gap-1 text-[10px] font-mono text-institutional-muted uppercase tracking-wider mt-auto">
+                Read <ArrowRight size={12} class="group-hover:translate-x-1 transition-transform" />
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Sidebar: Related Tags -->
+      <aside class="lg:col-span-1">
+        <div class="sticky top-32 space-y-6">
+          <div>
+            <p class="text-[9px] font-mono uppercase tracking-[0.25em] text-institutional-muted mb-4">Related Tags</p>
+            <div class="flex flex-wrap gap-2">
+              {relatedTags.slice(0, 20).map(t => (
+                <a
+                  href={`/blog/tag/${t.toLowerCase().replace(/\s+/g, '-')}`}
+                  class="px-3 py-1 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-[10px] font-mono uppercase tracking-widest text-institutional-secondary hover:text-accent-blue hover:border-accent-blue/30 transition-all"
+                >
+                  #{t}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</Layout>
+

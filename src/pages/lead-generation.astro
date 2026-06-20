@@ -1,0 +1,87 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Pixels from '../components/Pixels.astro';
+
+const title = "Lead Generation: Autonomous Lead Engines | ExpatBuildr";
+const description = "High‑intent acquisition systems: intent extraction, deep enrichment, and scalable personalization that converts at 10–20x traditional rates.";
+---
+
+<Layout title={title} description={description} minimal={true}>
+  <Fragment slot="head">
+    <Pixels page="money-lead-generation" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+  </Fragment>
+
+  <main class="container" style="padding:40px 24px; max-width:900px;">
+    <a href="/blog" class="back-link">← Back to Blog</a>
+    <h1 style="margin-top:18px;">Lead Engines: Turn Intent Into Revenue</h1>
+    <p style="color:var(--text-secondary); max-width:70%;">We build acquisition systems that prioritize intent, not volume. Close more deals with fewer touches by using signal‑first scoring, deep enrichment, and automated personalization.</p>
+
+    <section style="margin-top:28px;">
+      <h2>Core outcomes</h2>
+      <ul>
+        <li>Higher reply and booking rates with contextualized, automated outreach.</li>
+        <li>Predictable pipeline via intent scoring and thermal prioritization.</li>
+        <li>Lower CAC with reusable lead enrichment and funnel automation.</li>
+      </ul>
+    </section>
+
+    <section style="margin-top:20px;">
+      <div class="section-label">Supporting Articles</div>
+      <ul>
+        <li><a href="/blog/lead-generation/cold-email-systems-that-book-meetings-2026">Cold Email Systems That Book Meetings</a></li>
+        <li><a href="/blog/lead-generation/how-to-build-lead-list-without-buying-data">Build Lead Lists Without Buying Data</a></li>
+        <li><a href="/blog/lead-generation/seo-authority-loop-lead-generation">SEO Authority Loop — Lead Generation</a></li>
+      </ul>
+    </section>
+
+    <section style="margin-top:22px;">
+      <h2>Products & Funnels</h2>
+      <p style="color:var(--text-secondary); max-width:80%;">Lead generation converts with tight funnel steps that layer trust and signal. We map content to products so every visit has a clear next action.</p>
+      <ol>
+        <li><strong>Top</strong>: Hub content and case studies (SEO + outreach templates) that attract operators.</li>
+        <li><strong>Lead Magnet</strong>: Lead Engine Playbook — downloadable guide with scoring templates and sequence blueprints.</li>
+        <li><strong>Tripwire</strong>: Low‑cost audit or pre-built intent lists to prove value quickly.</li>
+        <li><strong>Core Offer</strong>: Full lead system implementation (monthly retainer) or onboarding to our SaaS tools.</li>
+        <li><strong>Ascension</strong>: Managed outbound, integrated CRO, and enterprise onboarding.
+        </li>
+      </ol>
+      <p style="margin-top:8px;">Optimize for: lead magnet CTR, audit purchase conversion, and trial→paid conversion. Use social proof (case study numbers) and a clear demo path to reduce friction.</p>
+    </section>
+
+    <section style="margin-top:28px;">
+      <div class="subscribe-box">
+        <div class="progress-header">
+          <span class="progress-label">Free Resource</span>
+          <strong class="progress-count">Lead Engine Playbook</strong>
+        </div>
+        <form id="subscribe-leads" class="sub-form">
+          <input type="email" id="email-leads" name="email" placeholder="Your best email" required class="fake-input" />
+          <button type="submit" id="submit-leads" class="btn-primary">Get The Playbook →</button>
+        </form>
+        <p id="msg-leads" class="form-msg hidden"></p>
+      </div>
+      <p style="margin-top:8px; font-size:0.9rem; color:var(--text-secondary)">Or <a href="/contact">book a lead audit</a> — bespoke audits available.</p>
+    </section>
+  </main>
+
+  <script is:inline>
+    async function submitLeads(e){
+      e.preventDefault();
+      const email = document.getElementById('email-leads').value.trim();
+      const msg = document.getElementById('msg-leads');
+      const btn = document.getElementById('submit-leads');
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if(!re.test(email)){ msg.innerText='Please enter a valid email.'; msg.classList.remove('hidden'); return; }
+      btn.disabled=true; btn.innerText='Submitting...';
+      try{
+        const res = await fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,source:'money-lead-generation',magnet:'lead-engine-playbook',tags:['lead_builder']})});
+        const data = await res.json();
+        if(data.success){ window.location.href=data.redirect_url || '/download?magnet=lead-engine-playbook'; }
+        else { btn.disabled=false; btn.innerText='Get The Playbook →'; msg.innerText=data.error||'Error'; msg.classList.remove('hidden'); }
+      }catch(err){ btn.disabled=false; btn.innerText='Get The Playbook →'; msg.innerText='Network error'; msg.classList.remove('hidden'); }
+    }
+    document.getElementById('subscribe-leads')?.addEventListener('submit', submitLeads);
+  </script>
+</Layout>

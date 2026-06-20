@@ -1,0 +1,105 @@
+---
+interface Props {
+  variant?: 'sidebar' | 'inline' | 'footer';
+}
+
+const { variant = 'inline' } = Astro.props;
+---
+
+{variant === 'sidebar' && (
+  <div class="sticky top-32 space-y-4">
+    <!-- Newsletter Ad -->
+    <a
+      href="/newsletter"
+      class="block p-6 rounded-2xl border text-center hover:scale-[1.02] transition-transform duration-300 group"
+      style="border-color: rgba(245,200,66,0.3); background: rgba(245,200,66,0.05);"
+    >
+      <p class="text-[9px] font-mono uppercase tracking-[0.2em] mb-2" style="color: #f5c842;">Free Newsletter</p>
+      <p class="text-sm font-black font-display text-institutional-primary uppercase tracking-tight leading-tight mb-3 group-hover:text-[#f5c842] transition-colors">
+        Galaxy Arbitrage<br/>Intel Drop
+      </p>
+      <p class="text-[11px] text-institutional-secondary font-inter mb-4 leading-relaxed">
+        Geo-arbitrage, remote income & AI tools — weekly, free.
+      </p>
+      <span class="inline-block px-4 py-2 rounded-full text-[10px] font-black font-mono uppercase tracking-wider text-black" style="background: linear-gradient(135deg, #f5c842, #ff6b35);">
+        Join Free →
+      </span>
+    </a>
+
+    <!-- YouTube Ad -->
+    <a
+      href="https://www.youtube.com/@GalaxyArb"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="block p-6 rounded-2xl border border-red-500/20 bg-red-500/5 text-center hover:scale-[1.02] transition-transform duration-300 group"
+    >
+      <p class="text-[9px] font-mono uppercase tracking-[0.2em] text-red-500 mb-2">YouTube</p>
+      <p class="text-sm font-black font-display text-institutional-primary uppercase tracking-tight leading-tight mb-3 group-hover:text-red-500 transition-colors">
+        Watch The<br/>Strategy Videos
+      </p>
+      <p class="text-[11px] text-institutional-secondary font-inter mb-4 leading-relaxed">
+        Real walkthroughs. No fluff.
+      </p>
+      <span class="inline-block px-4 py-2 rounded-full text-[10px] font-black font-mono uppercase tracking-wider text-white bg-red-600 hover:bg-red-500 transition-colors">
+        Subscribe →
+      </span>
+    </a>
+  </div>
+)}
+
+{variant === 'inline' && (
+  <div
+    class="my-10 p-8 rounded-[2rem] border text-center"
+    style="border-color: rgba(245,200,66,0.2); background: rgba(245,200,66,0.04);"
+  >
+    <p class="text-[9px] font-mono uppercase tracking-[0.25em] mb-2" style="color: #f5c842;">Sponsored by Me</p>
+    <h4 class="text-2xl font-black font-display text-institutional-primary uppercase tracking-tight mb-3">
+      Galaxy Arbitrage Newsletter
+    </h4>
+    <p class="text-institutional-secondary font-inter text-sm leading-relaxed max-w-sm mx-auto mb-6">
+      Geo-arbitrage, remote income systems, and AI tools — delivered free every week. 65+ subscribers and growing.
+    </p>
+    <a
+      href="/newsletter"
+      class="inline-flex items-center gap-2 px-8 py-3 rounded-full font-display font-black text-black text-sm uppercase tracking-wider"
+      style="background: linear-gradient(135deg, #f5c842, #ff6b35);"
+    >
+      Get Free Weekly Intel →
+    </a>
+  </div>
+)}
+
+{variant === 'footer' && (
+  <div class="max-w-4xl mx-auto mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <a
+      href="/newsletter"
+      class="flex items-center gap-4 p-6 rounded-2xl border hover:scale-[1.02] transition-transform duration-300 group"
+      style="border-color: rgba(245,200,66,0.25); background: rgba(245,200,66,0.04);"
+    >
+      <div class="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-lg" style="background: rgba(245,200,66,0.15);">
+        📬
+      </div>
+      <div>
+        <p class="text-[10px] font-mono uppercase tracking-widest mb-0.5" style="color: #f5c842;">Newsletter</p>
+        <p class="text-sm font-black font-display text-institutional-primary uppercase tracking-tight group-hover:text-[#f5c842] transition-colors">Galaxy Arbitrage</p>
+        <p class="text-[11px] text-institutional-muted">Free weekly intel drop</p>
+      </div>
+    </a>
+
+    <a
+      href="https://www.youtube.com/@GalaxyArb"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex items-center gap-4 p-6 rounded-2xl border border-red-500/20 bg-red-500/5 hover:scale-[1.02] transition-transform duration-300 group"
+    >
+      <div class="shrink-0 w-10 h-10 rounded-xl bg-red-500/15 flex items-center justify-center text-lg">
+        ▶
+      </div>
+      <div>
+        <p class="text-[10px] font-mono uppercase tracking-widest text-red-500 mb-0.5">YouTube</p>
+        <p class="text-sm font-black font-display text-institutional-primary uppercase tracking-tight group-hover:text-red-500 transition-colors">@GalaxyArb</p>
+        <p class="text-[11px] text-institutional-muted">Strategy videos, no fluff</p>
+      </div>
+    </a>
+  </div>
+)}

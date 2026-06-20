@@ -1,0 +1,86 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import WorkWithMe from '../../components/WorkWithMe';
+import ExitIntentPopup from '../../components/ExitIntentPopup.astro';
+import '../../styles/global.css';
+
+export const prerender = true;
+
+const title = "High Paying US Remote Jobs | Work From Anywhere, Earn USD | ExpatBuildr";
+const description = "Access a curated list of US remote roles for global arbitrage. Work from the Philippines or anywhere globally and earn in USD.";
+const ogImageUrl = "https://expatbuildr.com/images/lifestyle-palawan.png";
+
+// --- PRODUCTION CONFIGURATION [STRIKE READY] ---
+// Replace placeholders with active production IDs
+const TIKTOK_PIXEL_ID = 'D7EJNB3C77U1RGO04F1G';
+const GOOGLE_ANALYTICS_ID = 'G-SD1015FGKZ';
+const LINKEDIN_INSIGHT_ID = 'NNNNNNN';
+// ----------------------------------------------
+---
+
+<Layout 
+	title={title}
+	description={description}
+	ogImage={ogImageUrl}
+	minimal={true}
+>
+	<Fragment slot="head">
+		<!-- ─── Force Light Mode Default on Fresh Visit ───────────────────── -->
+		<script is:inline>
+			(function() {
+				// Only force light mode if no localStorage preference exists
+				if (!localStorage.getItem('jobsDarkMode')) {
+					document.documentElement.classList.remove('dark');
+					document.body.classList.remove('dark');
+					document.body.style.backgroundColor = 'white';
+				}
+			})();
+		</script>
+
+		<!-- ─── Unified Tracking + ViewContent Event ─────────────────── -->
+		<script is:inline>
+			// ViewContent — high-intent page view (jobs listing)
+			if (window.gtag) {
+				gtag('event', 'view_promotion', {
+					promotion_id: 'JOBS_LIST_50',
+					promotion_name: 'US Remote Jobs Master List',
+					location_id: 'jobs_page'
+				});
+			}
+			if (window.fbq) {
+				fbq('track', 'ViewContent', {
+					content_name: 'US Remote Jobs List',
+					content_category: 'Digital Product',
+					value: 50.00,
+					currency: 'USD'
+				});
+			}
+			if (window.ttq) ttq.page();
+			if (window.rdt) rdt('track', 'ViewContent');
+		</script>
+
+		<!-- ─── Beehiiv Attribution Tracking ──────────────────────────── -->
+		<script type="text/javascript" async src="https://subscribe-forms.beehiiv.com/attribution.js"></script>
+	</Fragment>
+
+	<noscript>
+		<iframe
+			src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+			height="0"
+			width="0"
+			style="display: none; visibility: hidden"
+		></iframe>
+	</noscript>
+
+	<WorkWithMe client:load />
+	<ExitIntentPopup telegramMode={true} />
+</Layout>
+
+<style is:global>
+	:root {
+		--font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+	}
+	body {
+		font-family: var(--font-sans);
+	}
+</style>

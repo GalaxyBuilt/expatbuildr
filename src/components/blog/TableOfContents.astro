@@ -1,0 +1,71 @@
+---
+// Renders a sticky right-sidebar TOC that highlights the active heading on scroll.
+// Headings are extracted client-side from the article body.
+---
+
+<div id="toc-inner" class="space-y-3">
+  <p class="text-[9px] font-mono uppercase tracking-[0.25em] text-institutional-muted">On This Page</p>
+  <nav id="toc-nav" class="space-y-1">
+    <!-- Populated by JS -->
+  </nav>
+</div>
+
+<script>
+  function buildTOC() {
+    const article = document.querySelector('.prose');
+    const nav = document.getElementById('toc-nav');
+    if (!article || !nav) return;
+
+    const headings = Array.from(article.querySelectorAll('h2, h3'));
+    if (headings.length < 2) {
+      document.getElementById('toc-inner')?.classList.add('hidden');
+      return;
+    }
+
+    // Ensure each heading has an id
+    headings.forEach((h, i) => {
+      if (!h.id) {
+        h.id = `heading-${i}-${h.textContent?.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || i}`;
+      }
+    });
+
+    // Build nav items
+    nav.innerHTML = headings.map(h => {
+      const isH3 = h.tagName === 'H3';
+      return `<a
+        href="#${h.id}"
+        data-toc="${h.id}"
+        class="toc-link block py-1 pr-2 text-[11px] font-mono transition-all duration-200 leading-snug border-l-2 border-transparent hover:border-accent-blue hover:text-accent-blue text-institutional-muted ${isH3 ? 'pl-5' : 'pl-3'}"
+      >${h.textContent}</a>`;
+    }).join('');
+
+    // Scroll spy
+    const tocLinks = nav.querySelectorAll('.toc-link');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          const link = nav.querySelector(`[data-toc="${entry.target.id}"]`);
+          if (!link) return;
+          if (entry.isIntersecting) {
+            tocLinks.forEach(l => l.classList.remove('border-accent-blue', 'text-accent-blue', '!text-white'));
+            link.classList.add('border-accent-blue', 'text-accent-blue');
+          }
+        });
+      },
+      { rootMargin: '-20% 0px -70% 0px', threshold: 0 }
+    );
+
+    headings.forEach(h => observer.observe(h));
+
+    // Smooth scroll
+    tocLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = (link as HTMLAnchorElement).getAttribute('data-toc');
+        if (id) document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', buildTOC);
+</script>

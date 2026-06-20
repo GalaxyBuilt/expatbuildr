@@ -1,0 +1,640 @@
+---
+export const prerender = true;
+import Layout from '../../layouts/Layout.astro';
+import GatedContent from '../../components/blog/GatedContent.astro';
+import NicheRedirect from '../../components/blog/NicheRedirect.astro';
+import AuthorCard from '../../components/blog/AuthorCard.astro';
+import ShareButtons from '../../components/blog/ShareButtons.astro';
+import TableOfContents from '../../components/blog/TableOfContents.astro';
+import RelatedPosts from '../../components/blog/RelatedPosts.astro';
+import GalaxyAd from '../../components/blog/GalaxyAd.astro';
+import NewsletterAd from '../../components/blog/NewsletterAd.astro';
+import NewsletterPopup from '../../components/NewsletterPopup.astro';
+import Comments from '../../components/blog/Comments.astro';
+import { getCollection, render } from 'astro:content';
+import { ChevronRight, Calendar, User, Tag, Clock, ArrowRight } from 'lucide-astro';
+import { pillars, getPillarById } from '../../config/pillars';
+import { getAuthor } from '../../config/authors';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+  });
+
+
+  const paths: { params: { path: string }; props: Record<string, unknown> }[] = [];
+
+  // 1. Individual Post paths: /blog/[pillar]/[category]/[slug]
+  posts.forEach(post => {
+    // Strip file extension to maintain professional clean slugs
+    const cleanPath = post.id.replace(/\.mdx?$/, '');
+    const pathParts = cleanPath.split('/');
+    if (pathParts.length >= 2) {
+      paths.push({
+        params: { path: cleanPath },
+        props: { type: 'post', post }
+      });
+    }
+  });
+
+  // 2. Aggregation paths (Pillars and Categories)
+  pillars.forEach(pConfig => {
+    const pillarId = pConfig.id;
+    const pillarPosts = posts.filter(p => p.data.pillarId === pillarId);
+
+    // Pillar index: /blog/[pillar]
+    paths.push({
+      params: { path: pillarId },
+      props: { type: 'pillar', pillarId, posts: pillarPosts }
+    });
+
+
+    // Sub-category routes: /blog/[pillar]/[category]
+    const categories = [...new Set(pillarPosts.map(p => p.data.category.toLowerCase().replace(/\s+/g, '-')))];
+    categories.forEach(category => {
+        const categoryPosts = pillarPosts.filter(p => p.data.category.toLowerCase().replace(/\s+/g, '-') === category);
+        paths.push({
+            params: { path: `${pillarId}/${category}` },
+            props: { type: 'category', pillarId, category, posts: categoryPosts }
+        });
+    });
+  });
+
+  return paths;
+}
+
+const { path } = Astro.params;
+const { type, post, posts, pillarId, category } = Astro.props;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let Content: any;
+if (type === 'post' && post) {
+    const rendered = await render(post);
+    Content = rendered.Content;
+}
+
+const pillarConfig = pillarId ? getPillarById(pillarId) : null;
+
+// All posts for related posts
+const allPosts = await getCollection('blog', ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true : true;
+});
+
+// Group posts by category for pillar view
+const ungroupedPosts: Record<string, any[]> = (type === 'pillar' && posts)
+    ? posts.reduce((acc: Record<string, any[]>, p) => {
+        const cat: string = p.data.category;
+        if (!acc[cat]) acc[cat] = [];
+        acc[cat].push(p);
+        return acc;
+    }, {})
+    : {};
+
+const hubArticle = ungroupedPosts['Pillar Hub']?.[0] ?? null;
+const serviceArticles: any[] = ungroupedPosts['Service'] ?? [];
+
+// Sort categories by article count, exclude Pillar Hub and Service
+const sortedCategories = Object.entries(ungroupedPosts)
+    .filter(([name]) => name !== 'Pillar Hub' && name !== 'Service')
+    .sort((a, b) => b[1].length - a[1].length);
+
+const formatDate = (date: Date) => {
+    return new Intl.DateTimeFormat('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    }).format(date);
+};
+
+// Read time calculation
+const calcReadTime = (body: string): number => {
+  const words = body.trim().split(/\s+/).length;
+  return Math.max(1, Math.ceil(words / 220));
+};
+
+// Breadcrumbs logic
+const pathParts = path.split('/');
+const breadcrumbs = [
+    { name: 'Blog', href: '/blog' },
+    ...pathParts.map((part: string, i: number) => ({
+        name: part.split('-').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
+        href: `/blog/${pathParts.slice(0, i + 1).join('/')}`
+    }))
+];
+
+// Robust Hero Image Resolution
+const isValidPath = (p?: string) => p && (p.startsWith('/') || p.startsWith('http') || p.startsWith('./'));
+const resolvedHeroImage = type === 'post'
+    ? (isValidPath(post.data.heroImage) ? post.data.heroImage : (isValidPath(post.data.ogImage) ? post.data.ogImage : pillarConfig?.heroImage))
+    : pillarConfig?.heroImage;
+
+// Dynamic Title Resolution
+const pageTitle = type === 'post'
+    ? post.data.title
+    : type === 'pillar'
+        ? pillarConfig?.name
+        : category ? `${category.charAt(0).toUpperCase() + category.slice(1).replace(/-/g, ' ')} Architecture` : 'Blog';
+
+// Author lookup for post
+const postAuthor = type === 'post' ? getAuthor(post.data.author) : null;
+
+// Read time for post
+const readTime = type === 'post' && post.body ? calcReadTime(post.body) : null;
+
+// Site URL constants for schema
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://expatbuildr.com';
+const logoUrl = `${siteUrl}/images/logo.jpg`;
+
+// Canonical post URL
+const postUrl = type === 'post' ? new URL(`/blog/${post.id.replace(/\.mdx?$/, '')}`, Astro.site || 'https://expatbuildr.com').toString() : '';
+
+---
+
+<Layout
+    title={pageTitle}
+    description={type === 'post' ? post.data.description : undefined}
+    ogImage={resolvedHeroImage}
+    canonicalUrl={type === 'post' ? post.data.canonicalUrl : undefined}
+    noindex={type === 'post' ? post.data.draft : false}
+>
+    <!-- Breadcrumbs -->
+    <nav class="max-w-7xl mx-auto mb-12 flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.2em] text-institutional-secondary">
+        {breadcrumbs.map((bc, i) => (
+            <>
+                <a href={bc.href} class="hover:text-accent-blue transition-colors">{bc.name}</a>
+                {i < breadcrumbs.length - 1 && <ChevronRight size={10} />}
+            </>
+        ))}
+    </nav>
+
+    {type === 'post' && post && (
+        <article class="max-w-7xl mx-auto">
+            <NicheRedirect pillar={post.data.pillarId} />
+
+            <header class="relative w-full rounded-[3.5rem] overflow-hidden min-h-[400px] mb-16 flex flex-col justify-end p-8 md:p-16 space-y-8 group border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-slate-950 shadow-xl dark:shadow-2xl">
+                <!-- Institutional Cinematic Background Layer -->
+                {resolvedHeroImage && (
+                    <div class="absolute inset-0 z-0 bg-slate-950">
+                        <img
+                            src={resolvedHeroImage}
+                            alt={post.data.title}
+                            class="w-full h-full object-cover opacity-80 dark:opacity-60 group-hover:opacity-90 transition-all duration-1000 ease-out"
+                        />
+                        <!-- Tactical Gradient Masking for Contrast -->
+                        <!-- Darken the hero so header text is always white and readable -->
+                        <div class="absolute inset-0 bg-linear-to-t from-black/60 via-black/40 to-transparent"></div>
+                        <div class="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-transparent"></div>
+                    </div>
+                )}
+
+                <div class="relative z-10 space-y-6 max-w-4xl">
+                    <div class="flex flex-wrap items-center gap-6 text-[10px] font-mono uppercase tracking-[0.2em] text-white/80">
+                        <span class="flex items-center gap-2">
+                            <Calendar size={14} class="text-accent-blue" />
+                            {formatDate(post.data.pubDate)}
+                        </span>
+                        <a href="https://x.com/expatbuildr" target="_blank" class="flex items-center gap-2 hover:text-accent-blue transition-colors cursor-pointer group/author">
+                            <User size={14} class="text-pink-500 group-hover/author:text-accent-blue transition-colors" />
+                            {post.data.author}
+                        </a>
+                        <span class="flex items-center gap-2">
+                            <Tag size={14} class="text-accent-cyan" />
+                            {pillarConfig?.name || post.data.pillarId}
+                        </span>
+                        {readTime && (
+                            <span class="flex items-center gap-2">
+                                <Clock size={14} class="text-emerald-500" />
+                                {readTime} min read
+                            </span>
+                        )}
+                    </div>
+
+                    <h1 class="text-4xl md:text-7xl font-black font-display tracking-tight text-white leading-tight drop-shadow-2xl">
+                        {post.data.title}
+                    </h1>
+
+                    <p class="text-xl text-white/80 font-inter leading-relaxed max-w-2xl drop-shadow-lg">
+                        {post.data.description}
+                    </p>
+
+                    <div class="flex flex-wrap gap-2">
+                        {post.data.tags.map((tag: string) => (
+                            <a
+                                href={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                                class="px-3 py-1 rounded-full bg-slate-200 dark:bg-white/10 border border-slate-300 dark:border-white/20 text-[10px] text-slate-600 dark:text-white uppercase tracking-widest backdrop-blur-md hover:bg-accent-blue/20 hover:text-accent-blue hover:border-accent-blue/30 transition-all"
+                            >
+                                #{tag}
+                            </a>
+                        ))}
+                    </div>
+
+                    <!-- Share buttons in header -->
+                    <div class="pt-2">
+                        <ShareButtons title={post.data.title} url={postUrl} />
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content area: prose + TOC sidebar -->
+            <div class="flex gap-12 items-start">
+                <!-- Main content column -->
+                <div class="flex-1 min-w-0">
+                    <div class="glass-card p-8 md:p-12 rounded-[2.5rem] border border-slate-900/5 dark:border-white/5 bg-slate-900/[0.02] dark:bg-white/[0.02] shadow-2xl relative overflow-hidden">
+                        <div class="prose">
+                            {post.data.gated ? (
+                                <GatedContent>
+                                    <Content />
+                                </GatedContent>
+                            ) : (
+                                <Content />
+                            )}
+                        </div>
+                    </div>
+
+                    <!-- Newsletter ad on pillar hub pages -->
+                    {type === 'post' && post.data.category === 'Pillar Hub' && (
+                        <NewsletterAd variant="horizontal" />
+                    )}
+
+                    <!-- Inline Ad after content -->
+                    <GalaxyAd variant="inline" />
+
+                    <!-- Author Card -->
+                    {postAuthor && <AuthorCard author={postAuthor} />}
+
+                    <!-- Share buttons (bottom) -->
+                    <div class="max-w-4xl mx-auto mt-8 flex items-center justify-between flex-wrap gap-4">
+                        <ShareButtons title={post.data.title} url={postUrl} />
+                    </div>
+
+                    <!-- Related Posts -->
+                    <RelatedPosts currentPost={post} allPosts={allPosts} />
+
+                    <!-- Footer Ads -->
+                    <GalaxyAd variant="footer" />
+
+                    <!-- Newsletter CTA -->
+                    <div class="max-w-4xl mx-auto mt-12 p-8 md:p-12 rounded-[2.5rem] border border-[rgba(245,200,66,0.2)] bg-[rgba(245,200,66,0.04)] text-center">
+                        <p class="text-[10px] font-mono uppercase tracking-[0.2em] text-[#f5c842] mb-4">Free Weekly Newsletter</p>
+                        <h3 class="text-3xl md:text-5xl font-black font-display text-white uppercase tracking-tight mb-4">GET THE INTEL<br/><span class="text-[#f5c842]">EVERY WEEK.</span></h3>
+                        <p class="text-slate-400 font-inter mb-8 max-w-md mx-auto">Geographic arbitrage, remote income systems, and AI tools — delivered free every week. Plus 4 resources on signup.</p>
+                        <a href="/newsletter" class="inline-flex items-center gap-3 px-10 py-5 rounded-full font-display font-black text-black text-lg uppercase tracking-wider" style="background: linear-gradient(135deg, #f5c842, #ff6b35);">
+                            Join Free — Get All 4 Resources →
+                        </a>
+                        <p class="mt-4 text-[10px] font-mono text-slate-500 uppercase tracking-widest">✓ Weekly Intel · ✓ 4 Free Resources · ✓ No Spam</p>
+                    </div>
+
+                    <!-- Comments -->
+                    <Comments />
+                </div>
+
+                <!-- TOC + Vertical Ad Sidebar -->
+                <aside id="blog-sidebar" class="hidden xl:block w-64 shrink-0">
+                    <div class="sticky top-32 space-y-6">
+
+                        {type === 'post' && post && (() => {
+                            const pillarPosts = allPosts
+                                .filter(p =>
+                                    p.data.pillarId === post.data.pillarId &&
+                                    p.id !== post.id &&
+                                    p.data.category !== 'Pillar Hub' &&
+                                    p.data.category !== 'Service' &&
+                                    p.data.draft !== true
+                                )
+                                .sort(() => Math.random() - 0.5)
+                                .slice(0, 3);
+                            return (
+                                <div class="space-y-4">
+                                    {/* Share */}
+                                    <div class="space-y-2">
+                                        <p class="text-[9px] font-mono uppercase tracking-[0.25em] text-institutional-muted">Share</p>
+                                        <div class="flex gap-2">
+                                            <a
+                                                href={`https://x.com/intent/tweet?text=${encodeURIComponent(post.data.title)}&url=${encodeURIComponent(postUrl)}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white/5 dark:bg-white/5 border border-white/10 hover:border-black dark:hover:border-white/30 hover:bg-black hover:text-white text-slate-600 dark:text-slate-400 transition-all text-[11px] font-mono"
+                                            >
+                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                                Post
+                                            </a>
+                                            <button
+                                                id="sidebar-copy-link"
+                                                data-url={postUrl}
+                                                class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white/5 border border-white/10 hover:border-accent-blue/50 hover:text-accent-blue text-slate-600 dark:text-slate-400 transition-all text-[11px] font-mono cursor-pointer"
+                                            >
+                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+                                                Copy
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* More in this pillar */}
+                                    {pillarPosts.length > 0 && (
+                                        <div class="space-y-2">
+                                            <p class="text-[9px] font-mono uppercase tracking-[0.25em] text-institutional-muted">More like this</p>
+                                            <div class="space-y-1">
+                                                {pillarPosts.map(p => (
+                                                    <a
+                                                        href={`/blog/${p.id.replace(/\.mdx?$/, '')}`}
+                                                        class="block py-2 px-3 rounded-lg hover:bg-white/5 border border-transparent hover:border-white/10 transition-all group"
+                                                    >
+                                                        <p class="text-[11px] font-mono text-slate-600 dark:text-slate-400 group-hover:text-white transition-colors leading-snug line-clamp-2">{p.data.title}</p>
+                                                    </a>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            );
+                        })()}
+
+                        <TableOfContents />
+                        <NewsletterAd variant="vertical" />
+                    </div>
+                </aside>
+            </div>
+
+            <script type="application/ld+json" set:html={JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "BlogPosting",
+                "headline": post.data.title,
+                "description": post.data.description,
+                "image": post.data.ogImage
+                    ? new URL(post.data.ogImage, siteUrl).toString()
+                    : (post.data.heroImage ? new URL(post.data.heroImage, siteUrl).toString() : `${siteUrl}/expatbuildr_og_banner.png`),
+                "url": postUrl,
+                "mainEntityOfPage": { "@type": "WebPage", "@id": postUrl },
+                "datePublished": post.data.pubDate.toISOString(),
+                "dateModified": (post.data.updatedDate ?? post.data.pubDate).toISOString(),
+                "author": { "@type": "Person", "name": "Expat Buildr", "url": siteUrl },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Expat Buildr",
+                    "url": siteUrl,
+                    "logo": { "@type": "ImageObject", "url": logoUrl }
+                }
+            })} />
+        </article>
+    )}
+
+    {type === 'pillar' && pillarConfig && (
+        <div class="max-w-7xl mx-auto space-y-20">
+            <!-- Institutional Cinematic Hero Banner -->
+            <header class="relative w-full rounded-[3.5rem] overflow-hidden min-h-[500px] flex flex-col items-center justify-center p-8 md:p-24 text-center space-y-8 group border border-white/5 bg-slate-950 shadow-2xl">
+                <!-- High-Fidelity Background Asset -->
+                {resolvedHeroImage && (
+                    <div class="absolute inset-0 z-0 overflow-hidden">
+                        <img
+                            src={resolvedHeroImage}
+                            alt={pillarConfig.name}
+                            class="w-full h-full object-cover opacity-70 dark:opacity-50 group-hover:opacity-80 scale-105 group-hover:scale-100 transition-all duration-1000 ease-out"
+                        />
+                        <!-- Tactical Gradient Masking -->
+                        <div class="absolute inset-0 bg-linear-to-t from-black via-black/60 to-transparent"></div>
+                        <div class="absolute inset-0 bg-linear-to-b from-black/20 via-transparent to-transparent"></div>
+                    </div>
+                )}
+
+                <div class="relative z-10 space-y-8 max-w-4xl">
+                    <div class={`inline-flex p-6 rounded-[2rem] bg-white/5 ${pillarConfig.color} mb-4 relative mx-auto group-hover:scale-110 transition-transform duration-500 ring-1 ring-white/10`}>
+                        <div class={`absolute inset-0 rounded-[2rem] ${pillarConfig.accent} blur-xl animate-pulse`}></div>
+                        <pillarConfig.icon size={48} className="relative z-10 text-white" />
+                    </div>
+
+                    <div class="space-y-4">
+                        <h1 class="text-5xl md:text-8xl font-black font-display tracking-tight text-white uppercase leading-none drop-shadow-[0_20px_30px_rgba(0,0,0,0.8)]">
+                            {pillarConfig.name}
+                        </h1>
+                        <p class="text-sm font-mono text-accent-blue uppercase tracking-[0.4em] drop-shadow-lg">
+                            {pillarConfig.label}
+                        </p>
+                    </div>
+
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <div class="h-px w-24 bg-accent-blue/50 mx-auto"></div>
+                        <p class="text-xl md:text-2xl text-white/90 font-display leading-tight tracking-tight drop-shadow-md">
+                            {pillarConfig.longDescription}
+                        </p>
+                    </div>
+
+                    <div class="flex justify-center gap-12 pt-8">
+                        <div class="text-center">
+                            <p class="text-3xl font-black text-white font-display uppercase tracking-tighter">{posts.length}</p>
+                            <p class="text-[10px] font-mono text-white/50 uppercase tracking-widest">Protocol Briefings</p>
+                        </div>
+                        <div class="w-px h-12 bg-white/10 hidden md:block"></div>
+                        <div class="text-center">
+                            <p class="text-3xl font-black text-white font-display uppercase tracking-tighter">{sortedCategories.length}</p>
+                            <p class="text-[10px] font-mono text-white/50 uppercase tracking-widest">Tactical Verticals</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+
+            <!-- Start Here: Hub Article -->
+            {hubArticle && (
+                <section>
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="px-3 py-1 rounded-full bg-accent-blue text-white text-[10px] font-mono uppercase tracking-widest">Start Here</span>
+                        <div class="h-px flex-1 bg-linear-to-r from-accent-blue/50 to-transparent"></div>
+                    </div>
+                    <a
+                        href={`/blog/${hubArticle.id.replace(/\.mdx?$/, '')}`}
+                        class="group flex flex-col md:flex-row gap-8 glass-card p-10 md:p-12 rounded-[2.5rem] border border-accent-blue/30 bg-accent-blue/5 hover:border-accent-blue hover:bg-accent-blue/10 transition-all duration-500 relative overflow-hidden"
+                    >
+                        <div class="absolute inset-0 bg-linear-to-br from-accent-blue/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative z-10 flex-1 space-y-4">
+                            <p class="text-[10px] font-mono text-accent-blue uppercase tracking-[0.3em]">The Foundation — Read This First</p>
+                            <h2 class="text-3xl md:text-4xl font-black font-display text-institutional-primary group-hover:text-accent-blue transition-colors leading-tight uppercase tracking-tighter">
+                                {hubArticle.data.title}
+                            </h2>
+                            <p class="text-institutional-secondary font-inter text-lg leading-relaxed max-w-2xl">
+                                {hubArticle.data.description}
+                            </p>
+                        </div>
+                        <div class="relative z-10 flex items-end md:items-center shrink-0">
+                            <div class="flex items-center gap-3 px-8 py-4 rounded-full border border-accent-blue text-accent-blue font-display font-black text-sm uppercase tracking-wider group-hover:bg-accent-blue group-hover:text-white transition-all duration-300">
+                                Begin Here <ArrowRight size={16} class="group-hover:translate-x-1 transition-transform" />
+                            </div>
+                        </div>
+                    </a>
+                </section>
+            )}
+
+            <!-- Institutional Service Offerings (Money Section) -->
+            {serviceArticles.length > 0 && (
+                <section>
+                    <div class="flex items-center gap-6 mb-12">
+                        <h2 class="text-3xl font-black font-display text-slate-900 dark:text-white uppercase tracking-tighter shrink-0">Institutional Services</h2>
+                        <div class="h-px w-full bg-linear-to-r from-accent-blue/50 to-transparent"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {serviceArticles.map(p => (
+                            <a href={`/blog/${p.id.replace(/\.mdx?$/, '')}`} class="group glass-card p-10 rounded-3xl border border-accent-blue/30 bg-accent-blue/5 hover:border-accent-blue transition-all relative overflow-hidden">
+                                <div class="absolute inset-0 bg-linear-to-br from-accent-blue/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                <div class="relative z-10 space-y-6">
+                                    <div class="inline-flex px-3 py-1 rounded-full bg-accent-blue/20 text-accent-blue text-[10px] font-mono uppercase tracking-widest">
+                                        Premium Deployment
+                                    </div>
+                                    <h3 class="text-3xl font-black font-display text-institutional-primary leading-tight group-hover:text-accent-blue transition-colors">
+                                        {p.data.title}
+                                    </h3>
+                                    <p class="text-institutional-secondary font-inter leading-relaxed line-clamp-2 text-lg">
+                                        {p.data.description}
+                                    </p>
+                                    <div class="flex items-center gap-2 text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-[0.2em] pt-4">
+                                        Inquire for Architecture <ArrowRight size={16} class="group-hover:translate-x-2 transition-transform" />
+                                    </div>
+                                </div>
+                            </a>
+                        ))}
+                    </div>
+                </section>
+            )}
+
+            <!-- Categorized Intelligence Grid -->
+            <div class="grid grid-cols-1 gap-32">
+                {sortedCategories.map(([categoryName, categoryPosts]) => (
+                    <section>
+                        <div class="flex items-center gap-6 mb-12">
+                            <h2 class="text-3xl font-black font-display text-institutional-primary uppercase tracking-tighter shrink-0">{categoryName}</h2>
+                            <div class="h-px w-full bg-linear-to-r from-slate-200 dark:from-white/10 to-transparent"></div>
+                            <span class="text-[10px] font-mono text-institutional-muted whitespace-nowrap uppercase tracking-widest">[{categoryPosts.length} NODES]</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {categoryPosts.map((p: any) => {
+                                const rt = p.body ? calcReadTime(p.body) : null;
+                                return (
+                                    <a href={`/blog/${p.id.replace(/\.mdx?$/, '')}`} class="group glass-card p-8 rounded-[2rem] border border-slate-200 dark:border-white/5 hover:border-accent-blue/50 transition-all flex flex-col">
+                                        <div class="flex items-center justify-between mb-6">
+                                            <span class="text-[10px] font-mono text-accent-blue uppercase tracking-widest">{formatDate(p.data.pubDate)}</span>
+                                            {rt && (
+                                                <span class="flex items-center gap-1 text-[10px] font-mono text-institutional-muted uppercase tracking-widest">
+                                                    <Clock size={11} /> {rt}m
+                                                </span>
+                                            )}
+                                        </div>
+                                        <h3 class="text-2xl font-black font-display text-institutional-primary group-hover:text-accent-blue transition-colors mb-4 leading-tight uppercase tracking-tight">
+                                            {p.data.title}
+                                        </h3>
+                                        <p class="text-institutional-secondary text-base line-clamp-3 mb-4 font-inter leading-relaxed flex-1">
+                                            {p.data.description}
+                                        </p>
+                                        <div class="flex flex-wrap gap-1.5 mb-6">
+                                            {p.data.tags.slice(0, 3).map((tag: string) => (
+                                                <span class="px-2 py-0.5 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-[9px] font-mono text-institutional-muted uppercase tracking-widest">
+                                                    #{tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                        <div class="mt-auto flex items-center gap-2 text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-[0.2em]">
+                                            ACCESS BRIEFING <ArrowRight size={14} class="group-hover:translate-x-2 transition-transform" />
+                                        </div>
+                                    </a>
+                                );
+                            })}
+                        </div>
+                    </section>
+                ))}
+            </div>
+
+            <!-- Pillar Bottom CTA -->
+            <div class="p-12 rounded-[3rem] border border-[rgba(245,200,66,0.2)] bg-[rgba(245,200,66,0.04)] text-center space-y-6">
+                <p class="text-[10px] font-mono uppercase tracking-[0.2em] text-[#f5c842]">Free Weekly Newsletter</p>
+                <h3 class="text-4xl font-black font-display text-white uppercase tracking-tighter">GET THE INTEL<br/><span class="text-[#f5c842]">EVERY WEEK.</span></h3>
+                <p class="text-slate-400 font-inter max-w-xl mx-auto">Geographic arbitrage, remote income systems, and AI tools — delivered free every week. Plus 4 resources on signup.</p>
+                <div class="pt-4">
+                    <a href="/newsletter" class="inline-flex items-center gap-3 px-12 py-5 rounded-full font-display font-black text-black text-lg uppercase tracking-wider" style="background: linear-gradient(135deg, #f5c842, #ff6b35);">
+                        Join Free — Get All 4 Resources →
+                    </a>
+                </div>
+                <p class="text-[10px] font-mono text-slate-500 uppercase tracking-widest">✓ Weekly Intel · ✓ 4 Free Resources · ✓ No Spam</p>
+            </div>
+        </div>
+    )}
+
+    {type === 'category' && posts && (
+        <div class="max-w-7xl mx-auto space-y-16">
+            <header class="relative w-full rounded-[3.5rem] overflow-hidden min-h-[400px] flex flex-col items-center justify-center p-8 md:p-24 text-center space-y-4 group border border-white/5 bg-slate-950 shadow-2xl">
+                <!-- Inherited Pillar Background -->
+                {resolvedHeroImage && (
+                    <div class="absolute inset-0 z-0 overflow-hidden">
+                        <img
+                            src={resolvedHeroImage}
+                            alt={category}
+                            class="w-full h-full object-cover opacity-60 dark:opacity-40 group-hover:opacity-70 transition-all duration-1000 ease-out"
+                        />
+                        <div class="absolute inset-0 bg-linear-to-t from-black via-black/60 to-transparent"></div>
+                    </div>
+                )}
+
+                <div class="relative z-10 space-y-4">
+                    <h1 class="text-5xl md:text-7xl font-black font-display tracking-tight text-white mb-6 uppercase drop-shadow-2xl">
+                        {category.replace(/-/g, ' ')}
+                    </h1>
+                    <p class="text-white/60 font-mono uppercase tracking-[0.3em] text-sm drop-shadow-md">
+                        {posts.length} Technical Briefings in Internal Index
+                    </p>
+                </div>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {posts.map(p => (
+                    <a href={`/blog/${p.id.replace(/\.mdx?$/, '')}`} class="group glass-card p-10 rounded-3xl border border-slate-200 dark:border-white/5 hover:border-accent-blue/50 transition-all block">
+                        <div class="flex items-center justify-between mb-8">
+                            <span class="text-[10px] font-mono text-accent-blue uppercase tracking-widest">{p.data.pillarId}</span>
+                            <span class="text-[10px] font-mono text-institutional-muted uppercase tracking-widest">{formatDate(p.data.pubDate)}</span>
+                        </div>
+                        <h2 class="text-2xl font-bold font-display text-institutional-primary group-hover:text-accent-blue transition-colors mb-4 leading-tight">
+                            {p.data.title}
+                        </h2>
+                        <p class="text-institutional-secondary text-sm line-clamp-3 mb-8 font-inter leading-relaxed">
+                            {p.data.description}
+                        </p>
+                        <div class="flex items-center gap-2 text-xs font-bold text-institutional-primary uppercase tracking-widest">
+                            Initialize Read <ChevronRight size={14} class="group-hover:translate-x-1 transition-transform" />
+                        </div>
+                    </a>
+                ))}
+            </div>
+        </div>
+    )}
+
+    <!-- JSON-LD BreadcrumbList -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": breadcrumbs.map((bc, i) => ({
+            "@type": "ListItem",
+            "position": i + 1,
+            "name": bc.name,
+            "item": new URL(bc.href, Astro.site).toString()
+        }))
+    })} />
+
+<NewsletterPopup trigger="inactivity" inactivityMs={40000} />
+
+<script>
+  const copyBtn = document.getElementById('sidebar-copy-link');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', async () => {
+      const url = (copyBtn as HTMLElement).dataset.url || window.location.href;
+      await navigator.clipboard.writeText(url);
+      copyBtn.textContent = '✓ Copied';
+      setTimeout(() => { copyBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg> Copy`; }, 2000);
+    });
+  }
+</script>
+</Layout>
+
+<style>
+    @reference "../../styles/global.css";
+
+    .text-gradient {
+        @apply bg-linear-to-r from-accent-blue via-accent-purple to-accent-cyan bg-clip-text text-transparent;
+    }
+</style>

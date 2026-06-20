@@ -1,0 +1,646 @@
+---
+// Astro Component
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>One Last Step · Unlock Your Prompt · ExpatBuildr</title>
+<meta name="description" content="You're almost in. One quick step unlocks your free Cold Traffic Prompt Kit." />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://expatbuildr.com/unlock" />
+<meta property="og:title" content="One Last Step · Unlock Your Prompt · ExpatBuildr" />
+<meta property="og:description" content="You're almost in. One quick step unlocks your free Cold Traffic Prompt Kit." />
+<meta property="og:image" content="https://expatbuildr.com/images/og-cold-traffic-prompt.png" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="https://expatbuildr.com/unlock" />
+<meta property="twitter:title" content="One Last Step · Unlock Your Prompt · ExpatBuildr" />
+<meta property="twitter:description" content="You're almost in. One quick step unlocks your free Cold Traffic Prompt Kit." />
+<meta property="twitter:image" content="https://expatbuildr.com/images/og-cold-traffic-prompt.png" />
+
+<script is:inline>
+  const theme = (() => {
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+      return localStorage.getItem('theme');
+    }
+    return 'dark'; // default for this funnel
+  })();
+  if (theme === 'light') {
+    document.documentElement.classList.add('light');
+  } else {
+    document.documentElement.classList.add('dark');
+  }
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500;600&family=DM+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+<style>
+  @import '../../styles/funnel.css';
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    border-bottom: 1px solid var(--border);
+    background: rgba(5,5,5,.92);
+    backdrop-filter: blur(14px);
+  }
+  html.light nav { background: rgba(252,252,252,.92); }
+  .nav-inner {
+    max-width: 900px; margin: 0 auto;
+    padding: .9rem clamp(1.25rem,5vw,2.5rem);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { display: flex; align-items: center; gap: .65rem; text-decoration: none; }
+  .logo-mark {
+    width: 28px; height: 28px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .logo-text {
+    font-family: var(--sans); font-weight: 600; font-size: 1rem;
+    letter-spacing: -.02em; color: var(--text); text-transform: uppercase;
+  }
+  .logo-text span { color: var(--accent-1); font-weight: 300; }
+  .step-pill {
+    font-family: var(--mono); font-size: .6rem; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--amber);
+    border: 1px solid var(--amber-dim); background: var(--amber-glow);
+    padding: .3em .75em;
+  }
+  #themeToggleBtn .sun-icon { display: inline; }
+  #themeToggleBtn .moon-icon { display: none; }
+  html.light #themeToggleBtn .sun-icon { display: none; }
+  html.light  #themeToggleBtn .moon-icon { display: inline; }
+  html.light #themeToggleBtn { color: var(--text); }
+  html.light .channel-card.selected .channel-action { color: #0f172a; }
+  html.light .copy-btn { color: #0f172a; }
+  html.light .next-btn { color: #0f172a; }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar {
+    height: 2px;
+    background: var(--border);
+    position: relative;
+    z-index: 99;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg,var(--accent-1),var(--accent-2),var(--accent-3));
+    width: 66%;
+    transition: width .8s ease;
+  }
+
+  /* ── WRAP ── */
+  .wrap {
+    max-width: 900px; margin: 0 auto;
+    padding: 0 clamp(1.25rem,5vw,2.5rem);
+    position: relative; z-index: 5;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    padding: clamp(3.5rem,8vw,5.5rem) 0 clamp(2rem,5vw,3rem);
+    text-align: center;
+    position: relative; z-index: 5;
+  }
+  #hero::before {
+    content: '';
+    position: absolute; top: -80px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse at center, rgba(168,230,163,.055) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .step-label {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-family: var(--mono); font-size: .62rem; letter-spacing: .15em;
+    text-transform: uppercase; color: var(--amber); margin-bottom: 1.5rem;
+  }
+  .step-label::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%; background: var(--amber);
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem,5.5vw,3.75rem);
+    line-height: 1.08; letter-spacing: -.025em;
+    margin-bottom: 1rem;
+  }
+  h1 em { font-style: italic; color: var(--accent-1); }
+
+  .hero-sub {
+    font-size: .98rem; color: var(--text-muted);
+    line-height: 1.8; max-width: 50ch;
+    margin: 0 auto 1rem; font-weight: 300;
+  }
+
+  .email-confirm {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-family: var(--mono); font-size: .65rem; letter-spacing: .08em;
+    color: var(--accent-1); margin-bottom: 2.5rem;
+    border: 1px solid var(--border);
+    background: var(--bg-2);
+    padding: .4em 1em;
+  }
+  .email-confirm::before { content: '✓'; }
+
+  /* ── CHOOSE CARD ── */
+  .choose-label {
+    font-family: var(--mono); font-size: .62rem; letter-spacing: .15em;
+    text-transform: uppercase; color: var(--text-dim);
+    margin-bottom: 1.25rem; text-align: center;
+  }
+
+  .choose-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 1px;
+    position: relative;
+  }
+
+  /* OR divider */
+  .or-divider {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 10;
+    width: 36px; height: 36px;
+    background: var(--bg);
+    border: 1px solid var(--border-hi);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: .6rem; letter-spacing: .08em;
+    color: var(--text-dim);
+    pointer-events: none;
+  }
+
+  .channel-card {
+    background: var(--bg-2);
+    padding: 2rem 1.75rem 1.75rem;
+    cursor: pointer;
+    position: relative;
+    transition: background .2s;
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center;
+    border: 2px solid transparent;
+    outline: none;
+    user-select: none;
+  }
+  .channel-card:hover { background: var(--bg-3); }
+
+  .channel-card.selected {
+    background: var(--bg-3);
+    border-color: var(--accent-2);
+  }
+  .channel-card.selected::before {
+    content: 'SELECTED ✓';
+    position: absolute; top: .75rem; right: .75rem;
+    font-family: var(--mono); font-size: .52rem; letter-spacing: .12em;
+    color: var(--accent-2);
+  }
+
+  .channel-platform {
+    font-family: var(--mono); font-size: .58rem; letter-spacing: .15em;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: .5rem;
+  }
+  .channel-icon {
+    font-size: 2rem; margin-bottom: .75rem; display: block; line-height: 1;
+  }
+  .channel-name {
+    font-family: var(--serif); font-size: 1.35rem; line-height: 1.1;
+    margin-bottom: .35rem;
+  }
+  .channel-handle {
+    font-family: var(--mono); font-size: .7rem; color: var(--accent-1);
+    margin-bottom: .85rem; letter-spacing: .04em;
+  }
+  .channel-desc {
+    font-size: .78rem; color: var(--text-muted); line-height: 1.6;
+    margin-bottom: 1.25rem; max-width: 28ch;
+  }
+
+  /* action button inside card */
+  .channel-action {
+    display: inline-flex; align-items: center; justify-content: center; gap: .4rem;
+    font-family: var(--mono); font-size: .7rem; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; text-decoration: none;
+    padding: .65em 1.4em;
+    border: 1px solid var(--border-hi);
+    color: var(--text);
+    background: transparent;
+    transition: all .15s;
+    cursor: pointer;
+    width: 100%;
+  }
+  .channel-action:hover { border-color: var(--accent-2); color: var(--accent-2); }
+  .channel-card.selected .channel-action {
+    background: linear-gradient(135deg,var(--accent-1),var(--accent-2),var(--accent-3));
+    color: #fff; border-color: transparent;
+  }
+
+  .channel-benefits {
+    list-style: none; width: 100%;
+    margin-top: 1rem; padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .channel-benefits li {
+    font-size: .72rem; color: var(--text-muted);
+    padding: .3rem 0; display: flex; align-items: flex-start;
+    gap: .4rem; text-align: left; line-height: 1.5;
+  }
+  .channel-benefits li::before { content: '→'; color: var(--text-dim); flex-shrink: 0; }
+
+  /* ── UNLOCK SECTION ── */
+  #unlock {
+    padding: clamp(2rem,5vw,3.5rem) 0;
+    position: relative; z-index: 5;
+  }
+
+  .unlock-box {
+    border: 1px solid var(--border);
+    background: var(--locked);
+    padding: clamp(1.75rem,4vw,2.5rem);
+    position: relative;
+    overflow: hidden;
+    transition: border-color .4s, background .4s;
+  }
+  .unlock-box.unlocked {
+    border-color: var(--accent-2);
+    background: rgba(168,230,163,.03);
+  }
+  .unlock-box::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,var(--border-hi),transparent);
+    transition: background .4s;
+  }
+  .unlock-box.unlocked::before {
+    background: linear-gradient(90deg,var(--accent-1),var(--accent-2),var(--accent-3));
+  }
+
+  .lock-state { text-align: center; padding: 1.5rem 0; }
+  .lock-icon {
+    font-size: 2rem; margin-bottom: .75rem; display: block;
+    filter: grayscale(1); opacity: .4;
+    transition: filter .4s, opacity .4s;
+  }
+  .lock-icon.open { filter: none; opacity: 1; }
+
+  .lock-label {
+    font-family: var(--mono); font-size: .65rem; letter-spacing: .15em;
+    text-transform: uppercase; color: var(--text-dim);
+    transition: color .4s;
+  }
+  .lock-label.open { color: var(--accent-1); }
+
+  /* Prompt reveal */
+  .prompt-reveal {
+    display: none;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .prompt-reveal.visible { display: flex; }
+
+  .prompt-header {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: .75rem;
+  }
+  .prompt-title {
+    font-family: var(--mono); font-size: .65rem; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--accent-1);
+  }
+  .copy-btn {
+    display: inline-flex; align-items: center; gap: .4rem;
+    font-family: var(--mono); font-size: .65rem; font-weight: 600; letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .45em 1.1em;
+    background: linear-gradient(135deg,var(--accent-1),var(--accent-2),var(--accent-3));
+    color: #fff; border: none; cursor: pointer;
+    transition: all .15s;
+  }
+  .copy-btn:hover { filter: brightness(1.1); }
+  .copy-btn.copied { background: #2a2a2a; color: var(--accent-2); }
+
+  .prompt-box {
+    background: var(--bg-3);
+    border: 1px solid var(--border-hi);
+    padding: 1.5rem;
+    font-family: var(--mono);
+    font-size: .78rem;
+    color: var(--text-muted);
+    line-height: 1.85;
+    white-space: pre-wrap;
+    word-break: break-word;
+    position: relative;
+  }
+
+  .prompt-highlight { color: var(--accent-3); }
+  .prompt-var { color: var(--amber); }
+
+  .prompt-note {
+    font-family: var(--mono); font-size: .62rem; color: var(--text-dim);
+    letter-spacing: .04em; padding-top: .75rem; border-top: 1px solid var(--border);
+  }
+
+  /* ── NEXT STEP ── */
+  .next-step-box {
+    display: none;
+    margin-top: 1.5rem;
+    border: 1px solid rgba(168,230,163,.2);
+    background: rgba(168,230,163,.03);
+    padding: 1.5rem;
+    align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .next-step-box.visible { display: flex; }
+  .next-step-text { }
+  .next-step-text p {
+    font-family: var(--mono); font-size: .62rem; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: .3rem;
+  }
+  .next-step-text strong {
+    font-family: var(--serif); font-size: 1.1rem; color: var(--text); display: block;
+  }
+  .next-btn {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-family: var(--mono); font-size: .75rem; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; text-decoration: none;
+    padding: .8em 1.6em;
+    background: linear-gradient(135deg,var(--accent-1),var(--accent-2),var(--accent-3));
+    color: #fff; border: none; cursor: pointer;
+    transition: all .15s; white-space: nowrap;
+  }
+  .next-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 0;
+    position: relative; z-index: 5;
+  }
+  .footer-inner {
+    max-width: 900px; margin: 0 auto;
+    padding: 0 clamp(1.25rem,5vw,2.5rem);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-brand { font-family: var(--mono); font-size: .62rem; color: var(--text-dim); letter-spacing: .06em; }
+  .footer-brand span { color: var(--accent-1); }
+  .footer-links { list-style: none; display: flex; gap: 1.5rem; }
+  .footer-links a { font-family: var(--mono); font-size: .6rem; color: var(--text-dim); text-decoration: none; letter-spacing: .08em; text-transform: uppercase; transition: color .15s; }
+  .footer-links a:hover { color: var(--accent-3); }
+
+  @media(max-width: 600px) {
+    .choose-grid { grid-template-columns: 1fr; }
+    .or-divider { display: none; }
+    .channel-card { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="https://expatbuildr.com" class="nav-logo">
+      <div class="logo-mark"><img src="/images/logo.jpg" alt="ExpatBuildr" style="width:100%;height:100%;object-fit:cover;" /></div>
+      <div class="logo-text">Galaxy<span>Built</span></div>
+    </a>
+    <div style="display:flex; align-items:center; gap: 1rem;">
+      <div class="step-pill">Step 2 of 3</div>
+      <button id="themeToggleBtn" aria-label="Toggle Theme" style="background:none;border:none;color:var(--text);cursor:pointer;font-size:1.1rem;display:flex;align-items:center;padding:0;outline:none;">
+        <span class="sun-icon">☀</span>
+        <span class="moon-icon">☾</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+
+<section id="hero">
+  <div class="wrap">
+    <div class="step-label">One Last Step</div>
+    <h1>Unlock your <em>Prompt</em></h1>
+    <p class="hero-sub">Before I hand over the exact strategy prompt, I need to know where you want to build your audience first.</p>
+    <div class="email-confirm">Email confirmed. Dashboard access granted.</div>
+
+    <!-- CHOOSE CARD -->
+    <div class="choose-label">// Choose your primary channel to unlock</div>
+    
+    <div class="choose-grid">
+      <!-- TWITTER -->
+      <div class="channel-card" id="card-twitter" tabindex="0">
+        <span class="channel-icon">𝕏</span>
+        <div class="channel-platform">Primary Focus</div>
+        <div class="channel-name">Twitter / X</div>
+        <div class="channel-handle">@expatbuildr</div>
+        <p class="channel-desc">I want to build a high-leverage written audience and drive cold DMs to my offer.</p>
+        
+        <a href="https://x.com/expatbuildr" target="_blank" rel="noopener" class="channel-action" id="twitter-link">
+          Follow to Unlock →
+        </a>
+
+        <ul class="channel-benefits">
+          <li>Daily thread teardowns</li>
+          <li>Cold DM templates</li>
+          <li>Landing page roasts</li>
+        </ul>
+      </div>
+
+      <div class="or-divider">OR</div>
+
+      <!-- YOUTUBE -->
+      <div class="channel-card" id="card-youtube" tabindex="0">
+        <span class="channel-icon">▶</span>
+        <div class="channel-platform">Primary Focus</div>
+        <div class="channel-name">YouTube</div>
+        <div class="channel-handle">@GalaxyArb</div>
+        <p class="channel-desc">I want to build evergreen search traffic and convert high-intent viewers over time.</p>
+        
+        <a href="https://youtube.com/@GalaxyArb" target="_blank" rel="noopener" class="channel-action" id="youtube-link">
+          Subscribe to Unlock →
+        </a>
+
+        <ul class="channel-benefits">
+          <li>Full funnel builds</li>
+          <li>Automation walk-throughs</li>
+          <li>Agency scaling tactics</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UNLOCK SECTION -->
+<section id="unlock">
+  <div class="wrap">
+    <div class="unlock-box" id="unlock-box">
+      
+      <!-- Locked State -->
+      <div class="lock-state" id="lock-state">
+        <span class="lock-icon" id="lock-icon">🔒</span>
+        <div class="lock-label" id="lock-label">Follow or Subscribe above to reveal the prompt</div>
+      </div>
+
+      <!-- Unlocked State (Hidden initially) -->
+      <div class="prompt-reveal" id="prompt-reveal">
+        <div class="prompt-header">
+          <div class="prompt-title">// The Cold Traffic Post Generator</div>
+          <button class="copy-btn" id="copy-btn">Copy Prompt</button>
+        </div>
+        
+        <div class="prompt-box" id="prompt-box">Act as an elite direct-response copywriter and organic growth strategist.
+
+My product is: <span class="prompt-var">[Insert your product/service]</span>
+My target audience is: <span class="prompt-var">[Insert your target audience]</span>
+My main goal is: <span class="prompt-var">[e.g., getting them to book a call, sign up for a free trial, join my newsletter]</span>
+
+I need a complete, 6-platform organic post strategy designed to convert COLD traffic into warm leads.
+
+For EACH of the following platforms (Twitter/X, LinkedIn, Reddit, TikTok, Instagram, YouTube), provide:
+
+1. <span class="prompt-highlight">The Angle:</span> The core psychology of why this platform's specific audience will care.
+2. <span class="prompt-highlight">The Format:</span> The specific content structure (e.g., a 7-part thread, a visual carousel, a controversial text post, a 30-second hook-driven video).
+3. <span class="prompt-highlight">The Hook:</span> 3 copy-paste opening hooks designed to stop the scroll.
+4. <span class="prompt-highlight">The Value Payload:</span> A 3-bullet outline of the actionable value I need to deliver in the middle of the post to build instant trust.
+5. <span class="prompt-highlight">The Transition & CTA:</span> Exactly how to transition from the value into my specific goal WITHOUT sounding like a sleazy pitch. Give me the exact script for the CTA.
+
+Ensure the tone matches the native culture of each platform (e.g., analytical and raw for Reddit, authoritative and professional for LinkedIn, punchy and visual for Instagram).</div>
+        
+        <div class="prompt-note">Note: Paste this into ChatGPT (GPT-4) or Claude (Opus) for the best results. Fill in the bracketed variables before hitting enter.</div>
+      </div>
+
+    </div>
+
+    <!-- NEXT STEP -->
+    <div class="next-step-box" id="next-step">
+      <div class="next-step-text">
+        <p>You have the prompt.</p>
+        <strong>Now you need the landing page.</strong>
+      </div>
+      <a href="/founders/offer" class="next-btn">Continue to Step 3 →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">Galaxy<span>Built</span> · Founder Launch Services · Built in the Philippines 🇵🇭</div>
+    <ul class="footer-links">
+      <li><a href="https://expatbuildr.com/privacy">Privacy</a></li>
+      <li><a href="https://expatbuildr.com/terms">Terms</a></li>
+      <li><a href="https://x.com/expatbuildr" target="_blank" rel="noopener">X / Twitter</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  let chosen = false;
+
+  function selectChannel(type) {
+    // Mark card selected
+    document.getElementById('card-twitter').classList.remove('selected');
+    document.getElementById('card-youtube').classList.remove('selected');
+    document.getElementById('card-' + type).classList.add('selected');
+
+    if (chosen) return; // already unlocked, don't re-animate
+    chosen = true;
+
+    // Update progress bar
+    document.getElementById('progress-fill').style.width = '100%';
+
+    // Small delay — let the external tab open, then unlock
+    setTimeout(unlock, 800);
+  }
+
+  function unlock() {
+    const box      = document.getElementById('unlock-box');
+    const lockState = document.getElementById('lock-state');
+    const icon     = document.getElementById('lock-icon');
+    const label    = document.getElementById('lock-label');
+    const reveal   = document.getElementById('prompt-reveal');
+    const nextStep = document.getElementById('next-step');
+
+    // Unlock box style
+    box.classList.add('unlocked');
+
+    // Animate lock → unlock
+    icon.classList.add('open');
+    icon.textContent = '🔓';
+    label.classList.add('open');
+    label.textContent = '✓ Prompt unlocked — copy it below';
+
+    // Reveal prompt after brief moment
+    setTimeout(() => {
+      lockState.style.display = 'none';
+      reveal.classList.add('visible');
+      nextStep.classList.add('visible');
+
+      // Smooth scroll to unlock box
+      document.getElementById('unlock-box').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 600);
+  }
+
+  function copyPrompt() {
+    const promptText = document.getElementById('prompt-box').innerText;
+    navigator.clipboard.writeText(promptText).then(() => {
+      const btn = document.getElementById('copy-btn');
+      btn.textContent = '✓ Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copy Prompt';
+        btn.classList.remove('copied');
+      }, 2500);
+    }).catch(() => {
+      // fallback select
+      const range = document.createRange();
+      range.selectNode(document.getElementById('prompt-box'));
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+    });
+  }
+
+  document.getElementById('twitter-link').addEventListener('click', () => selectChannel('twitter'));
+  document.getElementById('youtube-link').addEventListener('click', () => selectChannel('youtube'));
+  document.getElementById('copy-btn').addEventListener('click', copyPrompt);
+
+  // Keyboard accessibility for cards
+  document.getElementById('card-twitter').addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      document.getElementById('twitter-link').click();
+    }
+  });
+  document.getElementById('card-youtube').addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      document.getElementById('youtube-link').click();
+    }
+  });
+
+  // ── THEME TOGGLE ──
+  document.getElementById('themeToggleBtn')?.addEventListener('click', () => {
+    const isLight = document.documentElement.classList.toggle('light');
+    document.documentElement.classList.toggle('dark', !isLight);
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  });
+</script>
+</body>
+</html>

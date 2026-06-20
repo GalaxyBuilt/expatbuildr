@@ -1,0 +1,161 @@
+---
+export const prerender = true;
+import Layout from '../../layouts/Layout.astro';
+import { ArrowRight, Globe, Zap, DollarSign, BookOpen, TrendingUp, MapPin } from 'lucide-astro';
+---
+
+<Layout
+  title="Geo-Arbitrage Resources: Tools, Guides & Calculators | ExpatBuildr"
+  description="Everything in the Geo-Arbitrage pillar in one place — the income calculator, relocation guides, neighborhood breakdowns, banking and tax resources, and the weekly newsletter for remote workers living abroad."
+  canonicalUrl="https://expatbuildr.com/blog/geo-arbitrage-links"
+  ogImage="/images/geo-arbitrage.jpg"
+>
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Hero -->
+    <div class="text-center mb-20">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-400/10 border border-cyan-400/20 text-cyan-400 text-xs uppercase tracking-[0.2em] font-mono mb-8">
+        <Globe size={12} /> Geo-Arbitrage
+      </div>
+      <h1 class="text-5xl md:text-7xl font-black font-display tracking-tighter text-slate-900 dark:text-white mb-6 uppercase leading-none">
+        EVERYTHING<br /><span class="text-cyan-400">GEO-ARBITRAGE.</span>
+      </h1>
+      <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-inter leading-relaxed mb-8">
+        Every tool, calculator, guide, and resource in the Geo-Arbitrage pillar — in one place. Calculate your purchasing power, find your base, and build the financial infrastructure to make it work long term.
+      </p>
+    </div>
+
+    <!-- Featured Resource: Income Calculator -->
+    <div class="mb-12">
+      <div class="glass-card rounded-2xl p-8 border border-cyan-400/30 bg-cyan-400/5">
+        <div class="flex flex-col md:flex-row md:items-center gap-6">
+          <div class="shrink-0 w-16 h-16 rounded-2xl bg-cyan-400/10 flex items-center justify-center">
+            <DollarSign class="text-cyan-400" size={28} />
+          </div>
+          <div class="flex-1">
+            <div class="text-xs font-mono uppercase tracking-wider text-cyan-400 font-semibold mb-2">Featured Tool · $22</div>
+            <h2 class="text-2xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white mb-2">Geo-Arbitrage Income Calculator</h2>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">See your real purchasing power when earning USD from the Philippines, Thailand, Vietnam, or anywhere in SEA. Includes monthly savings projection, break-even timeline, and USD vs local currency breakdown by city — not by country average.</p>
+            <div class="flex flex-wrap gap-3">
+              <a href="/shop" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-cyan-400 text-black font-bold text-sm hover:bg-cyan-300 transition-all">
+                Get the Calculator <ArrowRight size={16} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Remote Jobs -->
+    <div class="mb-12">
+      <div class="glass-card rounded-2xl p-8 border border-cyan-400/20 hover:border-cyan-400/40 transition-all">
+        <div class="flex flex-col md:flex-row md:items-center gap-6">
+          <div class="shrink-0 w-16 h-16 rounded-2xl bg-cyan-400/10 flex items-center justify-center">
+            <MapPin class="text-cyan-400" size={28} />
+          </div>
+          <div class="flex-1">
+            <div class="text-xs font-mono uppercase tracking-wider text-cyan-400 font-semibold mb-2">Resource · Free</div>
+            <h2 class="text-xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white mb-2">Remote Job Board</h2>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">The income side of geo-arbitrage requires a job that stays remote permanently. 500+ curated USD-paying fully remote roles updated weekly — filtered for no-RTO positions across tech, marketing, operations, and finance.</p>
+            <a href="/geo-arbitrage/arbjobs" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-cyan-400/10 text-cyan-400 font-bold text-sm hover:bg-cyan-400/20 transition-all">
+              Browse Remote Jobs <ArrowRight size={14} />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Digital Products and Newsletter -->
+    <div class="mb-16">
+      <div class="flex items-center gap-3 mb-8">
+        <TrendingUp class="text-cyan-400" size={20} />
+        <h2 class="text-2xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white">Tools & Resources</h2>
+        <div class="h-px flex-1 bg-slate-200 dark:bg-white/10"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <div class="glass-card rounded-2xl p-6 border border-slate-200 dark:border-white/10 hover:border-cyan-400/40 transition-all">
+          <div class="text-xs font-mono uppercase tracking-wider text-cyan-400 font-semibold mb-3">Automation Service</div>
+          <h3 class="text-lg font-black text-slate-900 dark:text-white mb-2">Remote Work Automation Systems</h3>
+          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Running a location-independent income requires systems that work while you sleep. We build automation infrastructure for remote workers and founders — job search, lead generation, and time arbitrage systems.</p>
+          <ul class="space-y-1 mb-5">
+            <li class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2"><Zap size={10} class="text-cyan-400 shrink-0" /> Job search automation</li>
+            <li class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2"><Zap size={10} class="text-cyan-400 shrink-0" /> Lead generation systems</li>
+            <li class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2"><Zap size={10} class="text-cyan-400 shrink-0" /> Time arbitrage infrastructure</li>
+          </ul>
+          <a href="/automation-systems/automate" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-cyan-400/10 text-cyan-400 font-bold text-sm hover:bg-cyan-400/20 transition-all">
+            See How It Works <ArrowRight size={14} />
+          </a>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 border border-slate-200 dark:border-white/10 hover:border-cyan-400/40 transition-all">
+          <div class="text-xs font-mono uppercase tracking-wider text-cyan-400 font-semibold mb-3">Newsletter · Free</div>
+          <h3 class="text-lg font-black text-slate-900 dark:text-white mb-2">Galaxy Arbitrage Newsletter</h3>
+          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Weekly intel on cost of living data, remote job opportunities, geo-arbitrage math, and financial strategies for remote workers building wealth from Southeast Asia and beyond.</p>
+          <ul class="space-y-1 mb-5">
+            <li class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2"><Zap size={10} class="text-cyan-400 shrink-0" /> Weekly cost of living updates</li>
+            <li class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2"><Zap size={10} class="text-cyan-400 shrink-0" /> Remote job opportunities</li>
+            <li class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2"><Zap size={10} class="text-cyan-400 shrink-0" /> Geo-arbitrage math and strategy</li>
+          </ul>
+          <a href="/newsletter" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-cyan-400/10 text-cyan-400 font-bold text-sm hover:bg-cyan-400/20 transition-all">
+            Join Free <ArrowRight size={14} />
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Content Library -->
+    <div class="mb-16">
+      <div class="flex items-center gap-3 mb-8">
+        <BookOpen class="text-cyan-400" size={20} />
+        <h2 class="text-2xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white">Content Library</h2>
+        <div class="h-px flex-1 bg-slate-200 dark:bg-white/10"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-white/10 hover:border-cyan-400/40 transition-all">
+          <div class="text-xs font-mono text-cyan-400 uppercase tracking-wider mb-1">Cluster 1 · The Math & The Case</div>
+          <ul class="space-y-2">
+            <li><a href="/blog/geo-arbitrage/austin-vs-manila-cost-of-living" class="text-sm text-slate-700 dark:text-slate-300 hover:text-cyan-400 transition-colors">Austin vs Manila: The Full Cost of Living Breakdown</a></li>
+            <li><a href="/blog/geo-arbitrage/what-60k-buys-you-in-10-countries" class="text-sm text-slate-700 dark:text-slate-300 hover:text-cyan-400 transition-colors">What $60K Actually Buys You in 10 Countries</a></li>
+            <li><a href="/blog/geo-arbitrage/how-to-calculate-geographic-arbitrage-number" class="text-sm text-slate-700 dark:text-slate-300 hover:text-cyan-400 transition-colors">How to Calculate Your Geographic Arbitrage Number</a></li>
+            <li><a href="/blog/geo-arbitrage/savings-rate-math-that-changes-everything" class="text-sm text-slate-700 dark:text-slate-300 hover:text-cyan-400 transition-colors">The Savings Rate Math That Changes Everything</a></li>
+            <li><a href="/blog/geo-arbitrage/cost-of-living-philippines-thailand-vietnam" class="text-sm text-slate-700 dark:text-slate-300 hover:text-cyan-400 transition-colors">Cost of Living Comparison: Philippines vs Thailand vs Vietnam</a></li>
+          </ul>
+        </div>
+
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-white/10 hover:border-cyan-400/40 transition-all">
+          <div class="text-xs font-mono text-cyan-400 uppercase tracking-wider mb-1">Cluster 2 · Relocation & Living</div>
+          <ul class="space-y-2">
+            <li><a href="/blog/geo-arbitrage/how-to-move-to-southeast-asia-remote-worker-checklist" class="text-sm text-slate-700 dark:text-slate-300 hover:text-cyan-400 transition-colors">How to Move to Southeast Asia as a Remote Worker: The Full Checklist</a></li>
+            <li><a href="/blog/geo-arbitrage/banking-taxes-money-us-remote-workers-living-abroad" class="text-sm text-slate-700 dark:text-slate-300 hover:text-cyan-400 transition-colors">Banking, Taxes, and Money for US Remote Workers Living Abroad</a></li>
+            <li><a href="/blog/geo-arbitrage/best-neighborhoods-remote-workers-cebu-city" class="text-sm text-slate-700 dark:text-slate-300 hover:text-cyan-400 transition-colors">Best Neighborhoods for Remote Workers in Cebu City</a></li>
+            <li><a href="/blog/geo-arbitrage/best-neighborhoods-remote-workers-phuket" class="text-sm text-slate-700 dark:text-slate-300 hover:text-cyan-400 transition-colors">Best Neighborhoods for Remote Workers in Phuket</a></li>
+            <li><a href="/blog/geo-arbitrage/how-to-find-apartment-abroad-without-getting-scammed" class="text-sm text-slate-700 dark:text-slate-300 hover:text-cyan-400 transition-colors">How to Find an Apartment Abroad Without Getting Scammed</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="mt-6 text-center">
+        <a href="/blog/geo-arbitrage" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 font-semibold text-sm hover:border-cyan-400/40 transition-all">
+          View All Geo-Arbitrage Guides <ArrowRight size={16} />
+        </a>
+      </div>
+    </div>
+
+    <!-- Newsletter CTA -->
+    <div class="rounded-2xl border border-cyan-400/20 bg-cyan-400/5 p-10 text-center mb-12">
+      <h2 class="text-2xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white mb-3">Get the Weekly Geo-Arbitrage Intel</h2>
+      <p class="text-slate-600 dark:text-slate-400 mb-6 max-w-lg mx-auto">Cost of living updates, remote job picks, and the financial math behind location-independent wealth building — every week, free.</p>
+      <a href="/newsletter" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-cyan-400 text-black font-bold hover:bg-cyan-300 transition-all">
+        Join Free <ArrowRight size={16} />
+      </a>
+    </div>
+
+  </div>
+</Layout>

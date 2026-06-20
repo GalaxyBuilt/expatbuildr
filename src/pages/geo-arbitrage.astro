@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Pixels from '../components/Pixels.astro';
+
+const title = "Geo‑Arbitrage — Move Your Income, Multiply Your Life | ExpatBuildr";
+const description = "Cost‑of‑living math, residency logistics, and the exact product path to move your income to high‑efficiency regions. Starter kits, calculators, and advisory funnels.";
+---
+
+<Layout title={title} description={description} minimal={true}>
+  <Fragment slot="head">
+    <Pixels page="money-geo-arbitrage" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+  </Fragment>
+
+  <main class="container" style="padding:40px 24px; max-width:900px;">
+    <a href="/blog" class="back-link">← Back to Blog</a>
+    <h1 style="margin-top:18px;">Geo‑Arbitrage: Multiply Purchasing Power</h1>
+    <p style="color:var(--text-secondary); max-width:70%;">Geo‑arbitrage is applied economics: earn in strong currencies, live in efficient markets. This page maps the content, calculators, and services into a conversion funnel that helps readers move from curiosity to implemented relocation.</p>
+
+    <div style="margin-top:28px; margin-bottom:32px;">
+      <img src="/images/geo-arbitrage.jpg" alt="Geo-Arbitrage Lifestyle" style="width:100%; max-width:100%; height:auto; border-radius:12px; object-fit:cover;" />
+    </div>
+
+    <section style="margin-top:28px;">
+      <h2>What this pillar delivers</h2>
+      <ul>
+        <li>Exact arbitrage math for cities and country pairs.</li>
+        <li>Operational checklists: banking, residency, tax, and healthcare.</li>
+        <li>Security and risk management for physical and digital life abroad.</li>
+      </ul>
+    </section>
+
+    <section style="margin-top:20px;">
+      <div class="section-label">Supporting Articles</div>
+      <ul>
+        <li><a href="/blog/geo-arbitrage/philippines-business-protocol">Expat Business Setup: The Philippines Protocol</a></li>
+        <li><a href="/blog/geo-arbitrage/scale-remote-teams-asean">Hiring & Scaling Remote Teams in ASEAN</a></li>
+        <li><a href="/blog/geo-arbitrage/lifestyle-design-and-compound-architecture">Lifestyle Design & Compound Architecture</a></li>
+      </ul>
+    </section>
+
+    <section style="margin-top:22px;">
+      <h2>Products & Funnels</h2>
+      <p style="color:var(--text-secondary); max-width:80%;">Geo‑arbitrage funnels move readers from calculators to commitment. The product suite below is designed to minimize friction and surface the exact steps readers must take.</p>
+      <ol>
+        <li><strong>Top</strong>: Arbitrage case studies and city comparisons that attract search intent.</li>
+        <li><strong>Lead Magnet</strong>: Geo Arbitrage Starter Kit — checklist + country playbooks + VoIP/banking setups.</li>
+        <li><strong>Tripwire</strong>: Personalized arbitrage calculator report (low fee) showing your exact savings.</li>
+        <li><strong>Core Offer</strong>: Relocation advisory (consulting + docs + local provider introductions).</li>
+        <li><strong>Ascension</strong>: Ongoing concierge services for tax, banking, and company formation.
+        </li>
+      </ol>
+      <p style="margin-top:8px;">Measurement: conversion from calculator → paid report, advisor booking rate, and retention for recurring concierge services. Use gated checklists and region‑specific templates to increase perceived value.</p>
+    </section>
+
+    <section style="margin-top:28px;">
+      <div class="subscribe-box">
+        <div class="progress-header">
+          <span class="progress-label">Free Resource</span>
+          <strong class="progress-count">Geo Arbitrage Starter Kit</strong>
+        </div>
+        <form id="subscribe-geo" class="sub-form">
+          <input type="email" id="email-geo" name="email" placeholder="Your best email" required class="fake-input" />
+          <button type="submit" id="submit-geo" class="btn-primary">Get The Starter Kit →</button>
+        </form>
+        <p id="msg-geo" class="form-msg hidden"></p>
+      </div>
+      <p style="margin-top:8px; font-size:0.9rem; color:var(--text-secondary)">Or <a href="/contact">book relocation advisory</a> — we handle setup and introductions.</p>
+    </section>
+
+  </main>
+
+  <script is:inline>
+    async function submitGeo(e){
+      e.preventDefault();
+      const email = document.getElementById('email-geo').value.trim();
+      const msg = document.getElementById('msg-geo');
+      const btn = document.getElementById('submit-geo');
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if(!re.test(email)){ msg.innerText='Please enter a valid email.'; msg.classList.remove('hidden'); return; }
+      btn.disabled=true; btn.innerText='Submitting...';
+      try{
+        const res = await fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,source:'money-geo-arbitrage',magnet:'geo-arbitrage-starter-kit',tags:['freedom_seeker']})});
+        const data = await res.json();
+        if(data.success){ window.location.href=data.redirect_url || '/download?magnet=geo-arbitrage-starter-kit'; }
+        else { btn.disabled=false; btn.innerText='Get The Starter Kit →'; msg.innerText=data.error||'Error'; msg.classList.remove('hidden'); }
+      }catch(err){ btn.disabled=false; btn.innerText='Get The Starter Kit →'; msg.innerText='Network error'; msg.classList.remove('hidden'); }
+    }
+    document.getElementById('subscribe-geo')?.addEventListener('submit', submitGeo);
+  </script>
+</Layout>

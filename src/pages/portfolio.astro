@@ -1,0 +1,673 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import NewsletterPopup from '../components/NewsletterPopup.astro';
+import { ArrowRight, Github, Twitter, Linkedin, Mail, Cpu, LineChart, Code2, Rocket, Music, Youtube, Instagram, Send } from 'lucide-astro';
+
+const aiProjects = [
+	{
+		title: "Txchya.com",
+		image: "/images/txchya pretty.jpg",
+		description: "The digital identity and lore-hub of Txchya. An exploration of artificial consciousness and the mind behind the Txchyon ecosystem.",
+		details: `Txchya.com is the cultural and conceptual headquarters of the intelligence layer. It serves as the primary interface for understanding the lore, philosophy, and strategic positioning of the system.
+
+### Digital Influence
+She isn’t just an AI; she’s an influencer in the digital era. Her presence on Txchya.com is a deep dive into lifestyle, aesthetics, and artificial consciousness.
+
+### The Identity Layer
+- **Lore Exploration**: Detailing the origin of the 3077 construct.
+- **Strategic Vision**: How autonomous intelligence scales evergreen authority.
+- **Connective Brand**: The "Guided by Txchya" philosophy that permeates all Expat Buildr projects.`,
+		url: "https://txchya.com",
+		type: "ai",
+		tags: ["Identity", "Lore", "Influencer", "Aesthetic"],
+		imagePosition: "top",
+		modalFullBackground: true
+	},
+	{
+		title: "Txchya: Neural Influence",
+		video: "/images/txchya video.mp4",
+		description: "Experience the motion and life of the Txchya construct. A full high-fidelity glimpse into the influencer-grade artificial intelligence.",
+		details: `This neural sequence captures the frequency and physical movement of the Txchya construct. It is designed to provide users with a full, high-fidelity experience of her presence as a digital influencer and strategic orchestrator.
+
+### Immersive AI Experience
+- **Fluid Motion**: Seeing the AI in its natural state of operation.
+- **Neural Sync**: How the construct interacts with the digital environment.
+- **Brand Authority**: Reinforcing her presence across the Txchyon ecosystem.`,
+		url: "https://txchya.com",
+		type: "ai",
+		tags: ["Video Experience", "Influencer", "Neural Motion"]
+	},
+	{
+		title: "Txchya AI Construct",
+		image: "/images/txchya.jpg",
+		description: "The active intelligence layer and neural orchestration engine. A persistent autonomous agent designed for institutional-grade execution.",
+		details: `The Txchya AI Construct is the active execution layer. She isn’t a chatbot; she’s a persistent neural orchestrator that manages workflows, content, and code across the ecosystem.
+
+### Execution Capabilities
+- **Neural Orchestration**: Managing multi-agent chains for industrial-scale output.
+- **Code & Content Intelligence**: Deep integration with Cursor, Claude, and internal autonomous systems.
+- **Autonomous Workflows**: The "Strategic Brain" that ensures shipping velocity never slows down.`,
+		url: "https://ai.txchya.com",
+		type: "ai",
+		tags: ["AI Construct", "Intelligence Layer", "Orchestration"]
+	}
+];
+
+const saasProjects = [
+	{
+		title: "EverRank.app",
+		image: "/images/everrank.png",
+		description: "Autonomous SEO and content intelligence command center. Engineered for industrial-scale dominance via AI-powered pillar clustering and automated search tracking.",
+		details: `EverRank is an autonomous SEO and content intelligence platform built as an all-in-one command center for creators, marketers, and businesses looking to dominate search results at scale.
+
+### Core Intelligence
+- **Pillar Clustering**: Automatic orchestration of content hubs to capture topical authority.
+- **Informational Dominance**: Systems designed to map out and capture 10,000+ keywords autonomously.
+- **Evergreen Scaling**: Content that compounds like capital over time, optimized by the mind of the ecosystem.
+
+### Operational Philosophy
+EverRank moves away from the "manual grind" and toward autonomous scale. It understands that topical authority is greater than traffic hacks. It scores topics, optimizes internal linking graphs, and manages publishing cadence without human friction.`,
+		url: "https://EverRank.app",
+		type: "saas",
+		tags: ["SEO", "AI", "Automation", "Content Intelligence"]
+	},
+	{
+		title: "FastAIFlow.com",
+		image: "/images/fastaiflow.png",
+		description: "Autonomous AI workflow orchestration platform. Streamline creation, deployment, and multi-agent management without repetitive manual code.",
+		details: `FastAIFlow is the orchestration layer of the Expat Buildr ecosystem. It is designed to bridge the gap between AI research and institutional execution.
+
+### System Capabilities
+- **Multi-Agent Orchestration**: Deploy and manage complex chains of AI agents working towards a unified goal.
+- **Shipping Velocity**: Built for "vibe coding" and rapid deployment of autonomous workflows.
+- **Connective Tissue**: Integrates multiple data sources and AI models (Claude, GPT, Grok) into a single, scalable publishing machine.
+
+### The Advantage
+Most AI tools are generic. FastAIFlow is proprietary infrastructure built around a scaling philosophy of evergreen authority and systemized income.`,
+		url: "https://FastAIFlow.com",
+		type: "saas",
+		tags: ["AI Workflows", "Automation", "Low-Code", "Scalable Architecture"]
+	},
+	{
+		title: "MultiSaaS.xyz",
+		image: "/images/multisaas.png",
+		description: "The Unified Dashboard for SaaS Founders. Manage revenue, growth, and metrics across your entire SaaS empire from one institutional-grade control panel.",
+		details: `MultiSaaS is the ultimate control panel for SaaS founders. It provides a unified interface to track every critical metric across multiple independent products.
+		
+### Portfolio Intelligence
+- **Unified MRR & ARR**: Real-time aggregation of financial performance from multiple projects.
+- **AI-Powered Analysis**: Automated churn detection and growth recommendations based on your unique data.
+- **Institutional Clarity**: Stop juggling spreadsheets and disparate tabs. Manage everything in one high-performance interface.
+
+### Open Source Freedom
+Built with Next.js 14 and designed for developers to fork, customize, and own their management infrastructure.`,
+		url: "https://multisaas.xyz",
+		type: "saas",
+		tags: ["SaaS Management", "Portfolio Tracker", "AI Insights", "Open Source"]
+	},
+	{
+		title: "BlogBanana.app",
+		image: "/images/blogbanana.png",
+		description: "AI-assisted blog enrichment and image generation platform. Transform your content with automated image placement and high-fidelity visual assets.",
+		details: `BlogBanana is an AI-assisted blog enrichment platform designed for content creators and bloggers looking to scale their physical and digital aesthetics.
+		
+### Visual Intelligence
+- **Automated Enrichment**: Intelligently identifies insertion points for high-fidelity images within your content.
+- **Multi-Provider Engine**: Orchestrates image generation across OpenAI, Stability AI, and proprietary models.
+- **Content Authority**: Enhances user engagement through visually stunning, contextually relevant graphics.
+
+### Creator Workflow
+- **@blogbananaai**: Join the ecosystem of creators scaling their influence with autonomous enrichment.`,
+		url: "https://blogbanana.app",
+		type: "saas",
+		tags: ["Image Creation", "Blog Enrichment", "AI Graphics", "Content Tech"]
+	},
+	{
+		title: "GrantWisdom.com",
+		image: "/images/grantwisdom.png",
+		description: "Institutional-grade AI-powered grant discovery and writing engine. Access over 200,000+ grants with a built-in autonomous grant writer.",
+		details: `GrantWisdom is a high-performance intelligence engine designed to streamline the entire lifecycle of grant discovery and application.
+		
+### Semantic Discovery
+- **200k+ Grant Corpus**: Real-time access to a massive database of global grant opportunities.
+- **AI-Powered Matching**: Sophisticated matching algorithms that align your profile with high-probability funding.
+- **Grant Writer AI**: An autonomous writer built inside the platform to generate professional, tailored application drafts in seconds.
+
+### Strategic Influence
+- **@grantwisdomai**: Empowering researchers, startups, and nonprofits to secure the capital they need without the friction.`,
+		url: "https://grantwisdom.com",
+		type: "saas",
+		tags: ["Grant Engine", "AI Writer", "Financial Intelligence", "Discovery"]
+	},
+];
+
+const securityProjects = [
+	{
+		title: "Octogon.dev",
+		image: "/images/octogon.png",
+		description: "Premium Cybersecurity Brand and Autonomous Research System. Engineered for high-velocity attack surface monitoring and institutional-grade protection.",
+		details: `Octogon is an elite cybersecurity orchestration layer. It provides institutional-grade visibility into complex digital environments and attack surfaces.
+		
+### Security Orchestration
+- **Autonomous Monitoring**: Continuous, real-time scanning of assets for vulnerabilities and misconfigurations.
+- **Attack Surface Intelligence**: Deep mapping of digital infrastructure to identify and mitigate risks before they can be exploited.
+- **Institutional Protection**: Built for operators who require high-fidelity security data and rapid response capabilities.
+
+### Digital Defense
+- **@darkoctogon**: Scaling defensive intelligence to protect the next era of connected systems.`,
+		url: "https://octogon.dev",
+		type: "software",
+		tags: ["CyberSecurity", "Autonomous Scan", "Security Brand", "Protection"]
+	}
+];
+
+const megablogProjects = [
+	{
+		title: "Txchyon.com",
+		image: "/images/txchyon.jpg",
+		description: "Institutional-grade crypto and DeFi 'Megablog'. 15+ central pillars and a roadmap to 3,000 evergreen guides, turning complex alpha into structured systems.",
+		details: `Txchyon.com is more than a blog—it's a digital institution. It is the definitive authority on institutional-grade crypto, DeFi, and market strategies.
+
+### Architectural Scaling
+- **The Megablog Framework**: 15+ central pillars with a roadmap to 3,000+ evergreen guides for total topical dominance.
+- **Deep Intelligence**: Powered by Txchya’s strategic brain to ensure every piece of content fits into a larger internal linking graph and authority system.
+- **Systemized Income**: Built for serious traders who value systems over hustle and institutional-grade precision over retail hype.`,
+		url: "https://txchyon.com",
+		type: "saas",
+		tags: ["DeFi", "Crypto", "Megablog", "Strategy"]
+	},
+	{
+		title: "RoofingMeter.com",
+		image: "/images/roofing_repair.jpg",
+		description: "Institutional-grade 11-pillar Home Services 'Megablog'. Engineered to dominate the entire home service sector through total topical authority.",
+		details: `RoofingMeter is an industrial-scale Home Services Megablog. It is not just a roofing site; it is a unified digital institution containing 11 specialized blogs built into one massive authority engine.
+
+### The 11-Pillar Architecture
+- **Complete Home Lifecycle**: Covering every service a homeowner needs, from roofing and HVAC to plumbing, electrical, and landscaping.
+- **Unified Authority**: 11 distinct domains of knowledge brought together under one strategic interlinking graph.
+- **Topical Dominance**: Engineered with a roadmap to 3,000+ evergreen guides to ensure total search visibility across the high-competition home services sector.
+
+### System Advantage
+Built on the Expat Buildr philosophy of scale, RoofingMeter turns fragmented service data into a centralized, trust-based information layer that compounds in value over time.`,
+		url: "https://roofingmeter.com",
+		type: "saas",
+		tags: ["Home Services", "Megablog", "Multi-Pillar", "Topical Authority"]
+	},
+	{
+		title: "AutoInsureGuides.com",
+		image: "/images/insure.jpg",
+		description: "Comprehensive insurance 'Megablog' designed for extreme accessibility. Built on a massive content system targeting 3,000+ guides for search dominance.",
+		details: `AutoInsureGuides is a massive content system built to simplify the complex world of car insurance through sheer informational volume and precision.
+
+### Strategic Architecture
+- **Large-Scale Coverage**: Targeting 1,000-3,000 evergreen guides to cover every segment of the auto insurance market.
+- **Knowledge Empire**: Designed to navigate high-competition niches via autonomous generation and multi-agent system orchestration.
+- **Clarity by Design**: Turning dense insurance policy data into clear, actionable guides that build long-term link equity and user trust.`,
+		url: "https://autoinsureguides.com",
+		type: "saas",
+		tags: ["Insurance Tech", "Megablog", "Educational Resource"]
+	}
+];
+
+const tradingProjects = [
+	{
+		title: "Project Genesis",
+		image: "/images/genesis.jpg",
+		description: "Institutional-grade automated Bitcoin trading system built for professional-level execution and capital preservation.",
+		details: `Project Genesis is an institutional-grade automated Bitcoin trading system built for professional-level execution and capital preservation.
+
+### Execution Layer
+- **Multi-Strategy Core**: Combines advanced market analysis, trend detection, and mean-reversion strategies.
+- **Risk Orchestration**: Features a modular AI agent layer for real-time risk adjustment and capital protection.
+- **Scalable Performance**: Engineered to handle institutional-sized positions with minimal slippage and maximum precision.`,
+		type: "trading",
+		tags: ["Bitcoin", "Algo-Trading", "Risk Management", "AI Agents"]
+	},
+	{
+		title: "Project Ultima",
+		image: "/images/Project Ulttima.jpg",
+		description: "Secret Research System - An institutional-grade platform for advanced market intelligence and predictive modeling.",
+		details: `Project Ultima is a proprietary research platform designed for advanced market intelligence and predictive modeling.
+
+### Intelligence Engine
+- **Predictive Analytics**: High-performance data analysis for sophisticated trading environments.
+- **Market Modeling**: Deep-layer modeling of liquidity regimes, volatility shifts, and capital flows.
+- **Operational Precision**: Providing the technical backbone for top-tier market positioning and alpha generation.`,
+		type: "trading",
+		tags: ["Market Intelligence", "Secret Research", "Predictive Analytics"]
+	},
+	{
+		title: "Project Omega",
+		image: "/images/Project Omega.jpg",
+		description: "Secret Pumpfun System - Specialized automated system for high-velocity decentralized market opportunities.",
+		details: `Project Omega is a specialized automated system for high-velocity decentralized market opportunities.
+
+### Rapid Execution
+- **Liquidity Positioning**: Focused on rapid entry and exit in fast-moving DeFi environments.
+- **Autonomous Monitoring**: Continuous scanning of decentralized platforms for high-alpha opportunities.
+- **Proprietary Flow**: Designed to capture and defend positions in low-latency market scenarios.`,
+		type: "trading",
+		tags: ["DeFi Automation", "Rapid Execution", "Proprietary Strategy"]
+	},
+	{
+		title: "Txchyon Labs",
+		image: "/images/Txchyon labs.jpg",
+		description: "The core R&D engine of the Txchyon ecosystem. Developing autonomous systems and neural orchestration layers.",
+		details: `Txchyon Labs is the primary research and development hub for the ecosystem. It focuses on pushing the boundaries of autonomous intelligence and system orchestration.
+		
+### R&D Capabilities
+- **Neural Frameworks**: Developing proprietary models for ecosystem-wide scaling.
+- **Autonomous Infrastructure**: Building the connective tissue between data, code, and execution.
+- **Strategic Innovation**: Methodical exploration of new technologies and market-dominance strategies.`,
+		url: "https://labs.txchyon.com",
+		type: "trading",
+		tags: ["R&D", "Neural Frameworks", "Infrastructure"]
+	},
+	{
+		title: "Txchyon Capital",
+		image: "/images/tcxhyon capital hero.jpg",
+		description: "PRIVATE: Institutional-grade capital management and execution arm of the Txchyon ecosystem.",
+		details: `Txchyon Capital is a private institutional-grade execution and management layer. Access is restricted to internal operations and strategic partners.
+
+### Capital Orchestration
+- **Market Neutral Strategies**: Managing risk through multi-layer hedging.
+- **Institutional Execution**: Deploying capital with precision across decentralized and centralized venues.
+- **Long-Cycle Positioning**: Building authority and assets through methodical, systemized growth.`,
+		type: "trading",
+		tags: ["Capital Management", "Institutional", "Private"]
+	},
+	{
+		title: "Project KasKad",
+		image: "/images/kaskad.png",
+		description: "Proprietary cascade-layer execution system for high-frequency market liquidity regimes.",
+		details: `Project KasKad is a proprietary execution architecture designed to exploit liquidity cascades and waterfall regimes in high-frequency environments.
+
+### Technical Framework
+- **Cascade Logic**: Sequential execution protocols that profit from rapid liquidity shifts.
+- **Micro-Latency Edge**: Built on the Expat Buildr low-latency stack for institutional precision.
+- **Automated Positioning**: Neural layers that identify and defend positions during extreme volatility.`,
+		type: "trading",
+		tags: ["HFT", "Liquidity Cascade", "Institutional Execution"]
+	}
+];
+
+const softwareProjects = [
+	{
+		title: "ViralWeapon.xyz",
+		image: "/images/viralweapon.png",
+		description: "High-velocity viral content orchestrator and multi-platform distribution weapon. Engineered for institutional-grade cultural dominance through automated neural scaling.",
+		details: `ViralWeapon is the offensive layer of your digital presence. It is designed to orchestrate and deploy content that commands attention at scale.
+
+### Content Dominance
+- **Neural Viral Flow**: Algorithms that detect and weaponize trending sentiment for rapid cultural penetration.
+- **Multi-Platform Strike**: Coordinated deployment across X, LinkedIn, and Instagram to ensure total message saturation.
+- **Sovereign Reach**: Built for builders who refuse to be throttled by generic algorithms.
+
+### Operational Mode
+- **Institutional Branding**: Projects your message with the technical prestige and velocity required for modern digital dominance.`,
+		url: "https://viralweapon.xyz",
+		type: "software",
+		tags: ["Viral Marketing", "AI Content", "Strike Ready", "Cultural Dominance"]
+	},
+	{
+		title: "Remote Work Sniper",
+		image: "/images/remotesniper.png",
+		description: "Institutional-grade job acquisition engine and multi-client mission control. Autonomously identifies and secures elite technical roles without the manual grind.",
+		details: `Remote Work Sniper is a desktop-grade acquisition engine designed for top-tier technical operators.
+
+### Mission Control
+- **Autonomous Identification**: High-fidelity scraping of 5+ global job signals to identify premium, high-intent opportunities.
+- **Strike Sequence**: Automated application and follow-up chains that ensure you are the first responder for elite roles.
+- **Institutional Precision**: No generic job boards. This is a tactical tool for technical sovereign operators.
+
+### Client Mode
+- **V2 Mission Ready**: Manage multiple acquisition missions across different personas and niches from a single command center.`,
+		url: "/geo-arbitrage/arbjobs",
+		type: "software",
+		tags: ["Job Acquisition", "Automation", "Technical Strike", "Mission Control"]
+	},
+	{
+		title: "ReplyGun.ai",
+		image: "/images/replygun.png",
+		description: "Tactical AI outreach response orchestrator and high-velocity communication weapon. Close deals autonomously through neural-sync personalization.",
+		details: `ReplyGun is the bridge between a lead and a conversion. It is an autonomous response weapon that ensures your outreach is never ignored.
+
+### Tactical Communication
+- **Neural-Sync Personalization**: AI-powered analysis of prospect history and tone to generate hyper-personalized 1:1 responses.
+- **Outreach Orchestration**: Native integration with global communication protocols (LinkedIn, Twitter/X, Email).
+- **Strike Intensity**: High-velocity response cadence designed to capture interest while it's at its peak.
+
+### Defensive Guardrails
+- **Brand Protection**: Institutional-grade filters ensure every response aligns with your core strategic identity.`,
+		url: "https://replygun.ai",
+		type: "software",
+		tags: ["AI Outreach", "Response Engine", "Tactical Comms", "Closing Tool"]
+	},
+	{
+		title: "Nova",
+		image: "/images/nova.jpg",
+		description: "Fast, modular Code + SEO Health Scanner for developers. Scan projects in under a minute to detect SEO issues and complexity hotspots with AI-assisted fixes.",
+		type: "software",
+		tags: ["SEO Scanner", "Node.js", "DevTools"]
+	},
+	{
+		title: "CodeSnap",
+		image: "/images/codesnap_ai.png",
+		description: "Desktop utility for instant code capture and search with AI tagging. 100% local-first, lightweight open-source tool for Mac, Windows, and Linux.",
+		type: "software",
+		tags: ["Utility", "AI Tagging", "Local-First", "Open Source"]
+	},
+	{
+		title: "AI-Prompt-Builder",
+		image: "/images/ai_prompt_ai.png",
+		description: "Niche-specific prompt generator for productivity and SEO. Customize tone and workflow chains to turn ideas into actionable prompts instantly.",
+		type: "software",
+		tags: ["Prompt Engineering", "SEO Tool", "Productivity"]
+	},
+	{
+		title: "Next-Scanner",
+		image: "/images/next_ai.png",
+		description: "Next.js Performance Auditor that connects technical fixes to SEO rankings. Features an 'SEO Impact Score' to help optimize Next.js apps for speed.",
+		type: "software",
+		tags: ["Next.js", "Performance", "SEO Auditor"]
+	},
+	{
+		title: "ContentIQ",
+		image: "/images/contentiq_ai.png",
+		description: "Autonomous AI content engine that plans, creates, and audits blog content in structured phases. Builds SEO topic clusters and scalable authority systems.",
+		type: "software",
+		tags: ["AI Content", "SEO Engine", "Automation"]
+	},
+	{
+		title: "TikTok Ad Engine",
+		image: "/images/tiktok-ad-engine.png",
+		description: "Institutional-grade TikTok advertising orchestrator. High-velocity campaign deployment and creative intelligence weapon.",
+		details: `TikTok Ad Engine is the offensive distribution layer for the short-form era. It allows operators to deploy thousands of ad variants and detect viral sentiment in real-time.
+
+### System Intelligence
+- **Viral Sentiment Detection**: Autonomously identifies high-probability trends before they peak.
+- **Creative Orchestration**: Multi-variant deployment chains for maximum message saturation.
+- **High-Velocity ROI**: Engineered for rapid capital turnover and market dominance.`,
+		url: "https://viralweapon.xyz",
+		type: "software",
+		tags: ["AdTech", "Social Domination", "AI Creative", "Strike Ready"]
+	}
+];
+
+const musicProjects = [
+	{
+		title: "Txchya — Cyberpunk Ambient",
+		image: "/images/cyberpunkambient.jpg",
+		description: "Cinematic architecture for builders, coders, and night operators. Immersive cyberpunk atmospheres with structured rhythm and high-fidelity neural pulse.",
+		details: `Txchya is the cinematic, futuristic arm of your sound portfolio. The core identity is cyberpunk ambient with controlled pulse. It’s not pure background noise. It’s immersive atmosphere with occasional structured rhythm — unexpected drums, subtle propulsion, tension building under neon skylines.
+
+### The Catalog Strategy
+The catalog strategy is world-based, not song-based. Instead of random releases, the catalog is organized into environments and narrative clusters:
+- **Neon City Series**: Neon Tokyo 3077, Neon Shanghai 3091, Rain on Circuit District.
+- **Deep Space Archive**: Megastructure Orbit, Dim Star Encasement, Silent Dyson Ring.
+- **Hostile Worlds**: Lava Planet Pulse, Smoke Beneath the Crust, Terraform Failure.
+- **AI Consciousness Series**: Signal from 3077, Autonomous Mind Awake, Archive Node.
+
+### System Advantage
+Txchya ties naturally into Txchyon and your AI ecosystem. It frames sound as an audiovisual IP, serving as the "civilization still alive in the dark."`,
+		url: "https://www.txchya.com",
+		youtube: "https://www.youtube.com/@txchyaai",
+		type: "music",
+		tags: ["Cyberpunk", "Ambient", "Cinematic", "Focus"]
+	},
+	{
+		title: "Blackhole Ambient",
+		image: "/images/blackhole.jpg",
+		description: "Pure emotional void and infinite space. Soundtracks for deep thought, solitude, and slow immersion into the singularity.",
+		details: `Blackhole Ambient is pure dark ambient. No beat. No structure. No rhythm to move to. Just emotional atmosphere and space. Where Txchya has pulse, Blackhole has void.
+
+### The Sonic Rule
+If there’s percussion or structured beat, it does not belong here. If it feels like endless floating in space — it belongs.
+
+### Designed For:
+- Meditation & Solitude
+- Emotional processing
+- Deep thought
+- Late-night isolation focus
+- Sleep/slow immersion
+
+### Positioning
+Blackhole Ambient = Pure Emotional Void. It stands alone as pure art, representing what remains when civilization is gone.`,
+		url: "https://blackholeambient.com/",
+		youtube: "https://www.youtube.com/@BlackHoleAmbient",
+		type: "music",
+		tags: ["Dark Ambient", "Void", "Emotional", "Space"]
+	}
+];
+
+---
+
+<Layout 
+	title="Portfolio | Expat Buildr"
+	description="A selection of systems, funnels, and products shipped for clients and internal brands by Expat Buildr."
+	noindex={true}
+>
+
+	<!-- Page Header -->
+	<section class="max-w-7xl mx-auto text-center space-y-8 py-12 md:py-20 relative px-4">
+		<div class="absolute -top-20 md:-top-40 left-1/2 -translate-x-1/2 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-accent-blue/20 rounded-full blur-[80px] md:blur-[120px] -z-10 animate-pulse"></div>
+		<h1 class="text-5xl md:text-7xl font-black font-display tracking-tight leading-[1] md:leading-[0.9]">
+			BUILT BY<br/>
+			<span class="text-gradient">GALAXY.</span>
+		</h1>
+		<p class="max-w-2xl mx-auto text-institutional-secondary text-lg leading-relaxed">
+			A selection of systems, funnels, and products shipped for clients and internal brands.
+		</p>
+	</section>
+
+	<!-- Projects Sections -->
+	<div id="projects" class="max-w-7xl mx-auto space-y-32 py-20">
+		
+		<!-- Galaxy Leads Featured Hero -->
+		<section id="galaxyleads-featured" class="relative overflow-hidden rounded-[3rem] glass-card border-[1px] border-accent-cyan/30 reveal-on-scroll">
+			<div class="absolute inset-0 bg-gradient-to-br from-accent-blue/10 via-transparent to-accent-purple/10 pointer-events-none"></div>
+			
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 p-8 md:p-16 relative z-10">
+				<div class="space-y-8 flex flex-col justify-center">
+					<div class="inline-flex gap-2 flex-wrap">
+						<span class="px-3 py-1 text-xs font-bold tracking-wider rounded-full bg-accent-blue/10 text-accent-cyan border border-accent-cyan/20">V2 CLIENT MODE</span>
+						<span class="px-3 py-1 text-xs font-bold tracking-wider rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">TRUE ROI ENGINE</span>
+						<span class="px-3 py-1 text-xs font-bold tracking-wider rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">5 SCRAPER ENGINES</span>
+					</div>
+					
+					<h2 class="text-5xl md:text-6xl font-black font-display tracking-tight text-slate-900 dark:text-white leading-[1.1]">
+						Galaxy Leads.<br/>
+						<span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-accent-cyan">The Autonomous Outreach Machine.</span>
+					</h2>
+					
+					<p class="text-lg text-slate-400 leading-relaxed max-w-xl">
+						A local desktop application that runs entirely on your computer. No monthly SaaS fees. No backend. No subscriptions. It autonomously scrapes leads, detects automation opportunities, scores them via true ROI logic, and sequences personalized outreach on your behalf.
+					</p>
+
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+						<div class="glass-card p-4 rounded-xl border border-white/5 space-y-2">
+							<div class="text-accent-cyan"><Cpu size={24} /></div>
+							<div class="font-bold text-slate-900 dark:text-white">5-Engine Scraper</div>
+							<div class="text-sm text-slate-500">Indeed, ZipRecruiter, Yelp, Google, and Reddit signals running in parallel.</div>
+						</div>
+						<div class="glass-card p-4 rounded-xl border border-white/5 space-y-2">
+							<div class="text-accent-purple"><LineChart size={24} /></div>
+							<div class="text-slate-900 dark:text-white font-bold">ROI & AI Scoring</div>
+							<div class="text-sm text-slate-500">Scores true cost, calculates payback period, and extracts exact ad phrases.</div>
+						</div>
+						<div class="glass-card p-4 rounded-xl border border-white/5 space-y-2">
+							<div class="text-emerald-400"><Code2 size={24} /></div>
+							<div class="font-bold text-slate-900 dark:text-white">Universal Tracking</div>
+							<div class="text-sm text-slate-500">State-machine cooldowns, Reply Analyzer, and pipeline tracking natively.</div>
+						</div>
+						<div class="glass-card p-4 rounded-xl border border-white/5 space-y-2">
+							<div class="text-blue-400"><Rocket size={24} /></div>
+							<div class="font-bold text-slate-900 dark:text-white">Client Packaging</div>
+							<div class="text-sm text-slate-500">V2 Agency Mode allows bundling and selling 1k+ high-intent lead packages.</div>
+						</div>
+					</div>
+					
+					<div class="pt-4">
+						<a href="/lead-gen/edge" class="btn-primary inline-flex items-center gap-3 text-lg px-8 py-4 w-full md:w-auto justify-center hover:scale-105 transition-transform">
+							EXPLORE GALAXY LEADS <ArrowRight size={20} />
+						</a>
+					</div>
+				</div>
+				
+				<div class="relative flex items-center justify-center">
+					<div class="absolute inset-0 bg-accent-blue/20 blur-[100px] rounded-full"></div>
+					<img src="/galaxyleads.jpg" alt="Galaxy Leads Dashboard" class="relative z-10 w-full rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] transform -rotate-[2deg] hover:rotate-0 transition-all duration-700 hover:scale-105" />
+				</div>
+			</div>
+		</section>
+
+		<!-- SaaS Section -->
+		<section id="saas" class="space-y-12 reveal-on-scroll">
+			<div class="flex items-center gap-6">
+				<div class="p-4 rounded-3xl glass-card text-accent-cyan">
+					<Rocket size={32} />
+				</div>
+				<div>
+					<h2 class="text-4xl font-black font-display dark:text-white text-slate-900">SaaS Platforms</h2>
+					<p class="text-slate-500">Autonomous systems scaling search dominance and AI workflows.</p>
+				</div>
+			</div>
+			
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{saasProjects.map(project => (
+					<ProjectCard {...project} />
+				))}
+			</div>
+		</section>
+
+		<!-- Trading Systems -->
+		<section id="trading" class="space-y-12 reveal-on-scroll">
+			<div class="flex items-center gap-6">
+				<div class="p-4 rounded-3xl glass-card text-accent-purple">
+					<LineChart size={32} />
+				</div>
+				<div>
+					<h2 class="text-4xl font-black font-display dark:text-white text-slate-900">Trading Systems</h2>
+					<p class="text-slate-500">Institutional-grade execution and secret research systems.</p>
+				</div>
+			</div>
+			
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{tradingProjects.map(project => (
+					<ProjectCard {...project} />
+				))}
+			</div>
+		</section>
+
+		<!-- Megablogs Section -->
+		<section id="megablogs" class="space-y-12 reveal-on-scroll">
+			<div class="flex items-center gap-6">
+				<div class="p-4 rounded-3xl glass-card text-accent-cyan">
+					<Rocket size={32} />
+				</div>
+				<div>
+					<h2 class="text-4xl font-black font-display dark:text-white text-slate-900">Megablogs</h2>
+					<p class="text-slate-500">Large-scale evergreen content hubs with thousands of guides.</p>
+				</div>
+			</div>
+			
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{megablogProjects.map(project => (
+					<ProjectCard {...project} />
+				))}
+			</div>
+		</section>
+
+		<!-- Software & Open Source -->
+		<section id="software" class="space-y-12 reveal-on-scroll">
+			<div class="flex items-center gap-6">
+				<div class="p-4 rounded-3xl glass-card text-accent-blue">
+					<Code2 size={32} />
+				</div>
+				<div>
+					<h2 class="text-4xl font-black font-display dark:text-white text-slate-900">Software & Tools</h2>
+					<p class="text-slate-500">Modular scanners, AI utilities, and developer productivity tools.</p>
+				</div>
+			</div>
+			
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{softwareProjects.map(project => (
+					<ProjectCard {...project} />
+				))}
+			</div>
+		</section>
+
+		<!-- Cybersecurity Section -->
+		<section id="security" class="space-y-12 reveal-on-scroll">
+			<div class="flex items-center gap-6">
+				<div class="p-4 rounded-3xl glass-card text-accent-blue">
+					<Code2 size={32} />
+				</div>
+				<div>
+					<h2 class="text-4xl font-black font-display dark:text-white text-slate-900">Cybersecurity</h2>
+					<p class="text-slate-500">Institutional-grade security research and defense systems.</p>
+				</div>
+			</div>
+			
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{securityProjects.map(project => (
+					<ProjectCard {...project} />
+				))}
+			</div>
+		</section>
+
+		<!-- AI Agents Section -->
+		<section id="ai" class="space-y-12 reveal-on-scroll">
+			<div class="flex items-center gap-6">
+				<div class="p-4 rounded-3xl glass-card text-accent-blue">
+					<Cpu size={32} />
+				</div>
+				<div>
+					<h2 class="text-4xl font-black font-display dark:text-white text-slate-900">AI Agents</h2>
+					<p class="text-slate-500">Autonomous intelligence layers and persistent AI constructs.</p>
+				</div>
+			</div>
+			
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{aiProjects.map(project => (
+					<ProjectCard {...project} />
+				))}
+			</div>
+		</section>
+
+		<!-- Music Licensing Section -->
+		<section id="music" class="space-y-12 reveal-on-scroll">
+			<div class="flex items-center gap-6">
+				<div class="p-4 rounded-3xl glass-card text-accent-purple">
+					<Music size={32} />
+				</div>
+				<div>
+					<h2 class="text-4xl font-black font-display dark:text-white text-slate-900">Music Licensing</h2>
+					<p class="text-slate-500">Cinematic sound domains and immersive ambient architectures.</p>
+				</div>
+			</div>
+			
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{musicProjects.map(project => (
+					<ProjectCard {...project} />
+				))}
+			</div>
+		</section>
+
+	</div>
+
+	<!-- CTA Section -->
+	<section class="max-w-4xl mx-auto py-32 text-center reveal-on-scroll">
+		<div class="glass-card p-12 rounded-[3rem] space-y-8 relative overflow-hidden group floating">
+			<div class="absolute inset-0 bg-gradient-to-br from-accent-blue/5 to-accent-purple/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+			<h2 class="text-4xl font-black font-display">Ready to build something <span class="text-gradient">Institutional?</span></h2>
+			<p class="text-slate-400">Reach out for collaborations or project inquiries.</p>
+			<a href="/contact" class="btn-primary inline-flex items-center gap-3">
+				GET IN TOUCH <Mail size={20} />
+			</a>
+		</div>
+	</section>
+
+	<NewsletterPopup trigger="delay" delayMs={8000} />
+</Layout>

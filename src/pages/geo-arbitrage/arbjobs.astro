@@ -1,0 +1,1233 @@
+---
+// arbjobs.astro
+import ExitIntentPopup from '../../components/ExitIntentPopup.astro';
+import Analytics from '../../components/Analytics.astro';
+export const prerender = true;
+
+// --- PRODUCTION CONFIGURATION ---
+const GOOGLE_ANALYTICS_ID = 'G-SD1015FGKZ';
+const META_PIXEL_ID = '1480646753745240';
+const TIKTOK_PIXEL_ID = 'D7EJNB3C77U1RGO04F1G';
+// --------------------------------
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- ─── SEO Meta Tags ─────────────────────────────────────────── -->
+  <title>Galaxy Arbitrage — Hand-picked USD Remote Jobs ($17-$75/hr)</title>
+  <meta name="description" content="Join 380+ members receiving weekly hand-picked USD remote jobs. Earn in US Dollars while living anywhere. Free list updates every Monday." />
+  <link rel="canonical" href="https://expatbuildr.com/geo-arbitrage/arbjobs" />
+  
+  <!-- ─── Open Graph (Facebook/LinkedIn) ───────────────────────── -->
+  <meta property="og:title" content="Galaxy Arbitrage — Hand-picked USD Remote Jobs ($17-$75/hr)" />
+  <meta property="og:description" content="Join 380+ members receiving weekly hand-picked USD remote jobs. Earn in US Dollars while living anywhere. Free list updates every Monday." />
+  <meta property="og:image" content="https://expatbuildr.com/images/og-arbitrage.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="https://expatbuildr.com/geo-arbitrage/arbjobs" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Galaxy Arbitrage" />
+  
+  <!-- ─── Twitter Cards ─────────────────────────────────────────── -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@expatbuildr" />
+  <meta name="twitter:title" content="Galaxy Arbitrage — Hand-picked USD Remote Jobs ($17-$75/hr)" />
+  <meta name="twitter:description" content="Join 380+ members receiving weekly hand-picked USD remote jobs. Earn in US Dollars while living anywhere." />
+  <meta name="twitter:image" content="https://expatbuildr.com/images/og-arbitrage.png" />
+  
+  <!-- ─── Favicons ──────────────────────────────────────────────── -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <Analytics />
+  <style is:global>
+    :root {
+      --ink: #0f0f0f;
+      --paper: #faf8f4;
+      --cream: #f2ede3;
+      --gold: #b8943f;
+      --gold-light: #d4aa58;
+      --gold-pale: #f5edda;
+      --muted: #6b6458;
+      --border: #e0d8cc;
+      --green: #1a5c38;
+      --green-bg: #edf5f0;
+      --serif: 'Instrument Serif', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+      --mono: 'DM Mono', monospace;
+
+      /* Brand Consistency Colors */
+      --purple:   #9945FF;
+      --grad:     linear-gradient(135deg, #9945FF 0%, #FF6FD8 45%, #14F195 100%);
+    }
+
+    .hidden { display: none !important; }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* GRAIN OVERLAY */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.4;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      background: var(--ink);
+      color: #fff;
+      text-align: center;
+      padding: 10px 20px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      animation: fadeDown 0.5s ease both;
+    }
+    .topbar span { color: var(--gold-light); }
+
+    /* HEADER */
+    header {
+      padding: 28px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      animation: fadeDown 0.6s ease 0.1s both;
+    }
+    .nav-logo-container {
+      display: flex; align-items: center; gap: 12px; text-decoration: none;
+    }
+    .nav-img-logo {
+      width: 40px; height: 40px; border-radius: 12px; object-fit: cover;
+      box-shadow: 0 0 0 2px rgba(0,0,0,0.05);
+      transition: box-shadow 0.2s;
+    }
+    .nav-logo-container:hover .nav-img-logo {
+      box-shadow: 0 0 0 2px rgba(153,69,255,0.4);
+    }
+    .nav-text-logo {
+      font-family: var(--sans); font-weight: 900; font-size: 24px;
+      color: var(--ink); letter-spacing: -0.02em; text-transform: uppercase;
+    }
+    .nav-text-logo span {
+      font-weight: 300; color: var(--purple);
+      background: var(--grad);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .header-right {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* MAIN LAYOUT */
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 80px;
+      align-items: center;
+      padding: 72px 0 64px;
+      animation: fadeUp 0.7s ease 0.2s both;
+    }
+
+    .hero-left {}
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold-pale);
+      border: 1px solid #ddd0b0;
+      border-radius: 100px;
+      padding: 5px 14px 5px 10px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--gold);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .eyebrow-dot {
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: pulse 2s ease infinite;
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(38px, 5vw, 62px);
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 36px;
+      font-weight: 300;
+    }
+    .hero-sub strong { color: var(--ink); font-weight: 500; }
+
+    /* PROOF STRIP */
+    .proof-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 36px;
+    }
+    .proof-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 400;
+    }
+    .proof-icon {
+      width: 18px; height: 18px;
+      background: var(--green-bg);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px;
+      color: var(--green);
+      flex-shrink: 0;
+    }
+    .proof-divider {
+      width: 1px; height: 14px;
+      background: var(--border);
+      margin: 0 4px;
+    }
+
+    /* COUNTRIES */
+    .countries {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 0;
+    }
+    .country-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: var(--muted);
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 3px 8px;
+      text-transform: uppercase;
+    }
+
+    /* FORM CARD */
+    .form-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px 36px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+      position: relative;
+      overflow: hidden;
+    }
+    .form-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
+    }
+
+    .form-card-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .form-card h2 {
+      font-family: var(--serif);
+      font-size: 26px;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .form-card-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    /* WHAT YOU GET */
+    .gets {
+      background: var(--cream);
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-bottom: 24px;
+    }
+    .gets-title {
+      font-family: var(--mono);
+      font-size: 9px;
+      color: var(--muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .get-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 8px;
+      font-size: 13px;
+      color: var(--ink);
+      line-height: 1.4;
+    }
+    .get-item:last-child { margin-bottom: 0; }
+    .get-check {
+      width: 16px; height: 16px;
+      background: var(--green);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px;
+      color: #fff;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* FORM */
+    .form-group {
+      margin-bottom: 12px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 6px;
+      letter-spacing: 0.3px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: var(--sans);
+      font-size: 15px;
+      color: var(--ink);
+      background: var(--paper);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-group input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(184,148,63,0.12);
+    }
+    .form-group input::placeholder { color: #bbb; }
+
+    .cta-btn {
+      width: 100%;
+      padding: 15px 24px;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 4px;
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 0.2px;
+    }
+    .cta-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.08) 100%);
+    }
+    .cta-btn:hover { background: #1e1e1e; transform: translateY(-1px); }
+    .cta-btn:active { transform: translateY(0); }
+    .cta-btn-inner { display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .cta-arrow { font-size: 18px; transition: transform 0.2s; }
+    .cta-btn:hover .cta-arrow { transform: translateX(3px); }
+
+    .form-trust {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 14px;
+      font-size: 11px;
+      color: #bbb;
+      font-family: var(--mono);
+      letter-spacing: 0.5px;
+    }
+    .lock-icon { font-size: 10px; }
+
+    /* MEMBER COUNT */
+    .member-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .avatar-stack {
+      display: flex;
+    }
+    .avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      margin-right: -8px;
+      font-size: 11px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 600;
+      color: #fff;
+    }
+    .av1 { background: #2c5f8a; }
+    .av2 { background: #1a5c38; }
+    .av3 { background: #8a3a2c; }
+    .av4 { background: #5c3a8a; }
+    .av5 { background: #8a6b2c; }
+    .member-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
+    .member-text strong { color: var(--ink); font-weight: 600; }
+
+    /* DIVIDER */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    /* SOCIAL PROOF SECTION */
+    .proof-section {
+      padding: 56px 0;
+      animation: fadeUp 0.7s ease 0.4s both;
+    }
+    .proof-label {
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+    .testimonial {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .testimonial-stars {
+      color: var(--gold);
+      font-size: 12px;
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+    }
+    .testimonial-text {
+      font-family: var(--serif);
+      font-size: 15px;
+      color: var(--ink);
+      line-height: 1.6;
+      font-style: italic;
+      margin-bottom: 16px;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .author-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      font-size: 13px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 600;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .author-name { font-size: 13px; font-weight: 600; color: var(--ink); }
+    .author-loc { font-size: 11px; color: var(--muted); font-family: var(--mono); letter-spacing: 0.5px; }
+
+    /* JOBS PREVIEW */
+    .jobs-preview {
+      background: var(--ink);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .jobs-preview::before {
+      content: 'PREVIEW';
+      position: absolute;
+      top: -20px; right: -20px;
+      font-family: var(--serif);
+      font-size: 120px;
+      color: rgba(255,255,255,0.03);
+      font-style: italic;
+      pointer-events: none;
+    }
+    .jobs-preview-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .job-rows { display: flex; flex-direction: column; gap: 1px; }
+    .job-row {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 16px;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .job-row:last-child { border-bottom: none; }
+    .job-title { font-size: 14px; color: #fff; font-weight: 500; }
+    .job-company { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 2px; font-family: var(--mono); }
+    .job-pay {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--gold-light);
+      white-space: nowrap;
+      font-weight: 500;
+    }
+    .job-tag {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .tag-remote { background: rgba(26,92,56,0.3); color: #4ade80; }
+    .tag-async { background: rgba(184,148,63,0.2); color: var(--gold-light); }
+    .tag-new { background: rgba(99,102,241,0.2); color: #a5b4fc; }
+
+    .jobs-blur-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .blur-line {
+      flex: 1;
+      height: 10px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 4px;
+      filter: blur(2px);
+    }
+    .blur-cta {
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+
+    /* STATS ROW */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .stat-box {
+      background: #fff;
+      padding: 24px 20px;
+      text-align: center;
+    }
+    .stat-val {
+      font-family: var(--serif);
+      font-size: 32px;
+      color: var(--ink);
+      font-style: italic;
+      margin-bottom: 4px;
+    }
+    .stat-val em { color: var(--gold); font-style: normal; }
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* HOW IT WORKS */
+    .how-section {
+      padding: 56px 0;
+      animation: fadeUp 0.7s ease 0.5s both;
+    }
+    .how-title {
+      font-family: var(--serif);
+      font-size: 36px;
+      color: var(--ink);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .how-title em { color: var(--gold); font-style: italic; }
+    .how-sub {
+      text-align: center;
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 48px;
+      font-weight: 300;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .step {
+      text-align: center;
+      padding: 32px 24px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      position: relative;
+    }
+    .step-num {
+      font-family: var(--serif);
+      font-size: 56px;
+      color: var(--gold-pale);
+      line-height: 1;
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+    .step h3 {
+      font-family: var(--serif);
+      font-size: 20px;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .step p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* SECOND CTA */
+    .second-cta {
+      background: var(--ink);
+      border-radius: 20px;
+      padding: 56px 48px;
+      margin: 0 0 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.7s ease 0.6s both;
+    }
+    .second-cta::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(184,148,63,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .second-cta::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: -60px;
+      width: 250px; height: 250px;
+      background: radial-gradient(circle, rgba(184,148,63,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .second-cta-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .second-cta h2 {
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 44px);
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+    .second-cta p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 32px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      font-weight: 300;
+    }
+    .second-cta-form {
+      display: flex;
+      gap: 12px;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+    .second-cta-form input {
+      flex: 1;
+      padding: 14px 18px;
+      border-radius: 8px;
+      border: 1.5px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.07);
+      color: #fff;
+      font-family: var(--sans);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .second-cta-form input::placeholder { color: rgba(255,255,255,0.3); }
+    .second-cta-form input:focus { border-color: var(--gold); }
+    .second-cta-form button {
+      padding: 14px 24px;
+      background: var(--gold);
+      color: var(--ink);
+      border: none;
+      border-radius: 8px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .second-cta-form button:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: var(--serif);
+      font-size: 18px;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 12px;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 12px;
+    }
+    .footer-links a {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: #ccc;
+      letter-spacing: 0.5px;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.85); }
+    }
+
+    /* PROOF GALLERY */
+    .proof-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+    .proof-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .proof-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: grayscale(0.2);
+      transition: filter 0.3s;
+    }
+    .proof-card img:hover {
+      filter: grayscale(0);
+    }
+    .proof-card-label {
+      padding: 12px 16px;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .proof-tag {
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    @media (max-width: 860px) {
+      .page { padding: 0 16px; }
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 40px 0;
+      }
+      .testimonials, .steps { grid-template-columns: 1fr; }
+      .form-card { padding: 32px 16px; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      header { padding: 20px; }
+      .second-cta { padding: 40px 16px; }
+      .second-cta-form { flex-direction: column; }
+      .jobs-preview { padding: 24px 20px; }
+      .job-row { grid-template-columns: 1fr auto; }
+      .job-tag { display: none; }
+      .proof-gallery { grid-template-columns: 1fr; }
+    }
+  </style>
+
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    🔔 New batch drops every <span>Monday 8AM EST</span> — join free before the next send
+  </div>
+
+  <header>
+    <a href="https://expatbuildr.com" class="nav-logo-container">
+      <img src="/images/logo.jpg" alt="ExpatBuildr Logo" class="nav-img-logo" />
+      <div class="nav-text-logo">GALAXY<span>BUILT</span></div>
+    </a>
+    <div class="header-right">Free Weekly · No Spam · Unsubscribe Anytime</div>
+  </header>
+
+  <!-- HERO -->
+  <div class="page">
+    <section class="hero">
+      <!-- LEFT SIDE -->
+      <div class="hero-left">
+        <div class="eyebrow">
+          <div class="eyebrow-dot"></div>
+          Free Weekly Job List
+        </div>
+
+        <h1>Your salary is limited by<br>your <em>geography.</em><br>Your ambition isn't.</h1>
+
+        <p class="hero-sub">
+          Every week we send <strong>5 hand-picked remote jobs</strong> paying
+          <strong>$17–$75/hr in USD</strong> — to your inbox, before they fill.
+          Built for professionals in SEA and US workers done with the office.
+        </p>
+
+        <div class="proof-strip">
+          <div class="proof-item">
+            <div class="proof-icon">✔</div>
+            380+ members already inside
+          </div>
+          <div class="proof-divider"></div>
+          <div class="proof-item">
+            <div class="proof-icon">✔</div>
+            Updated every Monday
+          </div>
+          <div class="proof-divider"></div>
+          <div class="proof-item">
+            <div class="proof-icon">✔</div>
+            Free PDF download instant
+          </div>
+        </div>
+
+        <div class="countries">
+          <span class="country-tag">🇵🇭 Philippines</span>
+          <span class="country-tag">🇹🇭 Thailand</span>
+          <span class="country-tag">🇻🇳 Vietnam</span>
+          <span class="country-tag">🇲🇾 Malaysia</span>
+          <span class="country-tag">🇸🇬 Singapore</span>
+          <span class="country-tag">🇺🇸 United States</span>
+        </div>
+      </div>
+
+      <!-- FORM CARD -->
+      <div class="form-card">
+        <div class="form-card-label">// Free Access</div>
+        <h2>Get 5 USD Remote Jobs<br>Sent This Week</h2>
+        <p class="form-card-sub">Plus an instant PDF download of our current top opportunities — yours free, right now.</p>
+
+        <div class="gets">
+          <div class="gets-title">What you get immediately</div>
+          <div class="get-item">
+            <div class="get-check">✔</div>
+            <span><strong>5 curated jobs</strong> this week — $17 to $75/hr, all USD, all remote</span>
+          </div>
+          <div class="get-item">
+            <div class="get-check">✔</div>
+            <span><strong>Instant PDF download</strong> — current top 20 opportunities to apply today</span>
+          </div>
+          <div class="get-item">
+            <div class="get-check">✔</div>
+            <span><strong>Weekly newsletter</strong> — jobs, arbitrage insights, grant opportunities</span>
+          </div>
+        </div>
+
+        <div class="native-signup-wrapper" id="hero-signup-container">
+          <form id="hero-signup-form" class="native-form">
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" name="email" id="hero-email" placeholder="Enter your best email..." required />
+            </div>
+            <button type="submit" id="hero-submit-btn" class="cta-btn">
+              <div class="cta-btn-inner">
+                <span>Unlock Instant Access</span>
+                <span class="cta-arrow">→</span>
+              </div>
+            </button>
+            <p id="hero-error" class="hidden text-red-500 text-[10px] font-mono mt-3 uppercase tracking-widest text-center"></p>
+          </form>
+
+          <!-- Success State (Removed per request, redirects directly) -->
+          <div id="hero-success" class="hidden text-center py-6 animate-in fade-in zoom-in"></div>
+        </div>
+
+        <div class="member-bar">
+          <div class="avatar-stack">
+            <div class="avatar av1">M</div>
+            <div class="avatar av2">J</div>
+            <div class="avatar av3">A</div>
+            <div class="avatar av4">R</div>
+            <div class="avatar av5">K</div>
+          </div>
+          <div class="member-text">
+            <strong>380+ members</strong> from Philippines,<br>
+            Thailand, Vietnam, and the US
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- SOCIAL PROOF -->
+    <section class="proof-section">
+      <p class="proof-label">// What members are saying</p>
+
+      <div class="testimonials">
+        <div class="testimonial">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Got my first USD remote offer 3 weeks after joining. $4,200/month — more than double my old salary in Manila."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar" style="background:#2c5f8a;">M</div>
+            <div>
+              <div class="author-name">Mark D.</div>
+              <div class="author-loc">📍 Manila, PH · Product Designer</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"I was facing RTO at my company. Found a fully remote role through the list. Same pay, no commute, no office politics."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar" style="background:#5c3a8a;">S</div>
+            <div>
+              <div class="author-name">Sarah K.</div>
+              <div class="author-loc">📍 Austin, TX · Marketing Manager</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"The jobs here aren't on the big boards. Real opportunities, real salaries, real companies. Subscribed for 2 months now."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar" style="background:#1a5c38;">A</div>
+            <div>
+              <div class="author-name">Anya R.</div>
+              <div class="author-loc">📍 Bangkok, TH · Software Engineer</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- JOBS PREVIEW -->
+      <div class="jobs-preview">
+        <div class="jobs-preview-label">// Sample from last week's list</div>
+        <div class="job-rows">
+          <div class="job-row">
+            <div>
+              <div class="job-title">Senior Customer Success Manager</div>
+              <div class="job-company">Series B SaaS · US-based</div>
+            </div>
+            <div class="job-pay">$62–75/hr</div>
+            <div class="job-tag tag-remote">Remote</div>
+          </div>
+          <div class="job-row">
+            <div>
+              <div class="job-title">Content Strategist & Writer</div>
+              <div class="job-company">Marketing Agency · UK-based</div>
+            </div>
+            <div class="job-pay">$35–45/hr</div>
+            <div class="job-tag tag-async">Async</div>
+          </div>
+          <div class="job-row">
+            <div>
+              <div class="job-title">Operations Coordinator</div>
+              <div class="job-company">Logistics Startup · US-based</div>
+            </div>
+            <div class="job-pay">$28–38/hr</div>
+            <div class="job-tag tag-new">New</div>
+          </div>
+          <div class="job-row">
+            <div>
+              <div class="job-title">UX Researcher (Part-time)</div>
+              <div class="job-company">Product Studio · Canada</div>
+            </div>
+            <div class="job-pay">$42–55/hr</div>
+            <div class="job-tag tag-remote">Remote</div>
+          </div>
+          <div class="job-row">
+            <div>
+              <div class="job-title">Social Media Manager</div>
+              <div class="job-company">eCommerce Brand · US-based</div>
+            </div>
+            <div class="job-pay">$17–25/hr</div>
+            <div class="job-tag tag-async">Async</div>
+          </div>
+        </div>
+        <div class="jobs-blur-row">
+          <div class="blur-line"></div>
+          <div class="blur-cta">+ 15 more in this week's full list — join free to unlock</div>
+          <div class="blur-line"></div>
+        </div>
+      </div>
+
+      <!-- STATS -->
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-val"><em>380+</em></div>
+          <div class="stat-label">Active Members</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val"><em>$17–75</em></div>
+          <div class="stat-label">Hourly Rate Range</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val"><em>Weekly</em></div>
+          <div class="stat-label">Fresh Job Drops</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val"><em>6</em></div>
+          <div class="stat-label">Countries Served</div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- HOW IT WORKS -->
+    <section class="how-section">
+      <h2 class="how-title">How <em>it works</em></h2>
+      <p class="how-sub">Three steps between you and your first USD remote income.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>Join Free</h3>
+          <p>Enter your email above. We instantly send your free PDF of current top opportunities. No credit card. No trial. Just jobs.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>Get The List</h3>
+          <p>Every Monday, 5 curated remote jobs land in your inbox — pre-vetted, USD-paying, hiring now. Plus arbitrage insights and grant opportunities.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>Apply & Win</h3>
+          <p>These roles aren't on the big job boards. You get early access. Apply before the crowd. Get the offer. Earn in USD from wherever you are.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- SECOND CTA -->
+  <div class="page">
+    <div class="second-cta">
+      <div class="second-cta-label">// Last call</div>
+      <h2>Next batch drops Monday.<br>Don't miss it.</h2>
+      <p>380+ professionals are already getting these jobs every week. The roles fill fast — early access matters.</p>
+      <div class="second-cta-form" id="footer-signup-container">
+        <form id="footer-signup-form" class="native-form-dark w-full">
+          <div class="flex flex-col sm:flex-row gap-3 w-full">
+            <input 
+              type="email" 
+              name="email" 
+              id="footer-email" 
+              placeholder="Enter your email" 
+              required 
+              class="flex-grow p-4 rounded-lg bg-white/10 border border-white/20 text-white outline-none focus:border-gold transition-all min-w-[200px]"
+            />
+            <button type="submit" id="footer-submit-btn" class="bg-gold text-ink px-8 py-4 rounded-lg font-bold hover:bg-gold-light transition-all whitespace-nowrap">
+              Join Free →
+            </button>
+          </div>
+          <p id="footer-error" class="hidden text-red-500 text-[10px] font-mono mt-3 uppercase tracking-widest text-center"></p>
+        </form>
+
+        <!-- Success State (Removed per request, redirects directly) -->
+        <div id="footer-success" class="hidden text-center py-4 animate-in fade-in zoom-in"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">GALAXY<span>BUILT</span></div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Unsubscribe</a>
+      <a href="https://expatbuildr.com">ExpatBuildr.dev</a>
+      <a href="https://t.me/galaxyleads">Telegram</a>
+    </div>
+    <div class="footer-copy">© 2025 ExpatBuildr · Built in the Philippines · Serving the world</div>
+  </footer>
+
+  <ExitIntentPopup telegramMode={true} />
+
+  <script is:inline src="/beehiiv-v2.js"></script>
+  <script is:inline>
+    // Shared Signup Logic for ArbJobs
+    async function handleSignup(formId, emailId, submitId, successId, errorId, tag) {
+      const form = document.getElementById(formId);
+      const emailInput = document.getElementById(emailId);
+      const submitBtn = document.getElementById(submitId);
+      const successDiv = document.getElementById(successId);
+      const errorMsg = document.getElementById(errorId);
+
+      if (!form) return;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = emailInput.value.trim();
+        
+        if (!isValidEmail(email)) {
+            errorMsg.classList.remove('hidden');
+            errorMsg.textContent = '[ ERROR: INVALID_EMAIL ]';
+            return;
+        }
+
+        submitBtn.disabled = true;
+        const originalText = submitBtn.innerText;
+        submitBtn.innerText = 'Verifying...';
+        errorMsg.classList.add('hidden');
+
+        try {
+            const success = await subscribeToBeehiiv({
+                email,
+                tags: ["arb_jobs", "jobs_list", "remote worker", "job seeker"],
+                utm_medium: 'arbjobs_page',
+                utm_campaign: 'remote_jobs_list'
+            });
+
+            if (success === true) {
+              form.classList.add('hidden');
+              successDiv.classList.remove('hidden');
+              
+              // Redirect to welcome page instead of auto-download
+              window.location.href = '/geo-arbitrage/welcome';
+            } else if (success === "already_subscribed") {
+              errorMsg.classList.remove('hidden');
+              errorMsg.textContent = '[ ERROR: ALREADY_SUBSCRIBED ]';
+              submitBtn.disabled = false;
+              submitBtn.innerText = originalText;
+            } else {
+              throw new Error("Subscription failed");
+            }
+        } catch (err) {
+            console.error('Signup error:', err);
+            errorMsg.classList.remove('hidden');
+            errorMsg.textContent = '[ ERROR: CONNECTION_FAILED ]';
+            submitBtn.disabled = false;
+            submitBtn.innerText = originalText;
+        }
+      });
+    }
+
+    // Initialize both forms
+    handleSignup('hero-signup-form', 'hero-email', 'hero-submit-btn', 'hero-success', 'hero-error', 'arbjobs_hero');
+    handleSignup('footer-signup-form', 'footer-email', 'footer-submit-btn', 'footer-success', 'footer-error', 'arbjobs_footer');
+  </script>
+
+</body>
+</html>

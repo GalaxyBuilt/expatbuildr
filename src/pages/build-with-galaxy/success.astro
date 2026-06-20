@@ -1,0 +1,122 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { ArrowRight } from 'lucide-astro';
+import '../../styles/global.css';
+
+export const prerender = true;
+
+const title = "Access Confirmed | ExpatBuildr";
+const description = "Welcome to the Remote Work Sniper private jobs list. Your access has been confirmed.";
+
+// --- PRODUCTION CONFIGURATION [STRIKE READY] ---
+// Replace placeholders with active production URLs and IDs
+const NOTION_WORKSPACE_URL = 'https://notion.so/PLACEHOLDER'; 
+const TIKTOK_PIXEL_ID = 'D7EJNB3C77U1RGO04F1G';
+const GOOGLE_ANALYTICS_ID = 'G-SD1015FGKZ';
+const LINKEDIN_INSIGHT_ID = 'NNNNNNN';
+// ----------------------------------------------
+---
+
+<Layout 
+    title={title}
+    description={description}
+    minimal={true}
+    noindex={true}
+>
+    <Fragment slot="head">
+        <!-- ─── Unified Conversion Tracking ─────────────────────────── -->
+        <script is:inline>
+            !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '1480646753745240');
+            fbq('track', 'PageView');
+            fbq('track', 'Lead', { content_name: 'Build With Galaxy Signup', value: 50.00, currency: 'USD' });
+            fbq('track', 'CompleteRegistration', { content_name: 'Build With Galaxy Signup', value: 50.00, currency: 'USD', status: true });
+        </script>
+
+        <!-- ─── Reddit Lead Tracking ──────────────────────────── -->
+        <script is:inline>
+            if (window.rdt) {
+                rdt('track', 'Lead');
+            }
+        </script>
+
+        <!-- ─── Beehiiv Attribution Tracking ──────────────────────────── -->
+        <script type="text/javascript" async src="https://subscribe-forms.beehiiv.com/attribution.js"></script>
+    </Fragment>
+
+    <noscript>
+        <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+            height="0"
+            width="0"
+            style="display: none; visibility: hidden"
+        ></iframe>
+    </noscript>
+
+    <!-- Main Content -->
+    <div class="pt-20 pb-20 px-6 min-h-[70vh] flex flex-col items-center justify-center relative overflow-hidden reveal-on-scroll">
+        
+        <!-- Institutional background flare -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-emerald-500/10 dark:bg-emerald-500/5 rounded-full blur-[120px] -z-10"></div>
+
+        <div class="max-w-xl w-full text-center space-y-10">
+            
+            <div class="space-y-4">
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-full border border-emerald-500/20 text-[10px] font-black uppercase tracking-widest animate-pulse shadow-[0_0_15px_-3px_rgba(16,185,129,0.3)]">
+                    ✔ ACCESS PROTOCOL CONFIRMED
+                </div>
+                <h1 class="text-5xl md:text-8xl font-black font-display tracking-tighter leading-none text-slate-900 dark:text-white uppercase">
+                    SUBSCRIPTION<br/>
+                    <span class="text-emerald-600 dark:text-emerald-400">CONFIRMED.</span>
+                </h1>
+                <p class="text-slate-700 dark:text-slate-400 text-lg leading-relaxed max-w-sm mx-auto font-inter">
+                    Welcome to the list. Your subscription to Galaxy Arbitrage is now active. Check your inbox for the next batch drop.
+                </p>
+            </div>
+
+            <!-- Action Card -->
+            <div class="glass-card p-10 rounded-[2.5rem] bg-emerald-500/[0.02] border border-emerald-500/20 shadow-2xl space-y-8 relative group overflow-hidden">
+                <div class="absolute inset-0 bg-linear-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="space-y-4 text-left relative z-10">
+                    <h2 class="font-black text-2xl uppercase tracking-tighter text-slate-900 dark:text-white">The Bridge</h2>
+                    <p class="text-sm text-slate-700 dark:text-slate-400 leading-relaxed font-inter">
+                        Your first curated job drop is scheduled for Monday 8AM EST. Initialize your workspace now.
+                    </p>
+                </div>
+
+                <a href={NOTION_WORKSPACE_URL} target="_blank" class="btn-primary w-full py-5 text-sm tracking-[0.2em] font-black uppercase flex items-center justify-center gap-3">
+                    ENTER WORKSPACE <ArrowRight size={20} />
+                </a>
+
+                <div class="pt-6 border-t border-slate-900/10 dark:border-white/5 text-left relative z-10">
+                    <p class="text-[10px] text-slate-500 dark:text-slate-500 font-mono uppercase tracking-[0.3em]">
+                        TRANSACTION_TOKEN: {Math.floor(Math.random() * 1000000)}
+                    </p>
+                </div>
+            </div>
+
+            <div class="space-y-2 pt-8">
+                <p class="text-[10px] font-mono text-slate-400 uppercase tracking-widest">Having trouble accessing?</p>
+                <a href="mailto:support@expatbuildr.com" class="text-sm font-black border-b-2 border-slate-900 dark:border-white pb-1 text-slate-900 dark:text-white hover:text-emerald-500 hover:border-emerald-500 transition-all">
+                    SUPPORT@EXPATBUILDR.DEV
+                </a>
+            </div>
+
+            <a href="/" class="block text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors pt-12">
+                ← TERMINATE AND RETURN TO HOME
+            </a>
+
+        </div>
+    </div>
+</Layout>
+
+<style is:global>
+    @reference "../../styles/global.css";
+
+	:root {
+		--font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+	}
+	body {
+		font-family: var(--font-sans);
+	}
+</style>

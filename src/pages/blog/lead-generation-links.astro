@@ -1,0 +1,186 @@
+---
+export const prerender = true;
+import Layout from '../../layouts/Layout.astro';
+import { ArrowRight, Target, Zap, BarChart2, BookOpen, DollarSign, TrendingUp } from 'lucide-astro';
+---
+
+<Layout
+  title="Lead Generation Resources: Systems, Tools & Guides | ExpatBuildr"
+  description="Everything in the Lead Generation pillar in one place — done-for-you outreach systems, landing page services, the Cold Outreach CRM Tracker, and guides for B2B founders building pipeline from zero."
+  canonicalUrl="https://expatbuildr.com/blog/lead-generation-links"
+  ogImage="/images/lead gen.jpg"
+>
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Hero -->
+    <div class="text-center mb-20">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-xs uppercase tracking-[0.2em] font-mono mb-8">
+        <Target size={12} /> Lead Generation
+      </div>
+      <h1 class="text-5xl md:text-7xl font-black font-display tracking-tighter text-slate-900 dark:text-white mb-6 uppercase leading-none">
+        EVERYTHING<br /><span class="text-emerald-500">LEAD GEN.</span>
+      </h1>
+      <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-inter leading-relaxed mb-8">
+        Every tool, service, guide, and system in the Lead Generation pillar — in one place. From cold email infrastructure to done-for-you outreach systems and landing pages that convert cold traffic.
+      </p>
+    </div>
+
+    <!-- Featured Resource: Automation System -->
+    <div class="mb-12">
+      <div class="glass-card rounded-2xl p-8 border border-emerald-500/30 bg-emerald-500/5">
+        <div class="flex flex-col md:flex-row md:items-center gap-6">
+          <div class="shrink-0 w-16 h-16 rounded-2xl bg-emerald-500/10 flex items-center justify-center">
+            <Zap class="text-emerald-500" size={28} />
+          </div>
+          <div class="flex-1">
+            <div class="text-xs font-mono uppercase tracking-wider text-emerald-500 font-semibold mb-2">Featured Service</div>
+            <h2 class="text-2xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white mb-2">Done-For-You Lead Generation System</h2>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">We build and run your entire outbound engine — lead list building, infrastructure setup, copy, sequence automation, and inbox management. Most clients see 8 to 15 qualified meetings per month within 60 days.</p>
+            <div class="flex flex-wrap gap-3">
+              <a href="/automation-systems/automation" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-500 text-white font-bold text-sm hover:bg-emerald-400 transition-all">
+                See the Full System <ArrowRight size={16} />
+              </a>
+              <a href="/automation-systems/automate" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-emerald-500/30 text-emerald-500 font-semibold text-sm hover:bg-emerald-500/10 transition-all">
+                Get Free Breakdown <ArrowRight size={16} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Services -->
+    <div class="mb-16">
+      <div class="flex items-center gap-3 mb-8">
+        <TrendingUp class="text-emerald-500" size={20} />
+        <h2 class="text-2xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white">Done-For-You Services</h2>
+        <div class="h-px flex-1 bg-slate-200 dark:bg-white/10"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <div class="glass-card rounded-2xl p-6 border border-slate-200 dark:border-white/10 hover:border-emerald-500/40 transition-all">
+          <div class="text-xs font-mono uppercase tracking-wider text-emerald-500 font-semibold mb-3">Service · Done For You</div>
+          <h3 class="text-lg font-black text-slate-900 dark:text-white mb-2">Landing Page Optimization</h3>
+          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">We build and optimize B2B landing pages specifically designed to convert cold traffic. Copy, structure, CTA strategy, and performance tracking included.</p>
+          <ul class="space-y-1 mb-5">
+            <li class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2"><Target size={10} class="text-emerald-500 shrink-0" /> Built for cold traffic conversion</li>
+            <li class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2"><Target size={10} class="text-emerald-500 shrink-0" /> Copy, structure, and CTA strategy</li>
+            <li class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2"><Target size={10} class="text-emerald-500 shrink-0" /> Performance tracking setup</li>
+          </ul>
+          <a href="/founders/offer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500/10 text-emerald-500 font-bold text-sm hover:bg-emerald-500/20 transition-all">
+            See Service Options <ArrowRight size={14} />
+          </a>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 border border-slate-200 dark:border-white/10 hover:border-emerald-500/40 transition-all">
+          <div class="text-xs font-mono uppercase tracking-wider text-emerald-500 font-semibold mb-3">Service · Done For You</div>
+          <h3 class="text-lg font-black text-slate-900 dark:text-white mb-2">Full Outreach Automation System</h3>
+          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">End-to-end cold outreach infrastructure — domain setup, warmup, list building, Clay enrichment, Instantly sequences, and inbox management. Plug in and book calls.</p>
+          <ul class="space-y-1 mb-5">
+            <li class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2"><Target size={10} class="text-emerald-500 shrink-0" /> Full infrastructure buildout</li>
+            <li class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2"><Target size={10} class="text-emerald-500 shrink-0" /> Clay + Instantly integration</li>
+            <li class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2"><Target size={10} class="text-emerald-500 shrink-0" /> Ongoing inbox management</li>
+          </ul>
+          <a href="/automation-systems/automation" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500/10 text-emerald-500 font-bold text-sm hover:bg-emerald-500/20 transition-all">
+            See Full System <ArrowRight size={14} />
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Digital Products -->
+    <div class="mb-16">
+      <div class="flex items-center gap-3 mb-8">
+        <DollarSign class="text-emerald-500" size={20} />
+        <h2 class="text-2xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white">Tools & Trackers</h2>
+        <div class="h-px flex-1 bg-slate-200 dark:bg-white/10"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <div class="glass-card rounded-2xl p-6 border border-slate-200 dark:border-white/10 hover:border-emerald-500/40 transition-all">
+          <div class="text-xs font-mono uppercase tracking-wider text-emerald-500 font-semibold mb-3">Digital Product · $19</div>
+          <h3 class="text-lg font-black text-slate-900 dark:text-white mb-2">Cold Outreach CRM Tracker</h3>
+          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Track every lead, follow-up, and close across all channels in one clean system. Multi-channel pipeline, follow-up sequencing, and close rate dashboard included.</p>
+          <ul class="space-y-1 mb-5">
+            <li class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2"><Target size={10} class="text-emerald-500 shrink-0" /> X, Reddit, LinkedIn, email in one view</li>
+            <li class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2"><Target size={10} class="text-emerald-500 shrink-0" /> Follow-up sequencing built in</li>
+            <li class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2"><Target size={10} class="text-emerald-500 shrink-0" /> Close rate dashboard</li>
+          </ul>
+          <a href="/shop" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500/10 text-emerald-500 font-bold text-sm hover:bg-emerald-500/20 transition-all">
+            Get the Tracker <ArrowRight size={14} />
+          </a>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 border border-slate-200 dark:border-white/10 hover:border-emerald-500/40 transition-all">
+          <div class="text-xs font-mono uppercase tracking-wider text-emerald-500 font-semibold mb-3">Newsletter · Free</div>
+          <h3 class="text-lg font-black text-slate-900 dark:text-white mb-2">Galaxy Arbitrage Newsletter</h3>
+          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Weekly breakdowns of outreach systems, cold email tactics, and lead generation strategies for founders and operators building pipeline without a large team.</p>
+          <ul class="space-y-1 mb-5">
+            <li class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2"><Target size={10} class="text-emerald-500 shrink-0" /> Weekly outreach system breakdowns</li>
+            <li class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2"><Target size={10} class="text-emerald-500 shrink-0" /> Cold email tactics and data</li>
+            <li class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2"><Target size={10} class="text-emerald-500 shrink-0" /> Tools and stack recommendations</li>
+          </ul>
+          <a href="/newsletter" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500/10 text-emerald-500 font-bold text-sm hover:bg-emerald-500/20 transition-all">
+            Join Free <ArrowRight size={14} />
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Content Library -->
+    <div class="mb-16">
+      <div class="flex items-center gap-3 mb-8">
+        <BookOpen class="text-emerald-500" size={20} />
+        <h2 class="text-2xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white">Content Library</h2>
+        <div class="h-px flex-1 bg-slate-200 dark:bg-white/10"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-white/10 hover:border-emerald-500/40 transition-all">
+          <div class="text-xs font-mono text-emerald-500 uppercase tracking-wider mb-1">Cluster 1 · Outreach Foundations</div>
+          <ul class="space-y-2">
+            <li><a href="/blog/lead-generation/cold-email-systems-that-book-meetings-2026" class="text-sm text-slate-700 dark:text-slate-300 hover:text-emerald-500 transition-colors">Cold Email Systems That Book Meetings in 2026</a></li>
+            <li><a href="/blog/lead-generation/linkedin-outreach-sequences-that-get-replies" class="text-sm text-slate-700 dark:text-slate-300 hover:text-emerald-500 transition-colors">LinkedIn Outreach Sequences That Actually Get Replies</a></li>
+            <li><a href="/blog/lead-generation/how-to-build-lead-list-without-buying-data" class="text-sm text-slate-700 dark:text-slate-300 hover:text-emerald-500 transition-colors">How to Build a Lead List from Scratch Without Buying Data</a></li>
+            <li><a href="/blog/lead-generation/automating-follow-up-without-being-annoying" class="text-sm text-slate-700 dark:text-slate-300 hover:text-emerald-500 transition-colors">Automating Follow-Up Without Being Annoying</a></li>
+            <li><a href="/blog/lead-generation/reply-rate-formula-cold-outreach" class="text-sm text-slate-700 dark:text-slate-300 hover:text-emerald-500 transition-colors">The Reply Rate Formula for Cold Outreach</a></li>
+          </ul>
+        </div>
+
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-white/10 hover:border-emerald-500/40 transition-all">
+          <div class="text-xs font-mono text-emerald-500 uppercase tracking-wider mb-1">Cluster 2 · Conversion & Infrastructure</div>
+          <ul class="space-y-2">
+            <li><a href="/blog/lead-generation/how-to-write-cold-email-that-gets-read-2026" class="text-sm text-slate-700 dark:text-slate-300 hover:text-emerald-500 transition-colors">How to Write a Cold Email That Gets Read in 2026</a></li>
+            <li><a href="/blog/lead-generation/how-to-build-b2b-landing-page-converts-cold-traffic" class="text-sm text-slate-700 dark:text-slate-300 hover:text-emerald-500 transition-colors">How to Build a B2B Landing Page That Converts Cold Traffic</a></li>
+            <li><a href="/blog/lead-generation/how-to-build-sales-pipeline-from-zero" class="text-sm text-slate-700 dark:text-slate-300 hover:text-emerald-500 transition-colors">How to Build a Sales Pipeline from Zero</a></li>
+            <li><a href="/blog/lead-generation/how-to-track-leads-without-crm-when-to-upgrade" class="text-sm text-slate-700 dark:text-slate-300 hover:text-emerald-500 transition-colors">How to Track Leads Without a CRM (And When to Upgrade)</a></li>
+            <li><a href="/blog/lead-generation/how-to-use-clay-personalized-outreach-at-scale" class="text-sm text-slate-700 dark:text-slate-300 hover:text-emerald-500 transition-colors">How to Use Clay for Personalized Outreach at Scale</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="mt-6 text-center">
+        <a href="/blog/lead-generation" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 font-semibold text-sm hover:border-emerald-500/40 transition-all">
+          View All Lead Generation Guides <ArrowRight size={16} />
+        </a>
+      </div>
+    </div>
+
+    <!-- Newsletter CTA -->
+    <div class="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-10 text-center mb-12">
+      <h2 class="text-2xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white mb-3">Get the Weekly Lead Gen Intel</h2>
+      <p class="text-slate-600 dark:text-slate-400 mb-6 max-w-lg mx-auto">Outreach systems, cold email tactics, and pipeline strategies for founders running B2B sales without a large team — every week, free.</p>
+      <a href="/newsletter" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-emerald-500 text-white font-bold hover:bg-emerald-400 transition-all">
+        Join Free <ArrowRight size={16} />
+      </a>
+    </div>
+
+  </div>
+</Layout>

@@ -1,0 +1,162 @@
+---
+export const prerender = true;
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { ArrowRight, Globe, BookOpen, TrendingUp, DollarSign, MapPin } from 'lucide-astro';
+
+const allPosts = await getCollection('blog', ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true && data.archived !== true : true;
+});
+
+const posts = allPosts
+  .filter(p => p.data.pillarId === 'geo-arbitrage' && p.data.category !== 'Pillar Hub')
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(date);
+
+const calcReadTime = (body: string) => Math.max(1, Math.ceil(body.trim().split(/\s+/).length / 220));
+---
+
+<Layout
+  title="Geo-Arbitrage: Live Better for Less on a US Income | Expat Buildr"
+  description="The complete geo-arbitrage resource for remote workers — cost of living comparisons, savings rate math, Southeast Asia guides, and the framework to calculate your own geographic arbitrage number."
+  canonicalUrl="https://expatbuildr.com/blog/geo-arbitrage"
+  ogImage="/images/geo-arbitrage.jpg"
+>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Geo-Arbitrage Hub | Expat Buildr",
+    "description": "Cost of living comparisons, savings rate math, and practical guides for remote workers using geographic arbitrage to build wealth faster.",
+    "url": "https://expatbuildr.com/blog/geo-arbitrage",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Expat Buildr",
+      "url": "https://expatbuildr.com"
+    },
+    "hasPart": posts.map(p => ({
+      "@type": "BlogPosting",
+      "headline": p.data.title,
+      "url": `https://expatbuildr.com/blog/${p.id.replace(/\.mdx?$/, '')}`,
+      "datePublished": p.data.pubDate.toISOString()
+    }))
+  })} />
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Hero -->
+    <div class="text-center mb-20">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-400/10 border border-cyan-400/20 text-cyan-400 text-xs uppercase tracking-[0.2em] font-mono mb-8">
+        <Globe size={12} /> Geo-Arbitrage
+      </div>
+      <h1 class="text-5xl md:text-7xl font-black font-display tracking-tighter text-slate-900 dark:text-white mb-6 uppercase leading-none">
+        LIVE BETTER.<br /><span class="text-cyan-400">SAVE MORE.</span>
+      </h1>
+      <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-inter leading-relaxed mb-8">
+        Geographic arbitrage is the strategy of earning in a strong currency and spending in a lower-cost market. On a $70,000 remote income, it converts a 20% savings rate into a 70% savings rate without increasing what you earn.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/geo-arbitrage/arbjobs" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-cyan-400 text-black font-bold text-sm hover:bg-cyan-300 transition-all">
+          Browse Remote Jobs <ArrowRight size={16} />
+        </a>
+        <a href="/newsletter" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 font-semibold text-sm hover:border-cyan-400/40 transition-all">
+          Weekly Intel
+        </a>
+        <a href="/blog/geo-arbitrage-links" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-cyan-400/30 text-cyan-400 font-semibold text-sm hover:bg-cyan-400/10 transition-all">
+          All Resources <ArrowRight size={16} />
+        </a>
+      </div>
+    </div>
+
+    <!-- The Core Case -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+      <div class="glass-card rounded-2xl p-6 border border-cyan-400/20">
+        <DollarSign class="text-cyan-400 mb-3" size={24} />
+        <div class="text-3xl font-black text-slate-900 dark:text-white mb-1">60–70%</div>
+        <div class="text-sm text-slate-600 dark:text-slate-400">Lower cost of living in top geo-arbitrage destinations vs major US cities</div>
+      </div>
+      <div class="glass-card rounded-2xl p-6 border border-cyan-400/20">
+        <TrendingUp class="text-cyan-400 mb-3" size={24} />
+        <div class="text-3xl font-black text-slate-900 dark:text-white mb-1">70%</div>
+        <div class="text-sm text-slate-600 dark:text-slate-400">Achievable savings rate on $70K–$100K remote income in Southeast Asia</div>
+      </div>
+      <div class="glass-card rounded-2xl p-6 border border-cyan-400/20">
+        <MapPin class="text-cyan-400 mb-3" size={24} />
+        <div class="text-3xl font-black text-slate-900 dark:text-white mb-1">9 yrs</div>
+        <div class="text-sm text-slate-600 dark:text-slate-400">To financial independence at 70% savings rate vs 37 years at 20%</div>
+      </div>
+    </div>
+
+    <!-- What Geo-Arbitrage Is -->
+    <div class="mb-20 prose prose-slate dark:prose-invert max-w-none">
+      <h2 class="text-3xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white mb-6">What Geo-Arbitrage Actually Is</h2>
+      <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+        Geo-arbitrage is not a travel lifestyle or a hack. It is a financial strategy. Remote workers earning US dollars can live in countries where the same dollar buys two to four times as much. The result is a dramatically higher savings rate on identical income.
+      </p>
+      <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+        The math is straightforward. A software developer earning $85,000 in Austin saves roughly $14,000 per year after expenses. The same developer in Manila saves $47,000 per year. Over five years that is the difference between $70,000 saved and $235,000 saved — before investment returns.
+      </p>
+      <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+        The articles in this hub cover every aspect of the calculation and decision: cost comparisons by city, savings rate math, visa logistics, healthcare, internet infrastructure, and the honest tradeoffs at each location.
+      </p>
+    </div>
+
+    <!-- Resources Page -->
+    <div class="mb-12">
+      <div class="glass-card rounded-2xl p-6 border border-cyan-400/30 bg-cyan-400/5 flex flex-col md:flex-row md:items-center gap-5">
+        <div class="flex-1">
+          <div class="text-xs font-mono uppercase tracking-wider text-cyan-400 font-semibold mb-2">Pillar Resources</div>
+          <h2 class="text-xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white mb-2">Geo-Arbitrage — Tools, Calculators & Guides</h2>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Every calculator, job board, relocation guide, and service in the Geo-Arbitrage pillar in one place.</p>
+        </div>
+        <a href="/blog/geo-arbitrage-links" class="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-cyan-400 text-black font-bold text-sm hover:bg-cyan-300 transition-all">
+          See All Resources <ArrowRight size={16} />
+        </a>
+      </div>
+    </div>
+
+    <!-- Article Index -->
+    <div class="mb-20">
+      <div class="flex items-center gap-3 mb-8">
+        <BookOpen class="text-cyan-400" size={20} />
+        <h2 class="text-2xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white">All Geo-Arbitrage Guides</h2>
+        <div class="h-px flex-1 bg-slate-200 dark:bg-white/10"></div>
+        <span class="text-xs font-mono text-slate-400">{posts.length} articles</span>
+      </div>
+
+      <div class="space-y-4">
+        {posts.map(post => (
+          <a
+            href={`/blog/${post.id.replace(/\.mdx?$/, '')}`}
+            class="group flex items-start gap-5 p-5 rounded-2xl border border-slate-200 dark:border-white/10 hover:border-cyan-400/40 bg-white dark:bg-white/[0.03] hover:bg-cyan-400/5 transition-all duration-300"
+          >
+            <div class="shrink-0 w-12 h-12 rounded-xl bg-cyan-400/10 flex items-center justify-center">
+              <Globe class="text-cyan-400" size={20} />
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-3 mb-1">
+                <span class="text-xs font-mono uppercase tracking-wider text-cyan-400 font-semibold">{post.data.category}</span>
+                <span class="text-xs text-slate-400">{formatDate(post.data.pubDate)}</span>
+                <span class="text-xs text-slate-400">{calcReadTime(post.body ?? '')} min read</span>
+              </div>
+              <h3 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-cyan-400 transition-colors leading-snug mb-1">{post.data.title}</h3>
+              <p class="text-sm text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">{post.data.description}</p>
+            </div>
+            <ArrowRight class="shrink-0 text-slate-300 dark:text-slate-600 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all mt-1" size={18} />
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="rounded-2xl border border-cyan-400/20 bg-cyan-400/5 p-10 text-center mb-12">
+      <h2 class="text-2xl font-black font-display uppercase tracking-tight text-slate-900 dark:text-white mb-3">Get the Weekly Geo-Arbitrage Intel</h2>
+      <p class="text-slate-600 dark:text-slate-400 mb-6 max-w-lg mx-auto">Cost of living updates, job opportunities, and the financial math behind location-independent wealth building — every week.</p>
+      <a href="/newsletter" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-cyan-400 text-black font-bold hover:bg-cyan-300 transition-all">
+        Join Free <ArrowRight size={16} />
+      </a>
+    </div>
+
+  </div>
+</Layout>

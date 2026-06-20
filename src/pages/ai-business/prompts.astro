@@ -1,0 +1,206 @@
+﻿---
+export const prerender = true;
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/funnel.css';
+---
+
+<Layout 
+  title="AI Business Master Prompt Vault | Internal Protocol"
+  description="45 Claude prompts to build autonomous SaaS systems, validate ideas in hours, and 10x your output."
+  minimal={true}
+>
+  <Fragment slot="head">
+    <meta name="robots" content="noindex, nofollow" />
+  </Fragment>
+
+  <div class="vault-page">
+    <style is:inline>
+      :root {
+        --bg: #05070a;
+        --surface: #0a0d14;
+        --surface-2: #121721;
+        --border: #1a1f2e;
+        --accent: #00e5a0;
+        --text: #e1e7ef;
+        --text-muted: #8b9bb4;
+        --mono: 'DM Mono', monospace;
+      }
+      .vault-page {
+        background: var(--bg);
+        color: var(--text);
+        font-family: 'DM Sans', sans-serif;
+        min-height: 100vh;
+        padding-bottom: 100px;
+      }
+      .top-nav {
+        border-bottom: 1px solid var(--border);
+        padding: 1rem 2rem;
+        position: sticky;
+        top: 0;
+        background: rgba(5,7,10,0.8);
+        backdrop-filter: blur(12px);
+        z-index: 100;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .brand { font-family: 'Syne', sans-serif; font-weight: 800; color: var(--accent); text-decoration: none; }
+      
+      .container { max-width: 900px; margin: 0 auto; padding: 4rem 24px; }
+      
+      header { text-align: center; margin-bottom: 4rem; }
+      header h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -0.04em; }
+      header p { color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin: 0 auto; }
+
+      .category-section { margin-top: 6rem; }
+      .category-label { font-family: var(--mono); font-size: 0.75rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 1rem; }
+      .category-title { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 3rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+
+      .prompt-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; position: relative; }
+      .prompt-card h3 { font-family: 'Syne', sans-serif; font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--accent); }
+      
+      .prompt-code {
+        background: #000; border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; 
+        font-family: var(--mono); font-size: 0.9rem; line-height: 1.6; color: #a5b4fc;
+        white-space: pre-wrap; position: relative; margin-top: 1rem;
+      }
+      .copy-btn {
+        position: absolute; top: 1rem; right: 1rem; background: var(--accent); color: #000;
+        border: none; border-radius: 4px; padding: 0.4rem 0.8rem; font-family: var(--mono);
+        font-size: 0.7rem; font-weight: 700; cursor: pointer; transition: transform 0.1s;
+      }
+      .copy-btn:active { transform: scale(0.95); }
+
+      .jump-nav { display: flex; gap: 1rem; overflow-x: auto; padding: 1rem 0; margin-bottom: 2rem; scrollbar-width: none; }
+      .jump-nav::-webkit-scrollbar { display: none; }
+      .jump-nav a { 
+        white-space: nowrap; background: var(--surface-2); border: 1px solid var(--border);
+        color: var(--text-muted); padding: 0.5rem 1rem; border-radius: 100px; text-decoration: none;
+        font-size: 0.8rem; font-family: var(--mono); transition: all 0.2s;
+      }
+      .jump-nav a:hover { border-color: var(--accent); color: var(--accent); }
+
+      @media (max-width: 600px) {
+        .prompt-card { padding: 1.5rem; }
+        .prompt-code { font-size: 0.8rem; }
+      }
+    </style>
+
+    <nav class="top-nav">
+      <a href="/" class="brand">EXPATBUILDR</a>
+      <div style="font-family: var(--mono); font-size: 0.7rem; color: var(--text-muted);">PROMPT VAULT v1.0</div>
+    </nav>
+
+    <div class="container">
+      <header>
+        <h1>The Operator's <br><span style="color: var(--accent)">Prompt Vault</span></h1>
+        <p>45 engineered Claude prompts to automate your business, validate ideas, and scale your leverage.</p>
+      </header>
+
+      <div class="jump-nav">
+        <a href="#cat1">1. Idea Validation</a>
+        <a href="#cat2">2. AI Agents</a>
+        <a href="#cat3">3. MVP/Product</a>
+        <a href="#cat4">4. Market Research</a>
+        <a href="#cat5">5. Marketing/Copy</a>
+        <a href="#cat6">6. Sales/Closing</a>
+        <a href="#cat7">7. Ops/Scaling</a>
+      </div>
+
+      <!-- CATEGORY 1 -->
+      <section class="category-section" id="cat1">
+        <div class="category-label">Category 01</div>
+        <h2 class="category-title">Business Idea Generation & Validation</h2>
+        
+        <div class="prompt-card">
+          <h3>Prompt 1 — Pain-First Idea Mining</h3>
+          <div class="prompt-code">I want to find underserved SaaS opportunities. My background is [your background/skills]. My target audience is [target audience, e.g. "e-commerce brands under $1M ARR"].
+
+Search my audience's pain through this lens:
+1. What manual processes are they still doing in spreadsheets that should be automated?
+2. What do they pay for in agencies/freelancers that software could replace?
+3. What data do they have that they're not acting on because it's too hard to synthesize?
+
+For each pain, output:
+- Problem statement (one sentence)
+- Current workaround (how they're solving it today)
+- Why a SaaS could beat the workaround
+- Rough willingness-to-pay signal
+- One customer quote that might appear in a Reddit/forum post about this pain
+
+Give me 10 pains. Then rank them by: (a) frequency, (b) urgency, and (c) money already being spent on bad solutions.<button class="copy-btn">COPY</button></div>
+        </div>
+
+        <div class="prompt-card">
+          <h3>Prompt 2 — Rapid Market Sizing</h3>
+          <div class="prompt-code">I'm exploring a SaaS idea: [describe your idea in 2-3 sentences].
+
+Help me do a realistic, bottoms-up market size estimate. Not TAM/SAM/SOM fluff — I need founder-grade thinking.
+
+1. Who are the atomic buyers? (Identify the exact job title/persona that swipes the card)
+2. How many of them exist globally? Break it into: Tier 1 English-speaking markets first.
+3. What's a realistic price point based on: (a) value delivered, (b) comp tools, (c) buyer budget category?
+4. What's a realistic penetration rate for a bootstrapped SaaS in year 1, 2, 3?
+5. What's my year-1 revenue ceiling if I execute well but not perfectly?
+
+Be honest. Poke holes in the assumptions. Tell me if this looks like a lifestyle business or a real scalable opportunity.<button class="copy-btn">COPY</button></div>
+        </div>
+      </section>
+
+      <!-- CATEGORY 2 -->
+      <section class="category-section" id="cat2">
+        <div class="category-label">Category 02</div>
+        <h2 class="category-title">Autonomous Workflow & AI Agent Design</h2>
+        
+        <div class="prompt-card">
+          <h3>Prompt 7 — Workflow Decomposition Engine</h3>
+          <div class="prompt-code">I want to automate this business workflow: [describe the workflow end-to-end].
+
+Break it down as an AI systems architect would:
+
+1. Map every manual step currently required
+2. Classify each step as: (A) Fully automatable now with existing AI tools, (B) Partially automatable with human-in-the-loop, (C) Requires human judgment — do not automate yet
+3. For each Type A step, name the specific tool or API that handles it (e.g. Claude, GPT-4o, Make.com, Zapier, Apify, Airtable, etc.)
+4. Design the trigger → process → output chain for the full automated version
+5. Identify the #1 failure point in this automation and how to build a fallback
+
+Output this as a workflow diagram in text (using arrows and labels) that I can share with a developer or VA.<button class="copy-btn">COPY</button></div>
+        </div>
+
+        <div class="prompt-card">
+          <h3>Prompt 8 — AI Agent Architecture Planner</h3>
+          <div class="prompt-code">I want to build an AI agent system that handles: [describe the agent's purpose and scope].
+
+Design the agent architecture:
+
+1. Agent type: Single agent, multi-agent with orchestrator, or pipeline chain?
+2. Memory design: What does this agent need to remember between sessions? (Classify: short-term context, long-term user data, external knowledge base)
+3. Tool list: What tools/APIs does this agent need access to? List them.
+4. Decision logic: Write pseudocode for the core decision tree this agent follows
+5. Human escalation triggers: When should this agent stop and ask a human?
+6. Output spec: What does a successful run produce? (File, message, database update, webhook, etc.)
+
+Also: What's the cheapest viable stack to run this agent in production for under $50/month?<button class="copy-btn">COPY</button></div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script is:inline>
+    // Copy functionality
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const code = btn.parentElement.innerText.replace('COPY', '').trim();
+        navigator.clipboard.writeText(code);
+        const originalText = btn.textContent;
+        btn.textContent = 'COPIED!';
+        btn.style.background = '#14F195';
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.style.background = 'var(--accent)';
+        }, 2000);
+      });
+    });
+  </script>
+</Layout>
