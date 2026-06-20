@@ -27,7 +27,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(6,8,16,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
 .nav-brand{font-family:var(--font-d);font-size:1.2rem;letter-spacing:0.12em;color:var(--text);text-decoration:none;}
-.nav-brand span{color:var(--accent);}
+.nav-brand span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .nav-back{font-family:var(--font-m);font-size:0.72rem;color:var(--muted);text-decoration:none;letter-spacing:0.08em;transition:color 0.2s;}
 .nav-back:hover{color:var(--accent);}
 .nav-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;background:rgba(0,233,163,0.08);border:1px solid rgba(0,233,163,0.2);font-family:var(--font-m);font-size:0.65rem;letter-spacing:0.15em;color:var(--accent);text-transform:uppercase;}
@@ -139,7 +139,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 40px;display:fl
 <div class="orb orb2"></div>
 
 <nav>
-  <a href="/" class="nav-brand">GALAXY<span>BUILT</span>.dev</a>
+  <a href="/" class="nav-brand">Expat<span>Buildr</span></a>
   <div class="nav-pill"><span class="dot"></span>Lead Builder Protocol</div>
   <a href="/" class="nav-back">← Back</a>
 </nav>

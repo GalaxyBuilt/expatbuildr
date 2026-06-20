@@ -1,5 +1,5 @@
 ---
-import { ShoppingCart, ArrowRight, Twitter, Linkedin, Mail, Cpu, LineChart, Code2, Rocket, Sun, Moon, Menu, X, ChevronDown, ArrowUp, Music, Youtube, Instagram, Rss, FileJson, Layers, Hammer, Briefcase, Send, Target, TrendingUp, MonitorPlay } from 'lucide-astro';
+import { ShoppingCart, ArrowRight, Github, Twitter, Linkedin, Mail, Cpu, LineChart, Code2, Rocket, Sun, Moon, Menu, X, ChevronDown, ArrowUp, Music, Youtube, Instagram, Rss, FileJson, Layers, Hammer, Briefcase, Send, Target, TrendingUp, MonitorPlay } from 'lucide-astro';
 import '../styles/global.css';
 import Analytics from '../components/Analytics.astro';
 import DevPanel from '../components/dev/DevPanel.jsx';
@@ -42,8 +42,9 @@ const personSchema = {
   jobTitle: 'Developer & Systems Architect',
   description: 'Lead generation systems, geographic arbitrage protocols, and remote income frameworks.',
   sameAs: [
+    'https://github.com/expatbuildr',
     'https://x.com/expatbuildr',
-    'https://www.youtube.com/@GalaxyArb',
+    'https://www.youtube.com/@expatbuildr',
     'https://www.instagram.com/expatbuildr',
     'https://www.linkedin.com/in/expatbuildr/',
     'https://tiktok.com/@expatbuildr'
@@ -192,8 +193,8 @@ const websiteSchema = {
 				<div class="max-w-7xl w-full flex items-center justify-between px-4 md:px-6 py-3 glass-card rounded-2xl relative shadow-2xl transition-all duration-300">
 					<!-- Brand -->
 					<a href="/" class="flex items-center gap-2 md:gap-3 group floating">
-						<img src="/images/logo.jpg" alt="Expat Buildr Logo" class="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl object-cover ring-2 ring-white/10 group-hover:ring-accent-blue/50 transition-all" />
-						<span class="text-lg md:text-2xl font-black font-display tracking-tight">GALAXY<span class="text-gradient">BUILT</span></span>
+						<img src="/logo.jpg" alt="Expat Buildr Logo" class="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl object-cover ring-2 ring-white/10 group-hover:ring-accent-blue/50 transition-all" />
+						<span class="text-lg md:text-2xl font-black font-display tracking-tight text-black dark:text-white">Expat<span class="text-gradient">Buildr</span></span>
 					</a>
 					
 					<!-- Desktop Navigation -->
@@ -313,11 +314,15 @@ const websiteSchema = {
 							<Sun class="hidden dark:block" size={20} />
 						</button>
 
+						<a href="https://github.com/expatbuildr" target="_blank" rel="noopener noreferrer" class="hover:text-black dark:hover:text-white transition-colors">
+							<Github size={18} />
+						</a>
+
 						<a href="https://x.com/expatbuildr" target="_blank" rel="noopener noreferrer" class="hover:text-black dark:hover:text-white transition-colors">
 							<Twitter size={18} />
 						</a>
 
-						<a href="https://www.youtube.com/@GalaxyArb" target="_blank" rel="noopener noreferrer" class="hover:text-black dark:hover:text-white transition-colors">
+						<a href="https://www.youtube.com/@expatbuildr" target="_blank" rel="noopener noreferrer" class="hover:text-black dark:hover:text-white transition-colors">
 							<Youtube size={18} />
 						</a>
 
@@ -379,10 +384,13 @@ const websiteSchema = {
 						</div>
 
 						<div class="pt-8 border-t border-slate-200 dark:border-white/5 flex flex-wrap gap-4">
+							<a href="https://github.com/expatbuildr" class="p-4 rounded-2xl glass-card text-slate-900 dark:text-white flex-grow flex items-center justify-center gap-3">
+								<Github size={20} /> GitHub
+							</a>
 							<a href="https://x.com/expatbuildr" class="p-4 rounded-2xl glass-card text-slate-900 dark:text-white flex-grow flex items-center justify-center gap-3">
 								<Twitter size={20} /> Twitter
 							</a>
-							<a href="https://www.youtube.com/@GalaxyArb" class="p-4 rounded-2xl glass-card text-slate-900 dark:text-white flex-grow flex items-center justify-center gap-3">
+							<a href="https://www.youtube.com/@expatbuildr" class="p-4 rounded-2xl glass-card text-slate-900 dark:text-white flex-grow flex items-center justify-center gap-3">
 								<Youtube size={20} /> YouTube
 							</a>
 							<a href="https://www.instagram.com/expatbuildr" class="p-4 rounded-2xl glass-card text-slate-900 dark:text-white flex-grow flex items-center justify-center gap-3">
@@ -661,8 +669,9 @@ const websiteSchema = {
 					<div class="flex flex-wrap justify-center gap-6 text-sm text-slate-600 dark:text-slate-500">
 						<a href="/about" class="hover:text-slate-900 dark:hover:text-white transition-colors">About</a>
 						<a href="/contact" class="hover:text-slate-900 dark:hover:text-white transition-colors">Contact</a>
+						<a href="https://github.com/expatbuildr" class="hover:text-slate-900 dark:hover:text-white transition-colors">GitHub</a>
 						<a href="https://x.com/expatbuildr" class="hover:text-slate-900 dark:hover:text-white transition-colors">X / Twitter</a>
-						<a href="https://www.youtube.com/@GalaxyArb" class="hover:text-slate-900 dark:hover:text-white transition-colors">YouTube</a>
+						<a href="https://www.youtube.com/@expatbuildr" class="hover:text-slate-900 dark:hover:text-white transition-colors">YouTube</a>
 						<a href="https://www.instagram.com/expatbuildr" class="hover:text-slate-900 dark:hover:text-white transition-colors">Instagram</a>
 						<a href="https://tiktok.com/@expatbuildr" target="_blank" rel="noopener noreferrer" class="hover:text-slate-900 dark:hover:text-white transition-colors">TikTok</a>
 						<a href="https://www.linkedin.com/in/expatbuildr/" class="hover:text-slate-900 dark:hover:text-white transition-colors">LinkedIn</a>

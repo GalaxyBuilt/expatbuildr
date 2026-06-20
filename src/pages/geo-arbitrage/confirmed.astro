@@ -1,4 +1,4 @@
-﻿---
+---
 // confirmed.astro - Stripe Success Bridge
 
 import '../../styles/funnel.css';
@@ -145,7 +145,7 @@ const META_PIXEL_ID = '1480646753745240';
     text-decoration: none;
     letter-spacing: -0.02em;
   }
-  .nav-logo em { color: var(--gold); font-style: italic; }
+  .nav-logo em { background: linear-gradient(135deg, var(--gold), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-style: italic; }
   .nav-right {
     font-family: var(--mono);
     font-size: 9px;
@@ -668,7 +668,7 @@ gtag('event', 'purchase', { transaction_id: Date.now(), value: 50.00, currency: 
   </script>
 
   <nav>
-  <a href="/" class="nav-logo">Galaxy <em>Built</em></a>
+  <a href="/" class="nav-logo">Expat <em>Buildr</em></a>
   <div class="nav-right">Order Confirmed ✔</div>
 </nav>
 

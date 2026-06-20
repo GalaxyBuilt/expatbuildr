@@ -21,7 +21,7 @@ export const authors: Record<string, Author> = {
     avatar: '/authors/galaxy.jpg',
     links: {
       twitter: 'https://x.com/expatbuildr',
-      youtube: 'https://www.youtube.com/@GalaxyArb',
+      youtube: 'https://www.youtube.com/@expatbuildr',
       newsletter: '/newsletter',
       instagram: 'https://www.instagram.com/expatbuildr',
     },

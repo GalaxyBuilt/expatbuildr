@@ -153,7 +153,7 @@ export default function ExpatBuildrLanding() {
           </a>
 
           {/* YouTube */}
-          <a href="https://www.youtube.com/@GalaxyArb" className="btn-yt" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.youtube.com/@expatbuildr" className="btn-yt" target="_blank" rel="noopener noreferrer">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" /></svg>
             Watch on YouTube
           </a>
@@ -302,7 +302,7 @@ export default function ExpatBuildrLanding() {
         <div className="gb-social-row">
           <a href="https://x.com/expatbuildr" className="gb-social-pill" target="_blank" rel="noopener noreferrer">𝕏 @expatbuildr</a>
           <a href="https://linkedin.com/in/expatbuildr" className="gb-social-pill" target="_blank" rel="noopener noreferrer">in Expat Buildr</a>
-          <a href="https://www.youtube.com/@GalaxyArb" className="gb-social-pill" target="_blank" rel="noopener noreferrer">▶ GalaxyArb</a>
+          <a href="https://www.youtube.com/@expatbuildr" className="gb-social-pill" target="_blank" rel="noopener noreferrer">▶ @expatbuildr</a>
           <a href="https://expatbuildr.com" className="gb-social-pill" target="_blank" rel="noopener noreferrer">🌐 expatbuildr.com</a>
         </div>
       </section>
