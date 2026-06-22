@@ -1,6 +1,15 @@
 import type { APIRoute } from 'astro';
 import { subscribeEmail } from '../../lib/beehiiv';
 
+const VALID_MAGNETS = new Set([
+  'remote-jobs-pack',
+  'arbitrage-calculator',
+  'prompt-vault',
+  'geo-arbitrage-starter-kit',
+]);
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const env = (locals as any).runtime?.env;
@@ -13,11 +22,11 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const { email, source: rawSource, magnet, tags: incomingTags } = body;
     const source = (rawSource || 'web').toString();
 
-    console.log('1. Form submitted:', email);
-
-    if (!email || !email.includes('@') || email.length < 5) {
+    if (!email || typeof email !== 'string' || !EMAIL_REGEX.test(email)) {
       return new Response(JSON.stringify({ success: false, error: 'Invalid email address' }), { status: 400 });
     }
+
+    const safeMagnet = typeof magnet === 'string' && VALID_MAGNETS.has(magnet) ? magnet : undefined;
 
     // Determine tags based on source/magnet
     const tags = ['newsletter_funnel'];
@@ -43,33 +52,27 @@ export const POST: APIRoute = async ({ request, locals }) => {
     else if (magLower.includes('lead') || srcLower.includes('lead')) tags.push('pillar_lead-generation');
     else if (magLower.includes('geo') || srcLower.includes('arbitrage')) tags.push('pillar_geo-arbitrage');
 
-    console.log('2. API call fired to beehiiv');
-
     const result = await subscribeEmail(email, { apiKey, pubId }, {
       tags,
       utm_source: 'expatbuildr',
       utm_medium: normalizedSource || 'web',
-      utm_campaign: magnet || 'general'
+      utm_campaign: safeMagnet || 'general'
     });
 
-    console.log('3. Beehiiv result:', JSON.stringify(result));
-
     if (!result.success) {
-      console.error('4. Beehiiv subscription failed:', result.error);
+      console.error('Beehiiv subscription failed:', result.error);
       return new Response(JSON.stringify({ success: false, error: result.error }), { status: 500 });
     }
 
     // Determine redirect URL
     // Cold traffic goes to friction page
     // Warm traffic (already subscriber clicking from email) goes to direct download
-    const magnetSlug = magnet || 'remote-jobs-pack';
+    const magnetSlug = safeMagnet || 'remote-jobs-pack';
     let redirectUrl = `/downloads/${magnetSlug}?ref=newsletter`;
 
     if (normalizedSource === 'web') {
       redirectUrl = `/newsletter/thank-you?ref=newsletter&magnet=${magnetSlug}`;
     }
-
-    console.log('5. Redirecting to:', redirectUrl);
 
     return new Response(JSON.stringify({
       success: true,

@@ -36,7 +36,6 @@ export const GET: APIRoute = async ({ locals }) => {
   const pubId = env?.BEEHIIV_PUB_ID ?? import.meta.env.BEEHIIV_PUB_ID;
 
   const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
   };
 
