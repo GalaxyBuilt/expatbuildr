@@ -1,0 +1,387 @@
+---
+import Analytics from '../components/Analytics.astro';
+
+export const prerender = true;
+
+const title = "Free Downloads | ExpatBuildr";
+const description = "Free resources for Americans living abroad. Download the Expat AI Prompt Pack — 7 prompts built for expat founders.";
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <Analytics />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --off: #f7f7f5;
+      --black: #0a0a0a;
+      --gray: #6b6b6b;
+      --border: #e2e2de;
+      --signal: #ff4d00;
+      --signal-hover: #e63d00;
+    }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: 'Epilogue', sans-serif;
+      font-size: 17px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      padding: 20px 40px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--black);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .nav-link {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: var(--gray);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover { color: var(--signal); }
+
+    /* HERO */
+    .hero {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 80px 40px 60px;
+    }
+
+    .eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--signal);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      width: 24px;
+      height: 2px;
+      background: var(--signal);
+      display: inline-block;
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--black);
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 19px;
+      color: #444;
+      line-height: 1.65;
+      max-width: 560px;
+    }
+
+    /* DOWNLOAD CARD */
+    .downloads {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 40px 120px;
+    }
+
+    .download-card {
+      background: var(--off);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--signal);
+      padding: 40px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+    }
+
+    .card-left {}
+
+    .card-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--signal);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .card-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .card-desc {
+      font-size: 15px;
+      color: var(--gray);
+      line-height: 1.7;
+      margin-bottom: 16px;
+      max-width: 400px;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      padding: 4px 10px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      color: var(--gray);
+      letter-spacing: 0.05em;
+    }
+
+    .card-right {
+      flex-shrink: 0;
+    }
+
+    .btn-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 28px;
+      background: var(--signal);
+      color: var(--white);
+      font-family: 'Epilogue', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: background 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+
+    .btn-download:hover {
+      background: var(--signal-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 28px;
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Epilogue', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: background 0.2s;
+      white-space: nowrap;
+      margin-top: 8px;
+      display: block;
+      text-align: center;
+    }
+
+    .btn-secondary:hover { background: #222; }
+
+    /* COMING SOON CARD */
+    .coming-soon {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--border);
+      padding: 32px 40px;
+      margin-bottom: 16px;
+      opacity: 0.6;
+    }
+
+    .coming-soon .card-tag { color: var(--gray); }
+    .coming-soon .card-title { font-size: 18px; color: var(--gray); }
+
+    /* NEWSLETTER CTA */
+    .newsletter-cta {
+      background: var(--black);
+      padding: 60px 40px;
+      text-align: center;
+    }
+
+    .newsletter-cta-inner {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .newsletter-cta h2 {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+
+    .newsletter-cta p {
+      font-size: 16px;
+      color: #888;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 18px 36px;
+      background: var(--signal);
+      color: var(--white);
+      font-family: 'Epilogue', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: background 0.2s;
+    }
+
+    .cta-btn:hover { background: var(--signal-hover); }
+
+    .cta-note {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: #555;
+      margin-top: 16px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--black);
+      border-top: 1px solid #1a1a1a;
+      color: #555;
+      text-align: center;
+      padding: 28px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+    }
+
+    footer a { color: #555; text-decoration: none; }
+    footer a:hover { color: var(--signal); }
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .hero { padding: 60px 20px 40px; }
+      .downloads { padding: 0 20px 80px; }
+      .download-card { flex-direction: column; gap: 24px; }
+      .card-right { width: 100%; }
+      .btn-download { width: 100%; justify-content: center; }
+      .btn-secondary { width: 100%; }
+      .newsletter-cta { padding: 60px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://expatbuildr.com" class="nav-logo">ExpatBuildr</a>
+  <a href="https://newsletter.galaxyarbitrage.com/subscribe" class="nav-link">Subscribe Free →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="eyebrow">Free Resources</div>
+  <h1>Tools built for<br>life abroad.</h1>
+  <p>Everything here is free. No email required. No upsell. Just resources built specifically for Americans living abroad and building online.</p>
+</section>
+
+<!-- DOWNLOADS -->
+<section class="downloads">
+
+  <!-- PROMPT PACK -->
+  <div class="download-card">
+    <div class="card-left">
+      <span class="card-tag">🤖 AI Prompts</span>
+      <div class="card-title">The Expat AI Prompt Pack</div>
+      <p class="card-desc">7 AI prompts built for your life abroad — covering income, time, health, relocation, information, content, and money. Copy. Paste. Customize the brackets. Ship.</p>
+      <div class="card-tags">
+        <span class="tag">7 Prompts</span>
+        <span class="tag">6 Arbitrage Types</span>
+        <span class="tag">Works with ChatGPT + Claude</span>
+        <span class="tag">Free Forever</span>
+      </div>
+    </div>
+    <div class="card-right">
+      <a href="/downloads/expat-ai-prompt-pack.pdf" download class="btn-download">
+        ↓ Download PDF
+      </a>
+      <a href="https://newsletter.galaxyarbitrage.com/subscribe" class="btn-secondary">
+        Get weekly prompts →
+      </a>
+    </div>
+  </div>
+
+  <!-- COMING SOON 1 -->
+  <div class="coming-soon">
+    <span class="card-tag">📊 Calculator — Coming Soon</span>
+    <div class="card-title">Arbitrage Calculator Lite</div>
+  </div>
+
+  <!-- COMING SOON 2 -->
+  <div class="coming-soon">
+    <span class="card-tag">🌏 Guide — Coming Soon</span>
+    <div class="card-title">Geo Arbitrage Starter Kit</div>
+  </div>
+
+</section>
+
+<!-- NEWSLETTER CTA -->
+<div class="newsletter-cta">
+  <div class="newsletter-cta-inner">
+    <h2>Get the playbook every Tuesday.</h2>
+    <p>New resources, strategies, and arbitrage plays delivered free to your inbox every week. For Americans living abroad.</p>
+    <a href="https://newsletter.galaxyarbitrage.com/subscribe" class="cta-btn">Subscribe Free →</a>
+    <p class="cta-note">✓ Free forever &nbsp;&nbsp; ✓ No spam &nbsp;&nbsp; ✓ Unsubscribe anytime</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>© 2026 Tony Long II · ExpatBuildr · <a href="https://expatbuildr.com">expatbuildr.com</a> · <a href="https://newsletter.galaxyarbitrage.com">Galaxy Arbitrage Weekly</a></div>
+</footer>
+
+</body>
+</html>
