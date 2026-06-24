@@ -54,8 +54,15 @@ const SKIP_PREFIXES = [
 
 ];
 
+const SKIP_SUFFIXES = [
+    '/unlock',
+    '/thank-you',
+    '/success',
+];
+
 function shouldSkip(pathname) {
-    return SKIP_PREFIXES.some(p => pathname.startsWith(p));
+    return SKIP_PREFIXES.some(p => pathname.startsWith(p))
+        || SKIP_SUFFIXES.some(s => pathname.endsWith(s));
 }
 
 async function run() {

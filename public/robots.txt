@@ -1,6 +1,9 @@
 User-agent: *
 Disallow: /internal
 Disallow: /portfolio
+Disallow: /*/unlock
+Disallow: /*/thank-you
+Disallow: /*/success
 Allow: /
 
 Sitemap: https://expatbuildr.com/sitemap-index.xml
